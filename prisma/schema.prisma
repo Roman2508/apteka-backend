@@ -224,10 +224,11 @@ model UserSession {
   pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id])
   pharmacyId Int
 
-  loginAt    DateTime  @default(now())
-  logoutAt   DateTime?
-  ip_address String?
-  user_agent String?
+  loginAt     DateTime  @default(now())
+  logoutAt    DateTime?
+  auto_closed Boolean   @default(false)
+  ip_address  String?
+  user_agent  String?
 
   @@index([userId])
   @@index([loginAt])

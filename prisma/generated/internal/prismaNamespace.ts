@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.js"
-import { type PrismaClient } from "./class.js"
+import type * as Prisma from "../models"
+import { type PrismaClient } from "./class"
 
-export type * from '../models.js'
+export type * from '../models'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -1742,6 +1742,7 @@ export const UserSessionScalarFieldEnum = {
   pharmacyId: 'pharmacyId',
   loginAt: 'loginAt',
   logoutAt: 'logoutAt',
+  auto_closed: 'auto_closed',
   ip_address: 'ip_address',
   user_agent: 'user_agent'
 } as const

@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model UserSession
@@ -44,6 +44,7 @@ export type UserSessionMinAggregateOutputType = {
   pharmacyId: number | null
   loginAt: Date | null
   logoutAt: Date | null
+  auto_closed: boolean | null
   ip_address: string | null
   user_agent: string | null
 }
@@ -54,6 +55,7 @@ export type UserSessionMaxAggregateOutputType = {
   pharmacyId: number | null
   loginAt: Date | null
   logoutAt: Date | null
+  auto_closed: boolean | null
   ip_address: string | null
   user_agent: string | null
 }
@@ -64,6 +66,7 @@ export type UserSessionCountAggregateOutputType = {
   pharmacyId: number
   loginAt: number
   logoutAt: number
+  auto_closed: number
   ip_address: number
   user_agent: number
   _all: number
@@ -88,6 +91,7 @@ export type UserSessionMinAggregateInputType = {
   pharmacyId?: true
   loginAt?: true
   logoutAt?: true
+  auto_closed?: true
   ip_address?: true
   user_agent?: true
 }
@@ -98,6 +102,7 @@ export type UserSessionMaxAggregateInputType = {
   pharmacyId?: true
   loginAt?: true
   logoutAt?: true
+  auto_closed?: true
   ip_address?: true
   user_agent?: true
 }
@@ -108,6 +113,7 @@ export type UserSessionCountAggregateInputType = {
   pharmacyId?: true
   loginAt?: true
   logoutAt?: true
+  auto_closed?: true
   ip_address?: true
   user_agent?: true
   _all?: true
@@ -205,6 +211,7 @@ export type UserSessionGroupByOutputType = {
   pharmacyId: number
   loginAt: Date
   logoutAt: Date | null
+  auto_closed: boolean
   ip_address: string | null
   user_agent: string | null
   _count: UserSessionCountAggregateOutputType | null
@@ -238,6 +245,7 @@ export type UserSessionWhereInput = {
   pharmacyId?: Prisma.IntFilter<"UserSession"> | number
   loginAt?: Prisma.DateTimeFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableFilter<"UserSession"> | Date | string | null
+  auto_closed?: Prisma.BoolFilter<"UserSession"> | boolean
   ip_address?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user_agent?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -250,6 +258,7 @@ export type UserSessionOrderByWithRelationInput = {
   pharmacyId?: Prisma.SortOrder
   loginAt?: Prisma.SortOrder
   logoutAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  auto_closed?: Prisma.SortOrder
   ip_address?: Prisma.SortOrderInput | Prisma.SortOrder
   user_agent?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -265,6 +274,7 @@ export type UserSessionWhereUniqueInput = Prisma.AtLeast<{
   pharmacyId?: Prisma.IntFilter<"UserSession"> | number
   loginAt?: Prisma.DateTimeFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableFilter<"UserSession"> | Date | string | null
+  auto_closed?: Prisma.BoolFilter<"UserSession"> | boolean
   ip_address?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user_agent?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -277,6 +287,7 @@ export type UserSessionOrderByWithAggregationInput = {
   pharmacyId?: Prisma.SortOrder
   loginAt?: Prisma.SortOrder
   logoutAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  auto_closed?: Prisma.SortOrder
   ip_address?: Prisma.SortOrderInput | Prisma.SortOrder
   user_agent?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserSessionCountOrderByAggregateInput
@@ -295,6 +306,7 @@ export type UserSessionScalarWhereWithAggregatesInput = {
   pharmacyId?: Prisma.IntWithAggregatesFilter<"UserSession"> | number
   loginAt?: Prisma.DateTimeWithAggregatesFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableWithAggregatesFilter<"UserSession"> | Date | string | null
+  auto_closed?: Prisma.BoolWithAggregatesFilter<"UserSession"> | boolean
   ip_address?: Prisma.StringNullableWithAggregatesFilter<"UserSession"> | string | null
   user_agent?: Prisma.StringNullableWithAggregatesFilter<"UserSession"> | string | null
 }
@@ -302,6 +314,7 @@ export type UserSessionScalarWhereWithAggregatesInput = {
 export type UserSessionCreateInput = {
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
   user: Prisma.UserCreateNestedOneWithoutSessionsInput
@@ -314,6 +327,7 @@ export type UserSessionUncheckedCreateInput = {
   pharmacyId: number
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
 }
@@ -321,6 +335,7 @@ export type UserSessionUncheckedCreateInput = {
 export type UserSessionUpdateInput = {
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
@@ -333,6 +348,7 @@ export type UserSessionUncheckedUpdateInput = {
   pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -343,6 +359,7 @@ export type UserSessionCreateManyInput = {
   pharmacyId: number
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
 }
@@ -350,6 +367,7 @@ export type UserSessionCreateManyInput = {
 export type UserSessionUpdateManyMutationInput = {
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -360,6 +378,7 @@ export type UserSessionUncheckedUpdateManyInput = {
   pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -380,6 +399,7 @@ export type UserSessionCountOrderByAggregateInput = {
   pharmacyId?: Prisma.SortOrder
   loginAt?: Prisma.SortOrder
   logoutAt?: Prisma.SortOrder
+  auto_closed?: Prisma.SortOrder
   ip_address?: Prisma.SortOrder
   user_agent?: Prisma.SortOrder
 }
@@ -396,6 +416,7 @@ export type UserSessionMaxOrderByAggregateInput = {
   pharmacyId?: Prisma.SortOrder
   loginAt?: Prisma.SortOrder
   logoutAt?: Prisma.SortOrder
+  auto_closed?: Prisma.SortOrder
   ip_address?: Prisma.SortOrder
   user_agent?: Prisma.SortOrder
 }
@@ -406,6 +427,7 @@ export type UserSessionMinOrderByAggregateInput = {
   pharmacyId?: Prisma.SortOrder
   loginAt?: Prisma.SortOrder
   logoutAt?: Prisma.SortOrder
+  auto_closed?: Prisma.SortOrder
   ip_address?: Prisma.SortOrder
   user_agent?: Prisma.SortOrder
 }
@@ -507,6 +529,7 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 export type UserSessionCreateWithoutUserInput = {
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
   pharmacy: Prisma.PharmacyCreateNestedOneWithoutSessionsInput
@@ -517,6 +540,7 @@ export type UserSessionUncheckedCreateWithoutUserInput = {
   pharmacyId: number
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
 }
@@ -556,6 +580,7 @@ export type UserSessionScalarWhereInput = {
   pharmacyId?: Prisma.IntFilter<"UserSession"> | number
   loginAt?: Prisma.DateTimeFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableFilter<"UserSession"> | Date | string | null
+  auto_closed?: Prisma.BoolFilter<"UserSession"> | boolean
   ip_address?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user_agent?: Prisma.StringNullableFilter<"UserSession"> | string | null
 }
@@ -563,6 +588,7 @@ export type UserSessionScalarWhereInput = {
 export type UserSessionCreateWithoutPharmacyInput = {
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
   user: Prisma.UserCreateNestedOneWithoutSessionsInput
@@ -573,6 +599,7 @@ export type UserSessionUncheckedCreateWithoutPharmacyInput = {
   userId: number
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
 }
@@ -608,6 +635,7 @@ export type UserSessionCreateManyUserInput = {
   pharmacyId: number
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
 }
@@ -615,6 +643,7 @@ export type UserSessionCreateManyUserInput = {
 export type UserSessionUpdateWithoutUserInput = {
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pharmacy?: Prisma.PharmacyUpdateOneRequiredWithoutSessionsNestedInput
@@ -625,6 +654,7 @@ export type UserSessionUncheckedUpdateWithoutUserInput = {
   pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -634,6 +664,7 @@ export type UserSessionUncheckedUpdateManyWithoutUserInput = {
   pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -643,6 +674,7 @@ export type UserSessionCreateManyPharmacyInput = {
   userId: number
   loginAt?: Date | string
   logoutAt?: Date | string | null
+  auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
 }
@@ -650,6 +682,7 @@ export type UserSessionCreateManyPharmacyInput = {
 export type UserSessionUpdateWithoutPharmacyInput = {
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
@@ -660,6 +693,7 @@ export type UserSessionUncheckedUpdateWithoutPharmacyInput = {
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -669,6 +703,7 @@ export type UserSessionUncheckedUpdateManyWithoutPharmacyInput = {
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -681,6 +716,7 @@ export type UserSessionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   pharmacyId?: boolean
   loginAt?: boolean
   logoutAt?: boolean
+  auto_closed?: boolean
   ip_address?: boolean
   user_agent?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -693,6 +729,7 @@ export type UserSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   pharmacyId?: boolean
   loginAt?: boolean
   logoutAt?: boolean
+  auto_closed?: boolean
   ip_address?: boolean
   user_agent?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -705,6 +742,7 @@ export type UserSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   pharmacyId?: boolean
   loginAt?: boolean
   logoutAt?: boolean
+  auto_closed?: boolean
   ip_address?: boolean
   user_agent?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -717,11 +755,12 @@ export type UserSessionSelectScalar = {
   pharmacyId?: boolean
   loginAt?: boolean
   logoutAt?: boolean
+  auto_closed?: boolean
   ip_address?: boolean
   user_agent?: boolean
 }
 
-export type UserSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "pharmacyId" | "loginAt" | "logoutAt" | "ip_address" | "user_agent", ExtArgs["result"]["userSession"]>
+export type UserSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "pharmacyId" | "loginAt" | "logoutAt" | "auto_closed" | "ip_address" | "user_agent", ExtArgs["result"]["userSession"]>
 export type UserSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   pharmacy?: boolean | Prisma.PharmacyDefaultArgs<ExtArgs>
@@ -747,6 +786,7 @@ export type $UserSessionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     pharmacyId: number
     loginAt: Date
     logoutAt: Date | null
+    auto_closed: boolean
     ip_address: string | null
     user_agent: string | null
   }, ExtArgs["result"]["userSession"]>
@@ -1179,6 +1219,7 @@ export interface UserSessionFieldRefs {
   readonly pharmacyId: Prisma.FieldRef<"UserSession", 'Int'>
   readonly loginAt: Prisma.FieldRef<"UserSession", 'DateTime'>
   readonly logoutAt: Prisma.FieldRef<"UserSession", 'DateTime'>
+  readonly auto_closed: Prisma.FieldRef<"UserSession", 'Boolean'>
   readonly ip_address: Prisma.FieldRef<"UserSession", 'String'>
   readonly user_agent: Prisma.FieldRef<"UserSession", 'String'>
 }

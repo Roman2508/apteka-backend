@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.js'
-export type * from './prismaNamespace.js'
+export type * from '../models'
+export type * from './prismaNamespace'
 
 export const Decimal = runtime.Decimal
 
@@ -185,6 +185,7 @@ export const UserSessionScalarFieldEnum = {
   pharmacyId: 'pharmacyId',
   loginAt: 'loginAt',
   logoutAt: 'logoutAt',
+  auto_closed: 'auto_closed',
   ip_address: 'ip_address',
   user_agent: 'user_agent'
 } as const

@@ -1,0 +1,433 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// ENUMS
+// =============================================================================
+
+enum CounterpartyType {
+  supplier
+  manufacturer
+  insurer
+  individual
+}
+
+enum ProductForm {
+  tablet
+  capsule
+  syrup
+  drops
+  ointment
+  spray
+  ampoule
+  suspension
+  powder
+  gel
+  cream
+  solution
+  other
+}
+
+enum SubpackageType {
+  blister
+  ampoule
+  sachet
+  bottle
+  vial
+  tube
+  strip
+  piece
+}
+
+enum ShelfLifeUnit {
+  days
+  months
+  years
+}
+
+enum UserRole {
+  admin
+  director // Студент-завідувач аптеки
+  pharmacist
+  senior_pharmacist
+}
+
+enum DocumentType {
+  incoming
+  outgoing
+  internal
+}
+
+enum DocumentStatus {
+  draft
+  in_process
+  completed
+  partially
+  cancelled
+}
+
+enum DiscrepancyReason {
+  expired
+  damaged
+  wrong_batch
+  wrong_product
+  quantity_mismatch
+  no_series
+  other
+}
+
+// =============================================================================
+// MODELS
+// =============================================================================
+
+model Counterparty {
+  id             Int              @id @default(autoincrement())
+  name           String
+  type           CounterpartyType
+  edrpou_code    String?          @unique
+  address        String?
+  iban           String?
+  phone          String?
+  contact_person String?
+  note           String?
+
+  // Зв’язки
+  manufacturedProducts    MedicalProduct[] @relation("Manufacturer")
+  suppliedBatches         ProductBatch[]
+  documentsAsCounterparty Document[]
+  salesAsCustomer         Sale[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([edrpou_code])
+  @@map("counterparties")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  full_name     String?
+  email         String?  @unique
+  role          UserRole @default(director)
+  password_hash String
+  is_active     Boolean  @default(true)
+
+  // Зв’язки
+  ownedPharmacy    Pharmacy?       @relation("PharmacyOwner")
+  staffAssignments PharmacyStaff[]
+  sessions         UserSession[]
+  documentsCreated Document[]
+  sales            Sale[]
+  writeOffs        WriteOff[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model MedicalProduct {
+  id                      Int             @id @default(autoincrement())
+  name                    String
+  brand_name              String?
+  form                    ProductForm
+  dosage_value            Decimal?        @db.Decimal(8, 3)
+  dosage_unit             String          @default("mg")
+  barcode                 String?         @unique
+  inn                     String?
+  atc_code                String?
+  registration_number     String?         @unique
+  in_national_list        Boolean         @default(false)
+  in_reimbursed_program   Boolean         @default(false)
+  subpackages_per_package Int?
+  subpackage_type         SubpackageType?
+  shelf_life_value        Int?
+  shelf_life_unit         ShelfLifeUnit?
+  retail_price            Decimal         @db.Decimal(10, 2)
+  vat_rate                Int             @default(7)
+
+  manufacturer   Counterparty? @relation("Manufacturer", fields: [manufacturerId], references: [id])
+  manufacturerId Int?
+
+  batches ProductBatch[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([barcode])
+  @@index([inn])
+  @@index([name, dosage_value, dosage_unit], name: "product_search_idx")
+  @@map("medical_products")
+}
+
+model PharmacyChain {
+  id          Int     @id @default(autoincrement())
+  name        String
+  edrpou_code String? @unique
+
+  pharmacies Pharmacy[]
+
+  createdAt DateTime @default(now())
+
+  @@map("pharmacy_chains")
+}
+
+model Pharmacy {
+  id      Int     @id @default(autoincrement())
+  number  String
+  address String
+  phone   String?
+
+  chain           PharmacyChain? @relation(fields: [pharmacyChainId], references: [id])
+  pharmacyChainId Int?
+
+  owner   User @relation("PharmacyOwner", fields: [ownerId], references: [id])
+  ownerId Int  @unique
+
+  staff      PharmacyStaff[]
+  warehouses Warehouse[]
+  documents  Document[]
+  sales      Sale[]
+  sessions   UserSession[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+
+  @@map("pharmacies")
+}
+
+model PharmacyStaff {
+  id               Int      @id @default(autoincrement())
+  pharmacy         Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
+  pharmacyId       Int
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           Int
+  role_in_pharmacy String   @default("pharmacist")
+
+  @@unique([pharmacyId, userId])
+  @@map("pharmacy_staff")
+}
+
+model UserSession {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id])
+  pharmacyId Int
+
+  loginAt    DateTime  @default(now())
+  logoutAt   DateTime?
+  ip_address String?
+  user_agent String?
+
+  @@index([userId])
+  @@index([loginAt])
+  @@index([pharmacyId, loginAt])
+  @@map("user_sessions")
+}
+
+model Warehouse {
+  id         Int      @id @default(autoincrement())
+  pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
+  pharmacyId Int
+  name       String   @default("Основний склад")
+
+  inventory Inventory[]
+  documents Document[]
+  writeOffs WriteOff[]
+
+  createdAt DateTime @default(now())
+
+  @@map("warehouses")
+}
+
+model ProductBatch {
+  id               Int            @id @default(autoincrement())
+  product          MedicalProduct @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productId        Int
+  supplier         Counterparty   @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  supplierId       Int
+  batch_number     String
+  manufacture_date DateTime?
+  expiry_date      DateTime
+
+  purchase_price Decimal @db.Decimal(10, 2)
+
+  inventory     Inventory[]
+  documentItems DocumentItem[]
+  saleItems     SaleItem[]
+  writeOffs     WriteOff[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([productId, batch_number])
+  @@index([expiry_date])
+  @@map("product_batches")
+}
+
+model Inventory {
+  id          Int          @id @default(autoincrement())
+  warehouse   Warehouse    @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  warehouseId Int
+  batch       ProductBatch @relation(fields: [batchId], references: [id], onDelete: Restrict)
+  batchId     Int
+
+  quantity          Int      @default(0)
+  reserved_quantity Int      @default(0)
+  updatedAt         DateTime @default(now())
+
+  @@unique([warehouseId, batchId])
+  @@map("inventory")
+}
+
+// =============================================================================
+// ДОКУМЕНТИ ПРИЙМАННЯ
+// =============================================================================
+
+model Document {
+  id              Int            @id @default(autoincrement())
+  document_number String         @unique
+  external_number String?
+  document_date   DateTime
+  type            DocumentType   @default(incoming)
+  status          DocumentStatus @default(draft)
+
+  counterparty   Counterparty @relation(fields: [counterpartyId], references: [id])
+  counterpartyId Int
+
+  pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id])
+  pharmacyId Int
+
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+  warehouseId Int
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  expected_total Decimal? @db.Decimal(12, 2)
+  actual_total   Decimal? @db.Decimal(12, 2)
+
+  scanned_at   DateTime?
+  completed_at DateTime?
+
+  items         DocumentItem[]
+  discrepancies IncomingDiscrepancy[]
+
+  createdAt DateTime @default(now())
+
+  @@map("documents")
+}
+
+model DocumentItem {
+  id         Int      @id @default(autoincrement())
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  documentId Int
+
+  // Дані з накладної постачальника
+  product_name      String?
+  barcode           String?
+  batch_number      String?
+  expiry_date       DateTime?
+  quantity_expected Int
+  price             Decimal   @db.Decimal(10, 2)
+
+  // Після сканування
+  quantity_scanned  Int           @default(0)
+  quantity_accepted Int           @default(0)
+  batch             ProductBatch? @relation(fields: [batchId], references: [id])
+  batchId           Int?
+
+  is_discrepancy Boolean @default(false)
+
+  discrepancies IncomingDiscrepancy[]
+
+  @@map("document_items")
+}
+
+model IncomingDiscrepancy {
+  id             Int          @id @default(autoincrement())
+  documentItem   DocumentItem @relation(fields: [documentItemId], references: [id])
+  documentItemId Int
+  document       Document     @relation(fields: [documentId], references: [id])
+  documentId     Int
+
+  reason    DiscrepancyReason
+  quantity  Int
+  comment   String?
+  photo_url String?
+
+  createdAt DateTime @default(now())
+
+  @@map("incoming_discrepancies")
+}
+
+// =============================================================================
+// ПРОДАЖІ ТА СПИСАННЯ
+// =============================================================================
+
+model Sale {
+  id              Int      @id @default(autoincrement())
+  document_number String   @unique
+  sale_date       DateTime @default(now())
+
+  pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id])
+  pharmacyId Int
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  customer   Counterparty? @relation(fields: [customerId], references: [id])
+  customerId Int?
+
+  total_amount   Decimal @db.Decimal(12, 2)
+  payment_method String  @default("cash")
+
+  items SaleItem[]
+
+  createdAt DateTime @default(now())
+
+  @@map("sales")
+}
+
+model SaleItem {
+  id     Int  @id @default(autoincrement())
+  sale   Sale @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  saleId Int
+
+  batch   ProductBatch @relation(fields: [batchId], references: [id], onDelete: Restrict)
+  batchId Int
+
+  quantity Int
+  price    Decimal @db.Decimal(10, 2)
+  discount Decimal @default(0) @db.Decimal(10, 2)
+
+  @@map("sale_items")
+}
+
+model WriteOff {
+  id          Int       @id @default(autoincrement())
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+  warehouseId Int
+
+  batch   ProductBatch @relation(fields: [batchId], references: [id])
+  batchId Int
+
+  quantity       Int
+  reason         String
+  write_off_date DateTime
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+
+  createdAt DateTime @default(now())
+
+  @@map("write_offs")
+}

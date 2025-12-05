@@ -208,7 +208,7 @@ export type UserSessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type UserSessionGroupByOutputType = {
   id: number
   userId: number
-  pharmacyId: number
+  pharmacyId: number | null
   loginAt: Date
   logoutAt: Date | null
   auto_closed: boolean
@@ -242,20 +242,20 @@ export type UserSessionWhereInput = {
   NOT?: Prisma.UserSessionWhereInput | Prisma.UserSessionWhereInput[]
   id?: Prisma.IntFilter<"UserSession"> | number
   userId?: Prisma.IntFilter<"UserSession"> | number
-  pharmacyId?: Prisma.IntFilter<"UserSession"> | number
+  pharmacyId?: Prisma.IntNullableFilter<"UserSession"> | number | null
   loginAt?: Prisma.DateTimeFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableFilter<"UserSession"> | Date | string | null
   auto_closed?: Prisma.BoolFilter<"UserSession"> | boolean
   ip_address?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user_agent?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  pharmacy?: Prisma.XOR<Prisma.PharmacyScalarRelationFilter, Prisma.PharmacyWhereInput>
+  pharmacy?: Prisma.XOR<Prisma.PharmacyNullableScalarRelationFilter, Prisma.PharmacyWhereInput> | null
 }
 
 export type UserSessionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  pharmacyId?: Prisma.SortOrder
+  pharmacyId?: Prisma.SortOrderInput | Prisma.SortOrder
   loginAt?: Prisma.SortOrder
   logoutAt?: Prisma.SortOrderInput | Prisma.SortOrder
   auto_closed?: Prisma.SortOrder
@@ -271,20 +271,20 @@ export type UserSessionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserSessionWhereInput[]
   NOT?: Prisma.UserSessionWhereInput | Prisma.UserSessionWhereInput[]
   userId?: Prisma.IntFilter<"UserSession"> | number
-  pharmacyId?: Prisma.IntFilter<"UserSession"> | number
+  pharmacyId?: Prisma.IntNullableFilter<"UserSession"> | number | null
   loginAt?: Prisma.DateTimeFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableFilter<"UserSession"> | Date | string | null
   auto_closed?: Prisma.BoolFilter<"UserSession"> | boolean
   ip_address?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user_agent?: Prisma.StringNullableFilter<"UserSession"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  pharmacy?: Prisma.XOR<Prisma.PharmacyScalarRelationFilter, Prisma.PharmacyWhereInput>
+  pharmacy?: Prisma.XOR<Prisma.PharmacyNullableScalarRelationFilter, Prisma.PharmacyWhereInput> | null
 }, "id">
 
 export type UserSessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  pharmacyId?: Prisma.SortOrder
+  pharmacyId?: Prisma.SortOrderInput | Prisma.SortOrder
   loginAt?: Prisma.SortOrder
   logoutAt?: Prisma.SortOrderInput | Prisma.SortOrder
   auto_closed?: Prisma.SortOrder
@@ -303,7 +303,7 @@ export type UserSessionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserSessionScalarWhereWithAggregatesInput | Prisma.UserSessionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"UserSession"> | number
   userId?: Prisma.IntWithAggregatesFilter<"UserSession"> | number
-  pharmacyId?: Prisma.IntWithAggregatesFilter<"UserSession"> | number
+  pharmacyId?: Prisma.IntNullableWithAggregatesFilter<"UserSession"> | number | null
   loginAt?: Prisma.DateTimeWithAggregatesFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableWithAggregatesFilter<"UserSession"> | Date | string | null
   auto_closed?: Prisma.BoolWithAggregatesFilter<"UserSession"> | boolean
@@ -318,13 +318,13 @@ export type UserSessionCreateInput = {
   ip_address?: string | null
   user_agent?: string | null
   user: Prisma.UserCreateNestedOneWithoutSessionsInput
-  pharmacy: Prisma.PharmacyCreateNestedOneWithoutSessionsInput
+  pharmacy?: Prisma.PharmacyCreateNestedOneWithoutSessionsInput
 }
 
 export type UserSessionUncheckedCreateInput = {
   id?: number
   userId: number
-  pharmacyId: number
+  pharmacyId?: number | null
   loginAt?: Date | string
   logoutAt?: Date | string | null
   auto_closed?: boolean
@@ -339,13 +339,13 @@ export type UserSessionUpdateInput = {
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
-  pharmacy?: Prisma.PharmacyUpdateOneRequiredWithoutSessionsNestedInput
+  pharmacy?: Prisma.PharmacyUpdateOneWithoutSessionsNestedInput
 }
 
 export type UserSessionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
+  pharmacyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -356,7 +356,7 @@ export type UserSessionUncheckedUpdateInput = {
 export type UserSessionCreateManyInput = {
   id?: number
   userId: number
-  pharmacyId: number
+  pharmacyId?: number | null
   loginAt?: Date | string
   logoutAt?: Date | string | null
   auto_closed?: boolean
@@ -375,7 +375,7 @@ export type UserSessionUpdateManyMutationInput = {
 export type UserSessionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
+  pharmacyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -532,12 +532,12 @@ export type UserSessionCreateWithoutUserInput = {
   auto_closed?: boolean
   ip_address?: string | null
   user_agent?: string | null
-  pharmacy: Prisma.PharmacyCreateNestedOneWithoutSessionsInput
+  pharmacy?: Prisma.PharmacyCreateNestedOneWithoutSessionsInput
 }
 
 export type UserSessionUncheckedCreateWithoutUserInput = {
   id?: number
-  pharmacyId: number
+  pharmacyId?: number | null
   loginAt?: Date | string
   logoutAt?: Date | string | null
   auto_closed?: boolean
@@ -577,7 +577,7 @@ export type UserSessionScalarWhereInput = {
   NOT?: Prisma.UserSessionScalarWhereInput | Prisma.UserSessionScalarWhereInput[]
   id?: Prisma.IntFilter<"UserSession"> | number
   userId?: Prisma.IntFilter<"UserSession"> | number
-  pharmacyId?: Prisma.IntFilter<"UserSession"> | number
+  pharmacyId?: Prisma.IntNullableFilter<"UserSession"> | number | null
   loginAt?: Prisma.DateTimeFilter<"UserSession"> | Date | string
   logoutAt?: Prisma.DateTimeNullableFilter<"UserSession"> | Date | string | null
   auto_closed?: Prisma.BoolFilter<"UserSession"> | boolean
@@ -632,7 +632,7 @@ export type UserSessionUpdateManyWithWhereWithoutPharmacyInput = {
 
 export type UserSessionCreateManyUserInput = {
   id?: number
-  pharmacyId: number
+  pharmacyId?: number | null
   loginAt?: Date | string
   logoutAt?: Date | string | null
   auto_closed?: boolean
@@ -646,12 +646,12 @@ export type UserSessionUpdateWithoutUserInput = {
   auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ip_address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user_agent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pharmacy?: Prisma.PharmacyUpdateOneRequiredWithoutSessionsNestedInput
+  pharmacy?: Prisma.PharmacyUpdateOneWithoutSessionsNestedInput
 }
 
 export type UserSessionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
+  pharmacyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -661,7 +661,7 @@ export type UserSessionUncheckedUpdateWithoutUserInput = {
 
 export type UserSessionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  pharmacyId?: Prisma.IntFieldUpdateOperationsInput | number
+  pharmacyId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   loginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoutAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   auto_closed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -720,7 +720,7 @@ export type UserSessionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   ip_address?: boolean
   user_agent?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  pharmacy?: boolean | Prisma.PharmacyDefaultArgs<ExtArgs>
+  pharmacy?: boolean | Prisma.UserSession$pharmacyArgs<ExtArgs>
 }, ExtArgs["result"]["userSession"]>
 
 export type UserSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -733,7 +733,7 @@ export type UserSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   ip_address?: boolean
   user_agent?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  pharmacy?: boolean | Prisma.PharmacyDefaultArgs<ExtArgs>
+  pharmacy?: boolean | Prisma.UserSession$pharmacyArgs<ExtArgs>
 }, ExtArgs["result"]["userSession"]>
 
 export type UserSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -746,7 +746,7 @@ export type UserSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   ip_address?: boolean
   user_agent?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  pharmacy?: boolean | Prisma.PharmacyDefaultArgs<ExtArgs>
+  pharmacy?: boolean | Prisma.UserSession$pharmacyArgs<ExtArgs>
 }, ExtArgs["result"]["userSession"]>
 
 export type UserSessionSelectScalar = {
@@ -763,27 +763,27 @@ export type UserSessionSelectScalar = {
 export type UserSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "pharmacyId" | "loginAt" | "logoutAt" | "auto_closed" | "ip_address" | "user_agent", ExtArgs["result"]["userSession"]>
 export type UserSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  pharmacy?: boolean | Prisma.PharmacyDefaultArgs<ExtArgs>
+  pharmacy?: boolean | Prisma.UserSession$pharmacyArgs<ExtArgs>
 }
 export type UserSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  pharmacy?: boolean | Prisma.PharmacyDefaultArgs<ExtArgs>
+  pharmacy?: boolean | Prisma.UserSession$pharmacyArgs<ExtArgs>
 }
 export type UserSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  pharmacy?: boolean | Prisma.PharmacyDefaultArgs<ExtArgs>
+  pharmacy?: boolean | Prisma.UserSession$pharmacyArgs<ExtArgs>
 }
 
 export type $UserSessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserSession"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    pharmacy: Prisma.$PharmacyPayload<ExtArgs>
+    pharmacy: Prisma.$PharmacyPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     userId: number
-    pharmacyId: number
+    pharmacyId: number | null
     loginAt: Date
     logoutAt: Date | null
     auto_closed: boolean
@@ -1184,7 +1184,7 @@ readonly fields: UserSessionFieldRefs;
 export interface Prisma__UserSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  pharmacy<T extends Prisma.PharmacyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PharmacyDefaultArgs<ExtArgs>>): Prisma.Prisma__PharmacyClient<runtime.Types.Result.GetResult<Prisma.$PharmacyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pharmacy<T extends Prisma.UserSession$pharmacyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserSession$pharmacyArgs<ExtArgs>>): Prisma.Prisma__PharmacyClient<runtime.Types.Result.GetResult<Prisma.$PharmacyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1615,6 +1615,25 @@ export type UserSessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many UserSessions to delete.
    */
   limit?: number
+}
+
+/**
+ * UserSession.pharmacy
+ */
+export type UserSession$pharmacyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Pharmacy
+   */
+  select?: Prisma.PharmacySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Pharmacy
+   */
+  omit?: Prisma.PharmacyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PharmacyInclude<ExtArgs> | null
+  where?: Prisma.PharmacyWhereInput
 }
 
 /**

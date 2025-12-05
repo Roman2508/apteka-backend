@@ -605,10 +605,12 @@ export type PharmacyCreateNestedOneWithoutSessionsInput = {
   connect?: Prisma.PharmacyWhereUniqueInput
 }
 
-export type PharmacyUpdateOneRequiredWithoutSessionsNestedInput = {
+export type PharmacyUpdateOneWithoutSessionsNestedInput = {
   create?: Prisma.XOR<Prisma.PharmacyCreateWithoutSessionsInput, Prisma.PharmacyUncheckedCreateWithoutSessionsInput>
   connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutSessionsInput
   upsert?: Prisma.PharmacyUpsertWithoutSessionsInput
+  disconnect?: Prisma.PharmacyWhereInput | boolean
+  delete?: Prisma.PharmacyWhereInput | boolean
   connect?: Prisma.PharmacyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.PharmacyUpdateToOneWithWhereWithoutSessionsInput, Prisma.PharmacyUpdateWithoutSessionsInput>, Prisma.PharmacyUncheckedUpdateWithoutSessionsInput>
 }

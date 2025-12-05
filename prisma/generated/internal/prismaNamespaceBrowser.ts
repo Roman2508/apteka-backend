@@ -54,6 +54,7 @@ export const ModelName = {
   Counterparty: 'Counterparty',
   User: 'User',
   MedicalProduct: 'MedicalProduct',
+  ProductPhoto: 'ProductPhoto',
   PharmacyChain: 'PharmacyChain',
   Pharmacy: 'Pharmacy',
   PharmacyStaff: 'PharmacyStaff',
@@ -142,6 +143,17 @@ export const MedicalProductScalarFieldEnum = {
 } as const
 
 export type MedicalProductScalarFieldEnum = (typeof MedicalProductScalarFieldEnum)[keyof typeof MedicalProductScalarFieldEnum]
+
+
+export const ProductPhotoScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  filePath: 'filePath',
+  order: 'order',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductPhotoScalarFieldEnum = (typeof ProductPhotoScalarFieldEnum)[keyof typeof ProductPhotoScalarFieldEnum]
 
 
 export const PharmacyChainScalarFieldEnum = {

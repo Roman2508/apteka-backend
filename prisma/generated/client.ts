@@ -53,6 +53,11 @@ export type User = Prisma.UserModel
  */
 export type MedicalProduct = Prisma.MedicalProductModel
 /**
+ * Model ProductPhoto
+ * 
+ */
+export type ProductPhoto = Prisma.ProductPhotoModel
+/**
  * Model PharmacyChain
  * 
  */

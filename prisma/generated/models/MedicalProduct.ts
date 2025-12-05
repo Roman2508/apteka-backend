@@ -370,6 +370,7 @@ export type MedicalProductWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"MedicalProduct"> | Date | string
   manufacturer?: Prisma.XOR<Prisma.CounterpartyNullableScalarRelationFilter, Prisma.CounterpartyWhereInput> | null
   batches?: Prisma.ProductBatchListRelationFilter
+  photos?: Prisma.ProductPhotoListRelationFilter
 }
 
 export type MedicalProductOrderByWithRelationInput = {
@@ -396,6 +397,7 @@ export type MedicalProductOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   manufacturer?: Prisma.CounterpartyOrderByWithRelationInput
   batches?: Prisma.ProductBatchOrderByRelationAggregateInput
+  photos?: Prisma.ProductPhotoOrderByRelationAggregateInput
 }
 
 export type MedicalProductWhereUniqueInput = Prisma.AtLeast<{
@@ -425,6 +427,7 @@ export type MedicalProductWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"MedicalProduct"> | Date | string
   manufacturer?: Prisma.XOR<Prisma.CounterpartyNullableScalarRelationFilter, Prisma.CounterpartyWhereInput> | null
   batches?: Prisma.ProductBatchListRelationFilter
+  photos?: Prisma.ProductPhotoListRelationFilter
 }, "id" | "barcode" | "registration_number">
 
 export type MedicalProductOrderByWithAggregationInput = {
@@ -505,6 +508,7 @@ export type MedicalProductCreateInput = {
   updatedAt?: Date | string
   manufacturer?: Prisma.CounterpartyCreateNestedOneWithoutManufacturedProductsInput
   batches?: Prisma.ProductBatchCreateNestedManyWithoutProductInput
+  photos?: Prisma.ProductPhotoCreateNestedManyWithoutProductInput
 }
 
 export type MedicalProductUncheckedCreateInput = {
@@ -530,6 +534,7 @@ export type MedicalProductUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
+  photos?: Prisma.ProductPhotoUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type MedicalProductUpdateInput = {
@@ -554,6 +559,7 @@ export type MedicalProductUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manufacturer?: Prisma.CounterpartyUpdateOneWithoutManufacturedProductsNestedInput
   batches?: Prisma.ProductBatchUpdateManyWithoutProductNestedInput
+  photos?: Prisma.ProductPhotoUpdateManyWithoutProductNestedInput
 }
 
 export type MedicalProductUncheckedUpdateInput = {
@@ -579,6 +585,7 @@ export type MedicalProductUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
+  photos?: Prisma.ProductPhotoUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type MedicalProductCreateManyInput = {
@@ -836,6 +843,20 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type MedicalProductCreateNestedOneWithoutPhotosInput = {
+  create?: Prisma.XOR<Prisma.MedicalProductCreateWithoutPhotosInput, Prisma.MedicalProductUncheckedCreateWithoutPhotosInput>
+  connectOrCreate?: Prisma.MedicalProductCreateOrConnectWithoutPhotosInput
+  connect?: Prisma.MedicalProductWhereUniqueInput
+}
+
+export type MedicalProductUpdateOneRequiredWithoutPhotosNestedInput = {
+  create?: Prisma.XOR<Prisma.MedicalProductCreateWithoutPhotosInput, Prisma.MedicalProductUncheckedCreateWithoutPhotosInput>
+  connectOrCreate?: Prisma.MedicalProductCreateOrConnectWithoutPhotosInput
+  upsert?: Prisma.MedicalProductUpsertWithoutPhotosInput
+  connect?: Prisma.MedicalProductWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MedicalProductUpdateToOneWithWhereWithoutPhotosInput, Prisma.MedicalProductUpdateWithoutPhotosInput>, Prisma.MedicalProductUncheckedUpdateWithoutPhotosInput>
+}
+
 export type MedicalProductCreateNestedOneWithoutBatchesInput = {
   create?: Prisma.XOR<Prisma.MedicalProductCreateWithoutBatchesInput, Prisma.MedicalProductUncheckedCreateWithoutBatchesInput>
   connectOrCreate?: Prisma.MedicalProductCreateOrConnectWithoutBatchesInput
@@ -871,6 +892,7 @@ export type MedicalProductCreateWithoutManufacturerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   batches?: Prisma.ProductBatchCreateNestedManyWithoutProductInput
+  photos?: Prisma.ProductPhotoCreateNestedManyWithoutProductInput
 }
 
 export type MedicalProductUncheckedCreateWithoutManufacturerInput = {
@@ -895,6 +917,7 @@ export type MedicalProductUncheckedCreateWithoutManufacturerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
+  photos?: Prisma.ProductPhotoUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type MedicalProductCreateOrConnectWithoutManufacturerInput = {
@@ -950,6 +973,120 @@ export type MedicalProductScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"MedicalProduct"> | Date | string
 }
 
+export type MedicalProductCreateWithoutPhotosInput = {
+  name: string
+  brand_name?: string | null
+  form: $Enums.ProductForm
+  dosage_value?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dosage_unit?: string
+  barcode?: string | null
+  inn?: string | null
+  atc_code?: string | null
+  registration_number?: string | null
+  in_national_list?: boolean
+  in_reimbursed_program?: boolean
+  subpackages_per_package?: number | null
+  subpackage_type?: $Enums.SubpackageType | null
+  shelf_life_value?: number | null
+  shelf_life_unit?: $Enums.ShelfLifeUnit | null
+  retail_price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat_rate?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  manufacturer?: Prisma.CounterpartyCreateNestedOneWithoutManufacturedProductsInput
+  batches?: Prisma.ProductBatchCreateNestedManyWithoutProductInput
+}
+
+export type MedicalProductUncheckedCreateWithoutPhotosInput = {
+  id?: number
+  name: string
+  brand_name?: string | null
+  form: $Enums.ProductForm
+  dosage_value?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dosage_unit?: string
+  barcode?: string | null
+  inn?: string | null
+  atc_code?: string | null
+  registration_number?: string | null
+  in_national_list?: boolean
+  in_reimbursed_program?: boolean
+  subpackages_per_package?: number | null
+  subpackage_type?: $Enums.SubpackageType | null
+  shelf_life_value?: number | null
+  shelf_life_unit?: $Enums.ShelfLifeUnit | null
+  retail_price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat_rate?: number
+  manufacturerId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type MedicalProductCreateOrConnectWithoutPhotosInput = {
+  where: Prisma.MedicalProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.MedicalProductCreateWithoutPhotosInput, Prisma.MedicalProductUncheckedCreateWithoutPhotosInput>
+}
+
+export type MedicalProductUpsertWithoutPhotosInput = {
+  update: Prisma.XOR<Prisma.MedicalProductUpdateWithoutPhotosInput, Prisma.MedicalProductUncheckedUpdateWithoutPhotosInput>
+  create: Prisma.XOR<Prisma.MedicalProductCreateWithoutPhotosInput, Prisma.MedicalProductUncheckedCreateWithoutPhotosInput>
+  where?: Prisma.MedicalProductWhereInput
+}
+
+export type MedicalProductUpdateToOneWithWhereWithoutPhotosInput = {
+  where?: Prisma.MedicalProductWhereInput
+  data: Prisma.XOR<Prisma.MedicalProductUpdateWithoutPhotosInput, Prisma.MedicalProductUncheckedUpdateWithoutPhotosInput>
+}
+
+export type MedicalProductUpdateWithoutPhotosInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  brand_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.EnumProductFormFieldUpdateOperationsInput | $Enums.ProductForm
+  dosage_value?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dosage_unit?: Prisma.StringFieldUpdateOperationsInput | string
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atc_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  in_national_list?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  in_reimbursed_program?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subpackages_per_package?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  subpackage_type?: Prisma.NullableEnumSubpackageTypeFieldUpdateOperationsInput | $Enums.SubpackageType | null
+  shelf_life_value?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  shelf_life_unit?: Prisma.NullableEnumShelfLifeUnitFieldUpdateOperationsInput | $Enums.ShelfLifeUnit | null
+  retail_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat_rate?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  manufacturer?: Prisma.CounterpartyUpdateOneWithoutManufacturedProductsNestedInput
+  batches?: Prisma.ProductBatchUpdateManyWithoutProductNestedInput
+}
+
+export type MedicalProductUncheckedUpdateWithoutPhotosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  brand_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.EnumProductFormFieldUpdateOperationsInput | $Enums.ProductForm
+  dosage_value?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dosage_unit?: Prisma.StringFieldUpdateOperationsInput | string
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atc_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  in_national_list?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  in_reimbursed_program?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subpackages_per_package?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  subpackage_type?: Prisma.NullableEnumSubpackageTypeFieldUpdateOperationsInput | $Enums.SubpackageType | null
+  shelf_life_value?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  shelf_life_unit?: Prisma.NullableEnumShelfLifeUnitFieldUpdateOperationsInput | $Enums.ShelfLifeUnit | null
+  retail_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat_rate?: Prisma.IntFieldUpdateOperationsInput | number
+  manufacturerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
+}
+
 export type MedicalProductCreateWithoutBatchesInput = {
   name: string
   brand_name?: string | null
@@ -971,6 +1108,7 @@ export type MedicalProductCreateWithoutBatchesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   manufacturer?: Prisma.CounterpartyCreateNestedOneWithoutManufacturedProductsInput
+  photos?: Prisma.ProductPhotoCreateNestedManyWithoutProductInput
 }
 
 export type MedicalProductUncheckedCreateWithoutBatchesInput = {
@@ -995,6 +1133,7 @@ export type MedicalProductUncheckedCreateWithoutBatchesInput = {
   manufacturerId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  photos?: Prisma.ProductPhotoUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type MedicalProductCreateOrConnectWithoutBatchesInput = {
@@ -1034,6 +1173,7 @@ export type MedicalProductUpdateWithoutBatchesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manufacturer?: Prisma.CounterpartyUpdateOneWithoutManufacturedProductsNestedInput
+  photos?: Prisma.ProductPhotoUpdateManyWithoutProductNestedInput
 }
 
 export type MedicalProductUncheckedUpdateWithoutBatchesInput = {
@@ -1058,6 +1198,7 @@ export type MedicalProductUncheckedUpdateWithoutBatchesInput = {
   manufacturerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  photos?: Prisma.ProductPhotoUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type MedicalProductCreateManyManufacturerInput = {
@@ -1104,6 +1245,7 @@ export type MedicalProductUpdateWithoutManufacturerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batches?: Prisma.ProductBatchUpdateManyWithoutProductNestedInput
+  photos?: Prisma.ProductPhotoUpdateManyWithoutProductNestedInput
 }
 
 export type MedicalProductUncheckedUpdateWithoutManufacturerInput = {
@@ -1128,6 +1270,7 @@ export type MedicalProductUncheckedUpdateWithoutManufacturerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
+  photos?: Prisma.ProductPhotoUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type MedicalProductUncheckedUpdateManyWithoutManufacturerInput = {
@@ -1160,10 +1303,12 @@ export type MedicalProductUncheckedUpdateManyWithoutManufacturerInput = {
 
 export type MedicalProductCountOutputType = {
   batches: number
+  photos: number
 }
 
 export type MedicalProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   batches?: boolean | MedicalProductCountOutputTypeCountBatchesArgs
+  photos?: boolean | MedicalProductCountOutputTypeCountPhotosArgs
 }
 
 /**
@@ -1181,6 +1326,13 @@ export type MedicalProductCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
  */
 export type MedicalProductCountOutputTypeCountBatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProductBatchWhereInput
+}
+
+/**
+ * MedicalProductCountOutputType without action
+ */
+export type MedicalProductCountOutputTypeCountPhotosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductPhotoWhereInput
 }
 
 
@@ -1208,6 +1360,7 @@ export type MedicalProductSelect<ExtArgs extends runtime.Types.Extensions.Intern
   updatedAt?: boolean
   manufacturer?: boolean | Prisma.MedicalProduct$manufacturerArgs<ExtArgs>
   batches?: boolean | Prisma.MedicalProduct$batchesArgs<ExtArgs>
+  photos?: boolean | Prisma.MedicalProduct$photosArgs<ExtArgs>
   _count?: boolean | Prisma.MedicalProductCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["medicalProduct"]>
 
@@ -1289,6 +1442,7 @@ export type MedicalProductOmit<ExtArgs extends runtime.Types.Extensions.Internal
 export type MedicalProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   manufacturer?: boolean | Prisma.MedicalProduct$manufacturerArgs<ExtArgs>
   batches?: boolean | Prisma.MedicalProduct$batchesArgs<ExtArgs>
+  photos?: boolean | Prisma.MedicalProduct$photosArgs<ExtArgs>
   _count?: boolean | Prisma.MedicalProductCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MedicalProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1303,6 +1457,7 @@ export type $MedicalProductPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     manufacturer: Prisma.$CounterpartyPayload<ExtArgs> | null
     batches: Prisma.$ProductBatchPayload<ExtArgs>[]
+    photos: Prisma.$ProductPhotoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1722,6 +1877,7 @@ export interface Prisma__MedicalProductClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   manufacturer<T extends Prisma.MedicalProduct$manufacturerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MedicalProduct$manufacturerArgs<ExtArgs>>): Prisma.Prisma__CounterpartyClient<runtime.Types.Result.GetResult<Prisma.$CounterpartyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   batches<T extends Prisma.MedicalProduct$batchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MedicalProduct$batchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductBatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  photos<T extends Prisma.MedicalProduct$photosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MedicalProduct$photosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPhotoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2208,6 +2364,30 @@ export type MedicalProduct$batchesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.ProductBatchScalarFieldEnum | Prisma.ProductBatchScalarFieldEnum[]
+}
+
+/**
+ * MedicalProduct.photos
+ */
+export type MedicalProduct$photosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductPhoto
+   */
+  select?: Prisma.ProductPhotoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductPhoto
+   */
+  omit?: Prisma.ProductPhotoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductPhotoInclude<ExtArgs> | null
+  where?: Prisma.ProductPhotoWhereInput
+  orderBy?: Prisma.ProductPhotoOrderByWithRelationInput | Prisma.ProductPhotoOrderByWithRelationInput[]
+  cursor?: Prisma.ProductPhotoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductPhotoScalarFieldEnum | Prisma.ProductPhotoScalarFieldEnum[]
 }
 
 /**

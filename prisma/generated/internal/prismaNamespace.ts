@@ -387,6 +387,7 @@ export const ModelName = {
   Counterparty: 'Counterparty',
   User: 'User',
   MedicalProduct: 'MedicalProduct',
+  ProductPhoto: 'ProductPhoto',
   PharmacyChain: 'PharmacyChain',
   Pharmacy: 'Pharmacy',
   PharmacyStaff: 'PharmacyStaff',
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "counterparty" | "user" | "medicalProduct" | "pharmacyChain" | "pharmacy" | "pharmacyStaff" | "userSession" | "warehouse" | "productBatch" | "inventory" | "document" | "documentItem" | "incomingDiscrepancy" | "sale" | "saleItem" | "writeOff"
+    modelProps: "counterparty" | "user" | "medicalProduct" | "productPhoto" | "pharmacyChain" | "pharmacy" | "pharmacyStaff" | "userSession" | "warehouse" | "productBatch" | "inventory" | "document" | "documentItem" | "incomingDiscrepancy" | "sale" | "saleItem" | "writeOff"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -638,6 +639,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MedicalProductCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MedicalProductCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProductPhoto: {
+      payload: Prisma.$ProductPhotoPayload<ExtArgs>
+      fields: Prisma.ProductPhotoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProductPhotoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProductPhotoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>
+        }
+        findFirst: {
+          args: Prisma.ProductPhotoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProductPhotoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>
+        }
+        findMany: {
+          args: Prisma.ProductPhotoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>[]
+        }
+        create: {
+          args: Prisma.ProductPhotoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>
+        }
+        createMany: {
+          args: Prisma.ProductPhotoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProductPhotoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>[]
+        }
+        delete: {
+          args: Prisma.ProductPhotoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>
+        }
+        update: {
+          args: Prisma.ProductPhotoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProductPhotoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProductPhotoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProductPhotoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProductPhotoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPhotoPayload>
+        }
+        aggregate: {
+          args: Prisma.ProductPhotoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProductPhoto>
+        }
+        groupBy: {
+          args: Prisma.ProductPhotoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductPhotoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProductPhotoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductPhotoCountAggregateOutputType> | number
         }
       }
     }
@@ -1701,6 +1776,17 @@ export const MedicalProductScalarFieldEnum = {
 export type MedicalProductScalarFieldEnum = (typeof MedicalProductScalarFieldEnum)[keyof typeof MedicalProductScalarFieldEnum]
 
 
+export const ProductPhotoScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  filePath: 'filePath',
+  order: 'order',
+  createdAt: 'createdAt'
+} as const
+
+export type ProductPhotoScalarFieldEnum = (typeof ProductPhotoScalarFieldEnum)[keyof typeof ProductPhotoScalarFieldEnum]
+
+
 export const PharmacyChainScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2196,6 +2282,7 @@ export type GlobalOmitConfig = {
   counterparty?: Prisma.CounterpartyOmit
   user?: Prisma.UserOmit
   medicalProduct?: Prisma.MedicalProductOmit
+  productPhoto?: Prisma.ProductPhotoOmit
   pharmacyChain?: Prisma.PharmacyChainOmit
   pharmacy?: Prisma.PharmacyOmit
   pharmacyStaff?: Prisma.PharmacyStaffOmit

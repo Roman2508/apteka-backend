@@ -11,6 +11,7 @@
 export type * from './models/Counterparty'
 export type * from './models/User'
 export type * from './models/MedicalProduct'
+export type * from './models/ProductPhoto'
 export type * from './models/PharmacyChain'
 export type * from './models/Pharmacy'
 export type * from './models/PharmacyStaff'

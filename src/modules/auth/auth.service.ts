@@ -1,13 +1,14 @@
 import {
   Injectable,
-  UnauthorizedException,
   ConflictException,
+  UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+
 import { PrismaService } from '../prisma/prisma.service';
-import { JwtPayload, AuthResponse } from './interfaces/auth.interface';
 import { UserRole } from '../../../prisma/generated/enums';
+import { JwtPayload, AuthResponse } from './interfaces/auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +34,6 @@ export class AuthService {
   async login(
     username: string,
     password: string,
-    pharmacyId: number,
     ipAddress?: string,
     userAgent?: string,
   ): Promise<AuthResponse> {
@@ -47,8 +47,34 @@ export class AuthService {
       throw new UnauthorizedException('User account is inactive');
     }
 
-    // Для обычных пользователей (не админов) проверяем активную сессию
+    let pharmacyId: number | null = null;
+
+    // Для обычных пользователей (не админов) определяем аптеку автоматически
     if (user.role !== UserRole.admin) {
+      // Ищем привязку к аптеке
+      const staffRecord = await this.prisma.pharmacyStaff.findFirst({
+        where: { userId: user.id },
+        select: { pharmacyId: true },
+      });
+
+      if (!staffRecord) {
+        // Если пользователь не персонал, проверяем, может он владелец (хотя владелец обычно имеет и роль)
+        // Но по ТЗ "по id пользователя бекенд сам находит нужную аптеку"
+        const ownedPharmacy = await this.prisma.pharmacy.findUnique({
+             where: { ownerId: user.id },
+             select: { id: true }
+        });
+        
+        if (ownedPharmacy) {
+             pharmacyId = ownedPharmacy.id;
+        } else {
+             throw new UnauthorizedException('User is not assigned to any pharmacy');
+        }
+      } else {
+        pharmacyId = staffRecord.pharmacyId;
+      }
+
+      // Проверяем активную сессию
       const activeSession = await this.prisma.userSession.findFirst({
         where: {
           userId: user.id,
@@ -63,22 +89,25 @@ export class AuthService {
       }
     }
 
-    // Создаем новую сессию (открываем смену)
-    const session = await this.prisma.userSession.create({
-      data: {
-        userId: user.id,
-        pharmacyId,
-        ip_address: ipAddress,
-        user_agent: userAgent,
-      },
-    });
+    let session: any;
+    // Создаем новую сессию (открываем смену) ТОЛЬКО для не-админов
+    if (user.role !== UserRole.admin) {
+        session = await this.prisma.userSession.create({
+          data: {
+              userId: user.id,
+              pharmacyId,
+              ip_address: ipAddress,
+              user_agent: userAgent,
+          },
+        });
+    }
 
     // Генерируем JWT токен
     const payload: JwtPayload = {
       sub: user.id,
       username: user.username,
       role: user.role,
-      sessionId: session.id,
+      sessionId: session?.id,
     };
 
     const access_token = this.jwtService.sign(payload);
@@ -91,10 +120,10 @@ export class AuthService {
         full_name: user.full_name,
         role: user.role,
       },
-      session: {
+      session: session ? {
         id: session.id,
         loginAt: session.loginAt,
-      },
+      } : undefined,
     };
   }
 

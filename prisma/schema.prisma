@@ -218,11 +218,11 @@ model PharmacyStaff {
 }
 
 model UserSession {
-  id         Int      @id @default(autoincrement())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         Int       @id @default(autoincrement())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     Int
-  pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id])
-  pharmacyId Int
+  pharmacy   Pharmacy? @relation(fields: [pharmacyId], references: [id])
+  pharmacyId Int?
 
   loginAt     DateTime  @default(now())
   logoutAt    DateTime?

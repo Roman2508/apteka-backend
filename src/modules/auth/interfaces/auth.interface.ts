@@ -13,7 +13,7 @@ export interface AuthResponse {
     full_name: string | null;
     role: string;
   };
-  session: {
+  session?: {
     id: number;
     loginAt: Date;
   };

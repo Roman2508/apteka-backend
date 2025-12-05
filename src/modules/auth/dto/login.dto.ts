@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsInt } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class LoginDto {
   @IsString()
@@ -9,6 +9,4 @@ export class LoginDto {
   @IsNotEmpty()
   password: string;
 
-  @IsInt()
-  pharmacyId: number;
 }

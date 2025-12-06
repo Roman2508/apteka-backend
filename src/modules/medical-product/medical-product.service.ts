@@ -188,4 +188,35 @@ export class MedicalProductService {
       throw new BadRequestException(`Failed to parse Excel file: ${error?.message}`)
     }
   }
+
+  async exportToExcel() {
+    const products = await this.prisma.medicalProduct.findMany({
+      orderBy: { name: "asc" },
+      include: { manufacturer: true },
+    })
+
+    const data = products.map((product) => ({
+      ID: product.id,
+      Найменування: product.name,
+      "Торгова марка": product.brand_name || "",
+      Форма: product.form,
+      Доза: product.dosage_value || "",
+      "Одиниця дози": product.dosage_unit || "",
+      "Штрих-код": product.barcode || "",
+      МНН: product.inn || "",
+      ATC: product.atc_code || "",
+      Реєстрація: product.registration_number || "",
+      "Нац. перелік": product.in_national_list ? "Так" : "Ні",
+      "Доступні ліки": product.in_reimbursed_program ? "Так" : "Ні",
+      Ціна: product.retail_price,
+      ПДВ: product.vat_rate,
+      Виробник: product.manufacturer?.name || "",
+    }))
+
+    const worksheet = XLSX.utils.json_to_sheet(data)
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Товари")
+
+    return XLSX.write(workbook, { type: "buffer", bookType: "xlsx" })
+  }
 }

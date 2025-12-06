@@ -35,6 +35,19 @@ export class MedicalProductController {
     return this.medicalProductService.findAll()
   }
 
+  @Get("export-excel")
+  async exportToExcel(@Res() res: Response) {
+    const buffer = await this.medicalProductService.exportToExcel()
+
+    res.set({
+      "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "Content-Disposition": `attachment; filename="medical_products_${new Date().toISOString().split("T")[0]}.xlsx"`,
+      "Content-Length": buffer.length,
+    })
+
+    res.end(buffer)
+  }
+
   @Get(":id")
   findOne(@Param("id", ParseIntPipe) id: number) {
     return this.medicalProductService.findOne(id)

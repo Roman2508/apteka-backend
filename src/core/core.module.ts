@@ -6,6 +6,8 @@ import { MedicalProductModule } from "../modules/medical-product/medical-product
 import { AuthModule } from "../modules/auth/auth.module"
 import { WorkShiftModule } from "../modules/work-shift/work-shift.module"
 import { ScanModule } from "../modules/scan/scan.module"
+import { PharmacyChainModule } from "../modules/pharmacy-chain/pharmacy-chain.module"
+import { UserModule } from "../modules/user/user.module"
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ScanModule } from "../modules/scan/scan.module"
     WorkShiftModule,
     MedicalProductModule,
     ScanModule,
+    PharmacyChainModule,
+    UserModule,
   ],
 })
 export class CoreModule {}

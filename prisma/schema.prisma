@@ -174,8 +174,8 @@ model ProductPhoto {
   product   MedicalProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
 
-  filePath  String
-  order     Int            @default(0)
+  filePath String
+  order    Int    @default(0)
 
   createdAt DateTime @default(now())
 

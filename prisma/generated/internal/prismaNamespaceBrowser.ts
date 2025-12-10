@@ -265,7 +265,7 @@ export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typ
 export const DocumentItemScalarFieldEnum = {
   id: 'id',
   documentId: 'documentId',
-  product_name: 'product_name',
+  medicalProductId: 'medicalProductId',
   barcode: 'barcode',
   batch_number: 'batch_number',
   expiry_date: 'expiry_date',

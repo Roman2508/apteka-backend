@@ -159,6 +159,7 @@ model MedicalProduct {
 
   batches ProductBatch[]
   photos  ProductPhoto[]
+  documentItems  DocumentItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -349,7 +350,8 @@ model DocumentItem {
   documentId Int
 
   // Дані з накладної постачальника
-  product_name      String?
+  medicalProduct MedicalProduct @relation(fields: [medicalProductId], references: [id], onDelete: Cascade)
+  medicalProductId Int
   barcode           String?
   batch_number      String?
   expiry_date       DateTime?

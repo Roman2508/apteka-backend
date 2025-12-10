@@ -29,6 +29,7 @@ export type AggregateDocumentItem = {
 export type DocumentItemAvgAggregateOutputType = {
   id: number | null
   documentId: number | null
+  medicalProductId: number | null
   quantity_expected: number | null
   price: runtime.Decimal | null
   quantity_scanned: number | null
@@ -39,6 +40,7 @@ export type DocumentItemAvgAggregateOutputType = {
 export type DocumentItemSumAggregateOutputType = {
   id: number | null
   documentId: number | null
+  medicalProductId: number | null
   quantity_expected: number | null
   price: runtime.Decimal | null
   quantity_scanned: number | null
@@ -49,7 +51,7 @@ export type DocumentItemSumAggregateOutputType = {
 export type DocumentItemMinAggregateOutputType = {
   id: number | null
   documentId: number | null
-  product_name: string | null
+  medicalProductId: number | null
   barcode: string | null
   batch_number: string | null
   expiry_date: Date | null
@@ -64,7 +66,7 @@ export type DocumentItemMinAggregateOutputType = {
 export type DocumentItemMaxAggregateOutputType = {
   id: number | null
   documentId: number | null
-  product_name: string | null
+  medicalProductId: number | null
   barcode: string | null
   batch_number: string | null
   expiry_date: Date | null
@@ -79,7 +81,7 @@ export type DocumentItemMaxAggregateOutputType = {
 export type DocumentItemCountAggregateOutputType = {
   id: number
   documentId: number
-  product_name: number
+  medicalProductId: number
   barcode: number
   batch_number: number
   expiry_date: number
@@ -96,6 +98,7 @@ export type DocumentItemCountAggregateOutputType = {
 export type DocumentItemAvgAggregateInputType = {
   id?: true
   documentId?: true
+  medicalProductId?: true
   quantity_expected?: true
   price?: true
   quantity_scanned?: true
@@ -106,6 +109,7 @@ export type DocumentItemAvgAggregateInputType = {
 export type DocumentItemSumAggregateInputType = {
   id?: true
   documentId?: true
+  medicalProductId?: true
   quantity_expected?: true
   price?: true
   quantity_scanned?: true
@@ -116,7 +120,7 @@ export type DocumentItemSumAggregateInputType = {
 export type DocumentItemMinAggregateInputType = {
   id?: true
   documentId?: true
-  product_name?: true
+  medicalProductId?: true
   barcode?: true
   batch_number?: true
   expiry_date?: true
@@ -131,7 +135,7 @@ export type DocumentItemMinAggregateInputType = {
 export type DocumentItemMaxAggregateInputType = {
   id?: true
   documentId?: true
-  product_name?: true
+  medicalProductId?: true
   barcode?: true
   batch_number?: true
   expiry_date?: true
@@ -146,7 +150,7 @@ export type DocumentItemMaxAggregateInputType = {
 export type DocumentItemCountAggregateInputType = {
   id?: true
   documentId?: true
-  product_name?: true
+  medicalProductId?: true
   barcode?: true
   batch_number?: true
   expiry_date?: true
@@ -248,7 +252,7 @@ export type DocumentItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type DocumentItemGroupByOutputType = {
   id: number
   documentId: number
-  product_name: string | null
+  medicalProductId: number
   barcode: string | null
   batch_number: string | null
   expiry_date: Date | null
@@ -286,7 +290,7 @@ export type DocumentItemWhereInput = {
   NOT?: Prisma.DocumentItemWhereInput | Prisma.DocumentItemWhereInput[]
   id?: Prisma.IntFilter<"DocumentItem"> | number
   documentId?: Prisma.IntFilter<"DocumentItem"> | number
-  product_name?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
+  medicalProductId?: Prisma.IntFilter<"DocumentItem"> | number
   barcode?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
   batch_number?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
   expiry_date?: Prisma.DateTimeNullableFilter<"DocumentItem"> | Date | string | null
@@ -297,6 +301,7 @@ export type DocumentItemWhereInput = {
   batchId?: Prisma.IntNullableFilter<"DocumentItem"> | number | null
   is_discrepancy?: Prisma.BoolFilter<"DocumentItem"> | boolean
   document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
+  medicalProduct?: Prisma.XOR<Prisma.MedicalProductScalarRelationFilter, Prisma.MedicalProductWhereInput>
   batch?: Prisma.XOR<Prisma.ProductBatchNullableScalarRelationFilter, Prisma.ProductBatchWhereInput> | null
   discrepancies?: Prisma.IncomingDiscrepancyListRelationFilter
 }
@@ -304,7 +309,7 @@ export type DocumentItemWhereInput = {
 export type DocumentItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
-  product_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  medicalProductId?: Prisma.SortOrder
   barcode?: Prisma.SortOrderInput | Prisma.SortOrder
   batch_number?: Prisma.SortOrderInput | Prisma.SortOrder
   expiry_date?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -315,6 +320,7 @@ export type DocumentItemOrderByWithRelationInput = {
   batchId?: Prisma.SortOrderInput | Prisma.SortOrder
   is_discrepancy?: Prisma.SortOrder
   document?: Prisma.DocumentOrderByWithRelationInput
+  medicalProduct?: Prisma.MedicalProductOrderByWithRelationInput
   batch?: Prisma.ProductBatchOrderByWithRelationInput
   discrepancies?: Prisma.IncomingDiscrepancyOrderByRelationAggregateInput
 }
@@ -325,7 +331,7 @@ export type DocumentItemWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DocumentItemWhereInput[]
   NOT?: Prisma.DocumentItemWhereInput | Prisma.DocumentItemWhereInput[]
   documentId?: Prisma.IntFilter<"DocumentItem"> | number
-  product_name?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
+  medicalProductId?: Prisma.IntFilter<"DocumentItem"> | number
   barcode?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
   batch_number?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
   expiry_date?: Prisma.DateTimeNullableFilter<"DocumentItem"> | Date | string | null
@@ -336,6 +342,7 @@ export type DocumentItemWhereUniqueInput = Prisma.AtLeast<{
   batchId?: Prisma.IntNullableFilter<"DocumentItem"> | number | null
   is_discrepancy?: Prisma.BoolFilter<"DocumentItem"> | boolean
   document?: Prisma.XOR<Prisma.DocumentScalarRelationFilter, Prisma.DocumentWhereInput>
+  medicalProduct?: Prisma.XOR<Prisma.MedicalProductScalarRelationFilter, Prisma.MedicalProductWhereInput>
   batch?: Prisma.XOR<Prisma.ProductBatchNullableScalarRelationFilter, Prisma.ProductBatchWhereInput> | null
   discrepancies?: Prisma.IncomingDiscrepancyListRelationFilter
 }, "id">
@@ -343,7 +350,7 @@ export type DocumentItemWhereUniqueInput = Prisma.AtLeast<{
 export type DocumentItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
-  product_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  medicalProductId?: Prisma.SortOrder
   barcode?: Prisma.SortOrderInput | Prisma.SortOrder
   batch_number?: Prisma.SortOrderInput | Prisma.SortOrder
   expiry_date?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -366,7 +373,7 @@ export type DocumentItemScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DocumentItemScalarWhereWithAggregatesInput | Prisma.DocumentItemScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"DocumentItem"> | number
   documentId?: Prisma.IntWithAggregatesFilter<"DocumentItem"> | number
-  product_name?: Prisma.StringNullableWithAggregatesFilter<"DocumentItem"> | string | null
+  medicalProductId?: Prisma.IntWithAggregatesFilter<"DocumentItem"> | number
   barcode?: Prisma.StringNullableWithAggregatesFilter<"DocumentItem"> | string | null
   batch_number?: Prisma.StringNullableWithAggregatesFilter<"DocumentItem"> | string | null
   expiry_date?: Prisma.DateTimeNullableWithAggregatesFilter<"DocumentItem"> | Date | string | null
@@ -379,7 +386,6 @@ export type DocumentItemScalarWhereWithAggregatesInput = {
 }
 
 export type DocumentItemCreateInput = {
-  product_name?: string | null
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -389,6 +395,7 @@ export type DocumentItemCreateInput = {
   quantity_accepted?: number
   is_discrepancy?: boolean
   document: Prisma.DocumentCreateNestedOneWithoutItemsInput
+  medicalProduct: Prisma.MedicalProductCreateNestedOneWithoutDocumentItemsInput
   batch?: Prisma.ProductBatchCreateNestedOneWithoutDocumentItemsInput
   discrepancies?: Prisma.IncomingDiscrepancyCreateNestedManyWithoutDocumentItemInput
 }
@@ -396,7 +403,7 @@ export type DocumentItemCreateInput = {
 export type DocumentItemUncheckedCreateInput = {
   id?: number
   documentId: number
-  product_name?: string | null
+  medicalProductId: number
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -410,7 +417,6 @@ export type DocumentItemUncheckedCreateInput = {
 }
 
 export type DocumentItemUpdateInput = {
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -420,6 +426,7 @@ export type DocumentItemUpdateInput = {
   quantity_accepted?: Prisma.IntFieldUpdateOperationsInput | number
   is_discrepancy?: Prisma.BoolFieldUpdateOperationsInput | boolean
   document?: Prisma.DocumentUpdateOneRequiredWithoutItemsNestedInput
+  medicalProduct?: Prisma.MedicalProductUpdateOneRequiredWithoutDocumentItemsNestedInput
   batch?: Prisma.ProductBatchUpdateOneWithoutDocumentItemsNestedInput
   discrepancies?: Prisma.IncomingDiscrepancyUpdateManyWithoutDocumentItemNestedInput
 }
@@ -427,7 +434,7 @@ export type DocumentItemUpdateInput = {
 export type DocumentItemUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   documentId?: Prisma.IntFieldUpdateOperationsInput | number
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalProductId?: Prisma.IntFieldUpdateOperationsInput | number
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -443,7 +450,7 @@ export type DocumentItemUncheckedUpdateInput = {
 export type DocumentItemCreateManyInput = {
   id?: number
   documentId: number
-  product_name?: string | null
+  medicalProductId: number
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -456,7 +463,6 @@ export type DocumentItemCreateManyInput = {
 }
 
 export type DocumentItemUpdateManyMutationInput = {
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -470,7 +476,7 @@ export type DocumentItemUpdateManyMutationInput = {
 export type DocumentItemUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   documentId?: Prisma.IntFieldUpdateOperationsInput | number
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalProductId?: Prisma.IntFieldUpdateOperationsInput | number
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -495,7 +501,7 @@ export type DocumentItemOrderByRelationAggregateInput = {
 export type DocumentItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
-  product_name?: Prisma.SortOrder
+  medicalProductId?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   batch_number?: Prisma.SortOrder
   expiry_date?: Prisma.SortOrder
@@ -510,6 +516,7 @@ export type DocumentItemCountOrderByAggregateInput = {
 export type DocumentItemAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  medicalProductId?: Prisma.SortOrder
   quantity_expected?: Prisma.SortOrder
   price?: Prisma.SortOrder
   quantity_scanned?: Prisma.SortOrder
@@ -520,7 +527,7 @@ export type DocumentItemAvgOrderByAggregateInput = {
 export type DocumentItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
-  product_name?: Prisma.SortOrder
+  medicalProductId?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   batch_number?: Prisma.SortOrder
   expiry_date?: Prisma.SortOrder
@@ -535,7 +542,7 @@ export type DocumentItemMaxOrderByAggregateInput = {
 export type DocumentItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
-  product_name?: Prisma.SortOrder
+  medicalProductId?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   batch_number?: Prisma.SortOrder
   expiry_date?: Prisma.SortOrder
@@ -550,6 +557,7 @@ export type DocumentItemMinOrderByAggregateInput = {
 export type DocumentItemSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   documentId?: Prisma.SortOrder
+  medicalProductId?: Prisma.SortOrder
   quantity_expected?: Prisma.SortOrder
   price?: Prisma.SortOrder
   quantity_scanned?: Prisma.SortOrder
@@ -560,6 +568,48 @@ export type DocumentItemSumOrderByAggregateInput = {
 export type DocumentItemScalarRelationFilter = {
   is?: Prisma.DocumentItemWhereInput
   isNot?: Prisma.DocumentItemWhereInput
+}
+
+export type DocumentItemCreateNestedManyWithoutMedicalProductInput = {
+  create?: Prisma.XOR<Prisma.DocumentItemCreateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput> | Prisma.DocumentItemCreateWithoutMedicalProductInput[] | Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput[]
+  connectOrCreate?: Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput | Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput[]
+  createMany?: Prisma.DocumentItemCreateManyMedicalProductInputEnvelope
+  connect?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+}
+
+export type DocumentItemUncheckedCreateNestedManyWithoutMedicalProductInput = {
+  create?: Prisma.XOR<Prisma.DocumentItemCreateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput> | Prisma.DocumentItemCreateWithoutMedicalProductInput[] | Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput[]
+  connectOrCreate?: Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput | Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput[]
+  createMany?: Prisma.DocumentItemCreateManyMedicalProductInputEnvelope
+  connect?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+}
+
+export type DocumentItemUpdateManyWithoutMedicalProductNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentItemCreateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput> | Prisma.DocumentItemCreateWithoutMedicalProductInput[] | Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput[]
+  connectOrCreate?: Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput | Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput[]
+  upsert?: Prisma.DocumentItemUpsertWithWhereUniqueWithoutMedicalProductInput | Prisma.DocumentItemUpsertWithWhereUniqueWithoutMedicalProductInput[]
+  createMany?: Prisma.DocumentItemCreateManyMedicalProductInputEnvelope
+  set?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  disconnect?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  delete?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  connect?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  update?: Prisma.DocumentItemUpdateWithWhereUniqueWithoutMedicalProductInput | Prisma.DocumentItemUpdateWithWhereUniqueWithoutMedicalProductInput[]
+  updateMany?: Prisma.DocumentItemUpdateManyWithWhereWithoutMedicalProductInput | Prisma.DocumentItemUpdateManyWithWhereWithoutMedicalProductInput[]
+  deleteMany?: Prisma.DocumentItemScalarWhereInput | Prisma.DocumentItemScalarWhereInput[]
+}
+
+export type DocumentItemUncheckedUpdateManyWithoutMedicalProductNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentItemCreateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput> | Prisma.DocumentItemCreateWithoutMedicalProductInput[] | Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput[]
+  connectOrCreate?: Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput | Prisma.DocumentItemCreateOrConnectWithoutMedicalProductInput[]
+  upsert?: Prisma.DocumentItemUpsertWithWhereUniqueWithoutMedicalProductInput | Prisma.DocumentItemUpsertWithWhereUniqueWithoutMedicalProductInput[]
+  createMany?: Prisma.DocumentItemCreateManyMedicalProductInputEnvelope
+  set?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  disconnect?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  delete?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  connect?: Prisma.DocumentItemWhereUniqueInput | Prisma.DocumentItemWhereUniqueInput[]
+  update?: Prisma.DocumentItemUpdateWithWhereUniqueWithoutMedicalProductInput | Prisma.DocumentItemUpdateWithWhereUniqueWithoutMedicalProductInput[]
+  updateMany?: Prisma.DocumentItemUpdateManyWithWhereWithoutMedicalProductInput | Prisma.DocumentItemUpdateManyWithWhereWithoutMedicalProductInput[]
+  deleteMany?: Prisma.DocumentItemScalarWhereInput | Prisma.DocumentItemScalarWhereInput[]
 }
 
 export type DocumentItemCreateNestedManyWithoutBatchInput = {
@@ -660,8 +710,7 @@ export type DocumentItemUpdateOneRequiredWithoutDiscrepanciesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DocumentItemUpdateToOneWithWhereWithoutDiscrepanciesInput, Prisma.DocumentItemUpdateWithoutDiscrepanciesInput>, Prisma.DocumentItemUncheckedUpdateWithoutDiscrepanciesInput>
 }
 
-export type DocumentItemCreateWithoutBatchInput = {
-  product_name?: string | null
+export type DocumentItemCreateWithoutMedicalProductInput = {
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -671,13 +720,87 @@ export type DocumentItemCreateWithoutBatchInput = {
   quantity_accepted?: number
   is_discrepancy?: boolean
   document: Prisma.DocumentCreateNestedOneWithoutItemsInput
+  batch?: Prisma.ProductBatchCreateNestedOneWithoutDocumentItemsInput
+  discrepancies?: Prisma.IncomingDiscrepancyCreateNestedManyWithoutDocumentItemInput
+}
+
+export type DocumentItemUncheckedCreateWithoutMedicalProductInput = {
+  id?: number
+  documentId: number
+  barcode?: string | null
+  batch_number?: string | null
+  expiry_date?: Date | string | null
+  quantity_expected: number
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantity_scanned?: number
+  quantity_accepted?: number
+  batchId?: number | null
+  is_discrepancy?: boolean
+  discrepancies?: Prisma.IncomingDiscrepancyUncheckedCreateNestedManyWithoutDocumentItemInput
+}
+
+export type DocumentItemCreateOrConnectWithoutMedicalProductInput = {
+  where: Prisma.DocumentItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.DocumentItemCreateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput>
+}
+
+export type DocumentItemCreateManyMedicalProductInputEnvelope = {
+  data: Prisma.DocumentItemCreateManyMedicalProductInput | Prisma.DocumentItemCreateManyMedicalProductInput[]
+  skipDuplicates?: boolean
+}
+
+export type DocumentItemUpsertWithWhereUniqueWithoutMedicalProductInput = {
+  where: Prisma.DocumentItemWhereUniqueInput
+  update: Prisma.XOR<Prisma.DocumentItemUpdateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedUpdateWithoutMedicalProductInput>
+  create: Prisma.XOR<Prisma.DocumentItemCreateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedCreateWithoutMedicalProductInput>
+}
+
+export type DocumentItemUpdateWithWhereUniqueWithoutMedicalProductInput = {
+  where: Prisma.DocumentItemWhereUniqueInput
+  data: Prisma.XOR<Prisma.DocumentItemUpdateWithoutMedicalProductInput, Prisma.DocumentItemUncheckedUpdateWithoutMedicalProductInput>
+}
+
+export type DocumentItemUpdateManyWithWhereWithoutMedicalProductInput = {
+  where: Prisma.DocumentItemScalarWhereInput
+  data: Prisma.XOR<Prisma.DocumentItemUpdateManyMutationInput, Prisma.DocumentItemUncheckedUpdateManyWithoutMedicalProductInput>
+}
+
+export type DocumentItemScalarWhereInput = {
+  AND?: Prisma.DocumentItemScalarWhereInput | Prisma.DocumentItemScalarWhereInput[]
+  OR?: Prisma.DocumentItemScalarWhereInput[]
+  NOT?: Prisma.DocumentItemScalarWhereInput | Prisma.DocumentItemScalarWhereInput[]
+  id?: Prisma.IntFilter<"DocumentItem"> | number
+  documentId?: Prisma.IntFilter<"DocumentItem"> | number
+  medicalProductId?: Prisma.IntFilter<"DocumentItem"> | number
+  barcode?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
+  batch_number?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
+  expiry_date?: Prisma.DateTimeNullableFilter<"DocumentItem"> | Date | string | null
+  quantity_expected?: Prisma.IntFilter<"DocumentItem"> | number
+  price?: Prisma.DecimalFilter<"DocumentItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantity_scanned?: Prisma.IntFilter<"DocumentItem"> | number
+  quantity_accepted?: Prisma.IntFilter<"DocumentItem"> | number
+  batchId?: Prisma.IntNullableFilter<"DocumentItem"> | number | null
+  is_discrepancy?: Prisma.BoolFilter<"DocumentItem"> | boolean
+}
+
+export type DocumentItemCreateWithoutBatchInput = {
+  barcode?: string | null
+  batch_number?: string | null
+  expiry_date?: Date | string | null
+  quantity_expected: number
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantity_scanned?: number
+  quantity_accepted?: number
+  is_discrepancy?: boolean
+  document: Prisma.DocumentCreateNestedOneWithoutItemsInput
+  medicalProduct: Prisma.MedicalProductCreateNestedOneWithoutDocumentItemsInput
   discrepancies?: Prisma.IncomingDiscrepancyCreateNestedManyWithoutDocumentItemInput
 }
 
 export type DocumentItemUncheckedCreateWithoutBatchInput = {
   id?: number
   documentId: number
-  product_name?: string | null
+  medicalProductId: number
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -715,26 +838,7 @@ export type DocumentItemUpdateManyWithWhereWithoutBatchInput = {
   data: Prisma.XOR<Prisma.DocumentItemUpdateManyMutationInput, Prisma.DocumentItemUncheckedUpdateManyWithoutBatchInput>
 }
 
-export type DocumentItemScalarWhereInput = {
-  AND?: Prisma.DocumentItemScalarWhereInput | Prisma.DocumentItemScalarWhereInput[]
-  OR?: Prisma.DocumentItemScalarWhereInput[]
-  NOT?: Prisma.DocumentItemScalarWhereInput | Prisma.DocumentItemScalarWhereInput[]
-  id?: Prisma.IntFilter<"DocumentItem"> | number
-  documentId?: Prisma.IntFilter<"DocumentItem"> | number
-  product_name?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
-  barcode?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
-  batch_number?: Prisma.StringNullableFilter<"DocumentItem"> | string | null
-  expiry_date?: Prisma.DateTimeNullableFilter<"DocumentItem"> | Date | string | null
-  quantity_expected?: Prisma.IntFilter<"DocumentItem"> | number
-  price?: Prisma.DecimalFilter<"DocumentItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity_scanned?: Prisma.IntFilter<"DocumentItem"> | number
-  quantity_accepted?: Prisma.IntFilter<"DocumentItem"> | number
-  batchId?: Prisma.IntNullableFilter<"DocumentItem"> | number | null
-  is_discrepancy?: Prisma.BoolFilter<"DocumentItem"> | boolean
-}
-
 export type DocumentItemCreateWithoutDocumentInput = {
-  product_name?: string | null
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -743,13 +847,14 @@ export type DocumentItemCreateWithoutDocumentInput = {
   quantity_scanned?: number
   quantity_accepted?: number
   is_discrepancy?: boolean
+  medicalProduct: Prisma.MedicalProductCreateNestedOneWithoutDocumentItemsInput
   batch?: Prisma.ProductBatchCreateNestedOneWithoutDocumentItemsInput
   discrepancies?: Prisma.IncomingDiscrepancyCreateNestedManyWithoutDocumentItemInput
 }
 
 export type DocumentItemUncheckedCreateWithoutDocumentInput = {
   id?: number
-  product_name?: string | null
+  medicalProductId: number
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -789,7 +894,6 @@ export type DocumentItemUpdateManyWithWhereWithoutDocumentInput = {
 }
 
 export type DocumentItemCreateWithoutDiscrepanciesInput = {
-  product_name?: string | null
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -799,13 +903,14 @@ export type DocumentItemCreateWithoutDiscrepanciesInput = {
   quantity_accepted?: number
   is_discrepancy?: boolean
   document: Prisma.DocumentCreateNestedOneWithoutItemsInput
+  medicalProduct: Prisma.MedicalProductCreateNestedOneWithoutDocumentItemsInput
   batch?: Prisma.ProductBatchCreateNestedOneWithoutDocumentItemsInput
 }
 
 export type DocumentItemUncheckedCreateWithoutDiscrepanciesInput = {
   id?: number
   documentId: number
-  product_name?: string | null
+  medicalProductId: number
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -834,7 +939,49 @@ export type DocumentItemUpdateToOneWithWhereWithoutDiscrepanciesInput = {
 }
 
 export type DocumentItemUpdateWithoutDiscrepanciesInput = {
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantity_expected?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantity_scanned?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity_accepted?: Prisma.IntFieldUpdateOperationsInput | number
+  is_discrepancy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  document?: Prisma.DocumentUpdateOneRequiredWithoutItemsNestedInput
+  medicalProduct?: Prisma.MedicalProductUpdateOneRequiredWithoutDocumentItemsNestedInput
+  batch?: Prisma.ProductBatchUpdateOneWithoutDocumentItemsNestedInput
+}
+
+export type DocumentItemUncheckedUpdateWithoutDiscrepanciesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  documentId?: Prisma.IntFieldUpdateOperationsInput | number
+  medicalProductId?: Prisma.IntFieldUpdateOperationsInput | number
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantity_expected?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantity_scanned?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity_accepted?: Prisma.IntFieldUpdateOperationsInput | number
+  batchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_discrepancy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type DocumentItemCreateManyMedicalProductInput = {
+  id?: number
+  documentId: number
+  barcode?: string | null
+  batch_number?: string | null
+  expiry_date?: Date | string | null
+  quantity_expected: number
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantity_scanned?: number
+  quantity_accepted?: number
+  batchId?: number | null
+  is_discrepancy?: boolean
+}
+
+export type DocumentItemUpdateWithoutMedicalProductInput = {
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -845,12 +992,27 @@ export type DocumentItemUpdateWithoutDiscrepanciesInput = {
   is_discrepancy?: Prisma.BoolFieldUpdateOperationsInput | boolean
   document?: Prisma.DocumentUpdateOneRequiredWithoutItemsNestedInput
   batch?: Prisma.ProductBatchUpdateOneWithoutDocumentItemsNestedInput
+  discrepancies?: Prisma.IncomingDiscrepancyUpdateManyWithoutDocumentItemNestedInput
 }
 
-export type DocumentItemUncheckedUpdateWithoutDiscrepanciesInput = {
+export type DocumentItemUncheckedUpdateWithoutMedicalProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   documentId?: Prisma.IntFieldUpdateOperationsInput | number
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantity_expected?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantity_scanned?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity_accepted?: Prisma.IntFieldUpdateOperationsInput | number
+  batchId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_discrepancy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  discrepancies?: Prisma.IncomingDiscrepancyUncheckedUpdateManyWithoutDocumentItemNestedInput
+}
+
+export type DocumentItemUncheckedUpdateManyWithoutMedicalProductInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  documentId?: Prisma.IntFieldUpdateOperationsInput | number
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -865,7 +1027,7 @@ export type DocumentItemUncheckedUpdateWithoutDiscrepanciesInput = {
 export type DocumentItemCreateManyBatchInput = {
   id?: number
   documentId: number
-  product_name?: string | null
+  medicalProductId: number
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -877,7 +1039,6 @@ export type DocumentItemCreateManyBatchInput = {
 }
 
 export type DocumentItemUpdateWithoutBatchInput = {
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -887,13 +1048,14 @@ export type DocumentItemUpdateWithoutBatchInput = {
   quantity_accepted?: Prisma.IntFieldUpdateOperationsInput | number
   is_discrepancy?: Prisma.BoolFieldUpdateOperationsInput | boolean
   document?: Prisma.DocumentUpdateOneRequiredWithoutItemsNestedInput
+  medicalProduct?: Prisma.MedicalProductUpdateOneRequiredWithoutDocumentItemsNestedInput
   discrepancies?: Prisma.IncomingDiscrepancyUpdateManyWithoutDocumentItemNestedInput
 }
 
 export type DocumentItemUncheckedUpdateWithoutBatchInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   documentId?: Prisma.IntFieldUpdateOperationsInput | number
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalProductId?: Prisma.IntFieldUpdateOperationsInput | number
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -908,7 +1070,7 @@ export type DocumentItemUncheckedUpdateWithoutBatchInput = {
 export type DocumentItemUncheckedUpdateManyWithoutBatchInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   documentId?: Prisma.IntFieldUpdateOperationsInput | number
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalProductId?: Prisma.IntFieldUpdateOperationsInput | number
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -921,7 +1083,7 @@ export type DocumentItemUncheckedUpdateManyWithoutBatchInput = {
 
 export type DocumentItemCreateManyDocumentInput = {
   id?: number
-  product_name?: string | null
+  medicalProductId: number
   barcode?: string | null
   batch_number?: string | null
   expiry_date?: Date | string | null
@@ -934,7 +1096,6 @@ export type DocumentItemCreateManyDocumentInput = {
 }
 
 export type DocumentItemUpdateWithoutDocumentInput = {
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -943,13 +1104,14 @@ export type DocumentItemUpdateWithoutDocumentInput = {
   quantity_scanned?: Prisma.IntFieldUpdateOperationsInput | number
   quantity_accepted?: Prisma.IntFieldUpdateOperationsInput | number
   is_discrepancy?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  medicalProduct?: Prisma.MedicalProductUpdateOneRequiredWithoutDocumentItemsNestedInput
   batch?: Prisma.ProductBatchUpdateOneWithoutDocumentItemsNestedInput
   discrepancies?: Prisma.IncomingDiscrepancyUpdateManyWithoutDocumentItemNestedInput
 }
 
 export type DocumentItemUncheckedUpdateWithoutDocumentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalProductId?: Prisma.IntFieldUpdateOperationsInput | number
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -964,7 +1126,7 @@ export type DocumentItemUncheckedUpdateWithoutDocumentInput = {
 
 export type DocumentItemUncheckedUpdateManyWithoutDocumentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  product_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalProductId?: Prisma.IntFieldUpdateOperationsInput | number
   barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batch_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiry_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1010,7 +1172,7 @@ export type DocumentItemCountOutputTypeCountDiscrepanciesArgs<ExtArgs extends ru
 export type DocumentItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   documentId?: boolean
-  product_name?: boolean
+  medicalProductId?: boolean
   barcode?: boolean
   batch_number?: boolean
   expiry_date?: boolean
@@ -1021,6 +1183,7 @@ export type DocumentItemSelect<ExtArgs extends runtime.Types.Extensions.Internal
   batchId?: boolean
   is_discrepancy?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  medicalProduct?: boolean | Prisma.MedicalProductDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.DocumentItem$batchArgs<ExtArgs>
   discrepancies?: boolean | Prisma.DocumentItem$discrepanciesArgs<ExtArgs>
   _count?: boolean | Prisma.DocumentItemCountOutputTypeDefaultArgs<ExtArgs>
@@ -1029,7 +1192,7 @@ export type DocumentItemSelect<ExtArgs extends runtime.Types.Extensions.Internal
 export type DocumentItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   documentId?: boolean
-  product_name?: boolean
+  medicalProductId?: boolean
   barcode?: boolean
   batch_number?: boolean
   expiry_date?: boolean
@@ -1040,13 +1203,14 @@ export type DocumentItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   batchId?: boolean
   is_discrepancy?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  medicalProduct?: boolean | Prisma.MedicalProductDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.DocumentItem$batchArgs<ExtArgs>
 }, ExtArgs["result"]["documentItem"]>
 
 export type DocumentItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   documentId?: boolean
-  product_name?: boolean
+  medicalProductId?: boolean
   barcode?: boolean
   batch_number?: boolean
   expiry_date?: boolean
@@ -1057,13 +1221,14 @@ export type DocumentItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   batchId?: boolean
   is_discrepancy?: boolean
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  medicalProduct?: boolean | Prisma.MedicalProductDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.DocumentItem$batchArgs<ExtArgs>
 }, ExtArgs["result"]["documentItem"]>
 
 export type DocumentItemSelectScalar = {
   id?: boolean
   documentId?: boolean
-  product_name?: boolean
+  medicalProductId?: boolean
   barcode?: boolean
   batch_number?: boolean
   expiry_date?: boolean
@@ -1075,19 +1240,22 @@ export type DocumentItemSelectScalar = {
   is_discrepancy?: boolean
 }
 
-export type DocumentItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "documentId" | "product_name" | "barcode" | "batch_number" | "expiry_date" | "quantity_expected" | "price" | "quantity_scanned" | "quantity_accepted" | "batchId" | "is_discrepancy", ExtArgs["result"]["documentItem"]>
+export type DocumentItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "documentId" | "medicalProductId" | "barcode" | "batch_number" | "expiry_date" | "quantity_expected" | "price" | "quantity_scanned" | "quantity_accepted" | "batchId" | "is_discrepancy", ExtArgs["result"]["documentItem"]>
 export type DocumentItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  medicalProduct?: boolean | Prisma.MedicalProductDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.DocumentItem$batchArgs<ExtArgs>
   discrepancies?: boolean | Prisma.DocumentItem$discrepanciesArgs<ExtArgs>
   _count?: boolean | Prisma.DocumentItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DocumentItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  medicalProduct?: boolean | Prisma.MedicalProductDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.DocumentItem$batchArgs<ExtArgs>
 }
 export type DocumentItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   document?: boolean | Prisma.DocumentDefaultArgs<ExtArgs>
+  medicalProduct?: boolean | Prisma.MedicalProductDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.DocumentItem$batchArgs<ExtArgs>
 }
 
@@ -1095,13 +1263,14 @@ export type $DocumentItemPayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "DocumentItem"
   objects: {
     document: Prisma.$DocumentPayload<ExtArgs>
+    medicalProduct: Prisma.$MedicalProductPayload<ExtArgs>
     batch: Prisma.$ProductBatchPayload<ExtArgs> | null
     discrepancies: Prisma.$IncomingDiscrepancyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     documentId: number
-    product_name: string | null
+    medicalProductId: number
     barcode: string | null
     batch_number: string | null
     expiry_date: Date | null
@@ -1506,6 +1675,7 @@ readonly fields: DocumentItemFieldRefs;
 export interface Prisma__DocumentItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   document<T extends Prisma.DocumentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DocumentDefaultArgs<ExtArgs>>): Prisma.Prisma__DocumentClient<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  medicalProduct<T extends Prisma.MedicalProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MedicalProductDefaultArgs<ExtArgs>>): Prisma.Prisma__MedicalProductClient<runtime.Types.Result.GetResult<Prisma.$MedicalProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   batch<T extends Prisma.DocumentItem$batchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DocumentItem$batchArgs<ExtArgs>>): Prisma.Prisma__ProductBatchClient<runtime.Types.Result.GetResult<Prisma.$ProductBatchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   discrepancies<T extends Prisma.DocumentItem$discrepanciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DocumentItem$discrepanciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IncomingDiscrepancyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1539,7 +1709,7 @@ export interface Prisma__DocumentItemClient<T, Null = never, ExtArgs extends run
 export interface DocumentItemFieldRefs {
   readonly id: Prisma.FieldRef<"DocumentItem", 'Int'>
   readonly documentId: Prisma.FieldRef<"DocumentItem", 'Int'>
-  readonly product_name: Prisma.FieldRef<"DocumentItem", 'String'>
+  readonly medicalProductId: Prisma.FieldRef<"DocumentItem", 'Int'>
   readonly barcode: Prisma.FieldRef<"DocumentItem", 'String'>
   readonly batch_number: Prisma.FieldRef<"DocumentItem", 'String'>
   readonly expiry_date: Prisma.FieldRef<"DocumentItem", 'DateTime'>

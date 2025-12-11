@@ -157,9 +157,9 @@ model MedicalProduct {
   manufacturer   Counterparty? @relation("Manufacturer", fields: [manufacturerId], references: [id])
   manufacturerId Int?
 
-  batches ProductBatch[]
-  photos  ProductPhoto[]
-  documentItems  DocumentItem[]
+  batches       ProductBatch[]
+  photos        ProductPhoto[]
+  documentItems DocumentItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -252,6 +252,10 @@ model UserSession {
   @@map("user_sessions")
 }
 
+// =============================================================================
+// СКЛАД
+// =============================================================================
+
 model Warehouse {
   id         Int      @id @default(autoincrement())
   pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
@@ -266,6 +270,10 @@ model Warehouse {
 
   @@map("warehouses")
 }
+
+// =============================================================================
+// ПАРТІЯ ТОВАРУ - (фіксує фактичні залишки товарів на складі)
+// =============================================================================
 
 model ProductBatch {
   id               Int            @id @default(autoincrement())
@@ -350,13 +358,13 @@ model DocumentItem {
   documentId Int
 
   // Дані з накладної постачальника
-  medicalProduct MedicalProduct @relation(fields: [medicalProductId], references: [id], onDelete: Cascade)
-  medicalProductId Int
+  medicalProduct    MedicalProduct @relation(fields: [medicalProductId], references: [id], onDelete: Cascade)
+  medicalProductId  Int
   barcode           String?
   batch_number      String?
   expiry_date       DateTime?
   quantity_expected Int
-  price             Decimal   @db.Decimal(10, 2)
+  price             Decimal        @db.Decimal(10, 2)
 
   // Після сканування
   quantity_scanned  Int           @default(0)
@@ -370,6 +378,10 @@ model DocumentItem {
 
   @@map("document_items")
 }
+
+// =============================================================================
+// АКТ НЕВІДПОВІДНОСТІ
+// =============================================================================
 
 model IncomingDiscrepancy {
   id             Int          @id @default(autoincrement())

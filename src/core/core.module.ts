@@ -9,6 +9,11 @@ import { ScanModule } from "../modules/scan/scan.module"
 import { PharmacyChainModule } from "../modules/pharmacy-chain/pharmacy-chain.module"
 import { UserModule } from "../modules/user/user.module"
 import { CounterpartyModule } from "../modules/counterparty/counterparty.module"
+import { WarehouseModule } from "../modules/warehouse/warehouse.module"
+import { InventoryModule } from "../modules/inventory/inventory.module"
+import { ProductBatchModule } from "../modules/product-batch/product-batch.module"
+import { DocumentsModule } from "../modules/documents/documents.module"
+import { DocumentItemModule } from "../modules/document-item/document-item.module"
 
 @Module({
   imports: [
@@ -22,6 +27,12 @@ import { CounterpartyModule } from "../modules/counterparty/counterparty.module"
     PharmacyChainModule,
     UserModule,
     CounterpartyModule,
+    // Logistics
+    WarehouseModule,
+    InventoryModule,
+    ProductBatchModule,
+    DocumentsModule,
+    DocumentItemModule,
   ],
 })
 export class CoreModule {}

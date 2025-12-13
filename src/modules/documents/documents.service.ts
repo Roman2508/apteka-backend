@@ -21,15 +21,7 @@ export class DocumentsService {
     // code -> document_number
     // totalPrice -> expected_total
 
-    const {
-      code,
-      counterpartyId,
-      pharmacyId,
-      warehouseId,
-      userId,
-      totalPrice,
-      items,
-    } = createDocumentDto
+    const { code, counterpartyId, pharmacyId, warehouseId, userId, totalPrice, items } = createDocumentDto
 
     return this.prisma.$transaction(async (tx) => {
       const document = await tx.document.create({
@@ -61,12 +53,58 @@ export class DocumentsService {
     })
   }
 
-  findAll() {
-    return this.prisma.document.findMany()
+  findAll(type?: string, status?: string, hasDiscrepancy?: boolean) {
+    const where: any = {}
+
+    if (type) {
+      where.type = type
+    }
+
+    if (status) {
+      where.status = status
+    }
+
+    // Filter logic for Tab 3 (Discrepancies):
+    // Documents where type=incoming, status=completed, AND there are items with is_discrepancy=true.
+    // However, the user prompt says: "Document.type = incoming & Document.status = completed" for Tab 3.
+    // And "related DocumentItems which were determined as subject to return".
+    // So the document level filter is strict on type and status.
+    // The hasDiscrepancy flag might be used to filter documents that HAVE at least one discrepancy item.
+    if (hasDiscrepancy) {
+      where.items = {
+        some: {
+          is_discrepancy: true,
+        },
+      }
+    }
+
+    return this.prisma.document.findMany({
+      where,
+      include: {
+        counterparty: true,
+        warehouse: true,
+        items: true, // Include items for frontend details if needed, though list view might not need them all.
+      },
+      orderBy: {
+        document_date: "desc",
+      },
+    })
   }
 
   findOne(id: number) {
-    return this.prisma.document.findUnique({ where: { id }, include: { items: true } })
+    return this.prisma.document.findUnique({
+      where: { id },
+      include: {
+        items: {
+          include: {
+            medicalProduct: { include: { photos: true } },
+            discrepancies: true,
+          },
+        },
+        counterparty: true,
+        warehouse: true,
+      },
+    })
   }
 
   update(id: number, updateDocumentDto: UpdateDocumentDto) {
@@ -77,47 +115,38 @@ export class DocumentsService {
     return this.prisma.document.delete({ where: { id } })
   }
 
-  async validateScannedProduct(documentId: number, productId: number) {
-    return this.prisma.$transaction(async (tx) => {
-      const documentItem = await tx.documentItem.findFirst({
-        where: {
-          documentId,
-          medicalProductId: productId,
+  async validateScannedProduct(documentId: number, batchNumber: string) {
+    // Find item by documentId and batchNumber
+    // We expect one item per batchNumber in a single document typically.
+    // However, if multiple products share a batchNumber (very unlikely in same invoice unless different lines?), we take the first.
+    // Better to find one.
+    const documentItem = await this.prisma.documentItem.findFirst({
+      where: {
+        documentId,
+        batch_number: batchNumber,
+      },
+      include: {
+        medicalProduct: {
+          include: { photos: true },
         },
-        include: {
-          medicalProduct: {
-            include: { photos: true },
-          },
-        },
-      })
-
-      if (!documentItem) {
-        throw new NotFoundException(`Product ${productId} not found in document ${documentId}`)
-      }
-
-      if (documentItem.quantity_scanned >= documentItem.quantity_expected) {
-        throw new BadRequestException("Product already fully scanned")
-      }
-
-      // Increase scanned count
-      const updatedItem = await tx.documentItem.update({
-        where: { id: documentItem.id },
-        data: {
-          quantity_scanned: { increment: 1 },
-        },
-        include: {
-          medicalProduct: {
-            include: { photos: true },
-          },
-        },
-      })
-
-      return updatedItem
+      },
     })
+
+    if (!documentItem) {
+      throw new NotFoundException(`Item with batch ${batchNumber} not found in document ${documentId}`)
+    }
+
+    if (documentItem.quantity_scanned >= documentItem.quantity_expected) {
+      throw new BadRequestException("Product already fully scanned")
+    }
+
+    // Return item data without incrementing scanned count yet.
+    // The scan is confirmed when user clicks "Accept" or "Register Discrepancy".
+    return documentItem
   }
 
   // Step III A: Accept Scanned Item
-  async acceptScannedItem(documentItemId: number) {
+  async acceptScannedItem(documentItemId: number, quantity: number = 1) {
     return this.prisma.$transaction(async (tx) => {
       const item = await tx.documentItem.findUnique({
         where: { id: documentItemId },
@@ -126,24 +155,24 @@ export class DocumentsService {
 
       if (!item) throw new NotFoundException(`DocumentItem ${documentItemId} not found`)
 
-      if (item.quantity_scanned >= item.quantity_expected) {
-        throw new BadRequestException("Cannot accept: quantity scanned >= expected")
+      // Logic: Increment quantity_accepted.
+      // If validateScannedProduct was called before, scanned count might be higher?
+      // But we assume "Accept" button is clicked after scan or manual check.
+      // We will increment both for now based on requirement "increases quantity_scanned and quantity_accepted".
+
+      const qty = quantity || 1
+      const newAccepted = item.quantity_accepted + qty
+      const newScanned = item.quantity_scanned + qty
+
+      if (newAccepted > item.quantity_expected) {
+        // Optional: throw new BadRequestException("Cannot accept more than expected")
       }
-      
-      // Note: If validateScannedProduct was called before, scanned count is already incremented.
-      // But prompt says explicitly: "update quantity_scanned += 1".
-      // Assuming this is called INSTEAD of validate, or sequentially?
-      // I will implement as requested (+1 scanned, +1 accepted).
 
       // Find or Create Batch
-      // We need batch_number. Did we save it in Create? Yes, we mapped it.
-      // But schema says DocumentItem.batch_number is String?.
-      // If null, we can't create batch.
+      // We need batch_number.
       if (!item.batch_number) {
         throw new BadRequestException("Item does not have a batch number linked")
       }
-
-      // We need expiry_date.
       if (!item.expiry_date) {
         throw new BadRequestException("Item does not have expiry_date")
       }
@@ -151,7 +180,7 @@ export class DocumentsService {
       const batch = await this.productBatchService.findOrCreate(
         {
           productId: item.medicalProductId,
-          supplierId: item.document.counterpartyId, // Supplier from Document
+          supplierId: item.document.counterpartyId,
           batch_number: item.batch_number,
           expiry_date: item.expiry_date,
           purchase_price: Number(item.price),
@@ -162,8 +191,8 @@ export class DocumentsService {
       const updatedItem = await tx.documentItem.update({
         where: { id: documentItemId },
         data: {
-          quantity_scanned: { increment: 1 },
-          quantity_accepted: { increment: 1 },
+          quantity_scanned: { increment: qty },
+          quantity_accepted: { increment: qty },
           batchId: batch.id,
         },
       })
@@ -196,7 +225,9 @@ export class DocumentsService {
       // It adds to scanned count.
       if (item.quantity_scanned + dto.quantity > item.quantity_expected) {
         // Prompt says "return error with explanation"
-         throw new BadRequestException(`Cannot register discrepancy: total scanned (${item.quantity_scanned} + ${dto.quantity}) exceeds expected (${item.quantity_expected})`)
+        throw new BadRequestException(
+          `Cannot register discrepancy: total scanned (${item.quantity_scanned} + ${dto.quantity}) exceeds expected (${item.quantity_expected})`,
+        )
       }
 
       await tx.documentItem.update({
@@ -240,7 +271,7 @@ export class DocumentsService {
         // Update Inventory (if accepted > 0)
         if (item.quantity_accepted > 0) {
           if (!item.batchId) {
-             throw new BadRequestException(`Item ${item.id} has accepted quantity but no batch linked`)
+            throw new BadRequestException(`Item ${item.id} has accepted quantity but no batch linked`)
           }
           // Find/Create Inventory
           // We can use InventoryService or direct Prisma.
@@ -312,13 +343,13 @@ export class DocumentsService {
           document_date: new Date(),
           type: DocumentType.outgoing,
           status: DocumentStatus.completed,
-          
+
           counterparty: { connect: { id: originalDoc.counterpartyId } },
-          pharmacy: { connect: { id: originalDoc.pharmacyId } }, // Assuming originalDoc has these populated or we fetch them? 
+          pharmacy: { connect: { id: originalDoc.pharmacyId } }, // Assuming originalDoc has these populated or we fetch them?
           // originalDoc is fetched with findUnique. It has scalars.
           warehouse: { connect: { id: originalDoc.warehouseId } },
           user: { connect: { id: originalDoc.userId } },
-          
+
           completed_at: new Date(),
           items: {
             create: discrepancies.map((d) => ({
@@ -340,13 +371,41 @@ export class DocumentsService {
           },
         },
       })
-      
+
       return {
         returnId: newDoc.id,
         summary: {
-            totalReturnedQuantity: discrepancies.reduce((sum, d) => sum + d.quantity, 0)
-        }
+          totalReturnedQuantity: discrepancies.reduce((sum, d) => sum + d.quantity, 0),
+        },
       }
+    })
+  }
+
+  async cancelDiscrepancy(discrepancyId: number) {
+    return this.prisma.$transaction(async (tx) => {
+      const discrepancy = await tx.incomingDiscrepancy.findUnique({
+        where: { id: discrepancyId },
+        include: { documentItem: true },
+      })
+
+      if (!discrepancy) {
+        throw new NotFoundException("Discrepancy not found")
+      }
+
+      // Decrement quantity_scanned from document item
+      await tx.documentItem.update({
+        where: { id: discrepancy.documentItem.id },
+        data: {
+          quantity_scanned: { decrement: discrepancy.quantity },
+        },
+      })
+
+      // Delete discrepancy
+      await tx.incomingDiscrepancy.delete({
+        where: { id: discrepancyId },
+      })
+
+      return { success: true }
     })
   }
 }

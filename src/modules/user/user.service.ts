@@ -134,17 +134,8 @@ export class UserService {
     const user = await this.prisma.user.findUnique({
       where: { id },
       include: {
-        ownedPharmacy: {
-          include: {
-            chain: true,
-            warehouses: true,
-          },
-        },
-        staffAssignments: {
-          include: {
-            pharmacy: true,
-          },
-        },
+        ownedPharmacy: { include: { chain: true, warehouses: true } },
+        staffAssignments: { include: { pharmacy: true } },
       },
     })
 
@@ -152,10 +143,7 @@ export class UserService {
       throw new NotFoundException(`User with ID ${id} not found`)
     }
 
-    return {
-      ...user,
-      password_hash: undefined,
-    }
+    return { ...user, password_hash: undefined }
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
@@ -200,11 +188,7 @@ export class UserService {
       where: { id },
       data: updateData,
       include: {
-        ownedPharmacy: {
-          include: {
-            chain: true,
-          },
-        },
+        ownedPharmacy: { include: { chain: true } },
       },
     })
 

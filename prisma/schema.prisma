@@ -200,7 +200,6 @@ model Pharmacy {
   id      Int     @id @default(autoincrement())
   number  String
   address String
-  phone   String?
 
   chain           PharmacyChain? @relation(fields: [pharmacyChainId], references: [id])
   pharmacyChainId Int?
@@ -216,7 +215,6 @@ model Pharmacy {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    Int
 
   @@map("pharmacies")
 }

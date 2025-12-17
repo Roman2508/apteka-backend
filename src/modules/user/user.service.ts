@@ -49,7 +49,7 @@ export class UserService {
       const chain = await this.prisma.pharmacyChain.findUnique({
         where: { id: pharmacyChainId },
       })
-      
+
       if (!chain) {
         throw new NotFoundException("Pharmacy chain not found")
       }
@@ -70,7 +70,6 @@ export class UserService {
             address: pharmacyAddress,
             ownerId: user.id,
             pharmacyChainId,
-            userId: user.id,
           },
         })
 

@@ -170,12 +170,10 @@ export const PharmacyScalarFieldEnum = {
   id: 'id',
   number: 'number',
   address: 'address',
-  phone: 'phone',
   pharmacyChainId: 'pharmacyChainId',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type PharmacyScalarFieldEnum = (typeof PharmacyScalarFieldEnum)[keyof typeof PharmacyScalarFieldEnum]

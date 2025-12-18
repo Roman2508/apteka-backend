@@ -28,13 +28,13 @@ export type AggregatePharmacy = {
 
 export type PharmacyAvgAggregateOutputType = {
   id: number | null
-  pharmacyChainId: number | null
+  chainId: number | null
   ownerId: number | null
 }
 
 export type PharmacySumAggregateOutputType = {
   id: number | null
-  pharmacyChainId: number | null
+  chainId: number | null
   ownerId: number | null
 }
 
@@ -42,7 +42,7 @@ export type PharmacyMinAggregateOutputType = {
   id: number | null
   number: string | null
   address: string | null
-  pharmacyChainId: number | null
+  chainId: number | null
   ownerId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -52,7 +52,7 @@ export type PharmacyMaxAggregateOutputType = {
   id: number | null
   number: string | null
   address: string | null
-  pharmacyChainId: number | null
+  chainId: number | null
   ownerId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,7 +62,7 @@ export type PharmacyCountAggregateOutputType = {
   id: number
   number: number
   address: number
-  pharmacyChainId: number
+  chainId: number
   ownerId: number
   createdAt: number
   updatedAt: number
@@ -72,13 +72,13 @@ export type PharmacyCountAggregateOutputType = {
 
 export type PharmacyAvgAggregateInputType = {
   id?: true
-  pharmacyChainId?: true
+  chainId?: true
   ownerId?: true
 }
 
 export type PharmacySumAggregateInputType = {
   id?: true
-  pharmacyChainId?: true
+  chainId?: true
   ownerId?: true
 }
 
@@ -86,7 +86,7 @@ export type PharmacyMinAggregateInputType = {
   id?: true
   number?: true
   address?: true
-  pharmacyChainId?: true
+  chainId?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -96,7 +96,7 @@ export type PharmacyMaxAggregateInputType = {
   id?: true
   number?: true
   address?: true
-  pharmacyChainId?: true
+  chainId?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -106,7 +106,7 @@ export type PharmacyCountAggregateInputType = {
   id?: true
   number?: true
   address?: true
-  pharmacyChainId?: true
+  chainId?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -203,7 +203,7 @@ export type PharmacyGroupByOutputType = {
   id: number
   number: string
   address: string
-  pharmacyChainId: number | null
+  chainId: number | null
   ownerId: number
   createdAt: Date
   updatedAt: Date
@@ -236,7 +236,7 @@ export type PharmacyWhereInput = {
   id?: Prisma.IntFilter<"Pharmacy"> | number
   number?: Prisma.StringFilter<"Pharmacy"> | string
   address?: Prisma.StringFilter<"Pharmacy"> | string
-  pharmacyChainId?: Prisma.IntNullableFilter<"Pharmacy"> | number | null
+  chainId?: Prisma.IntNullableFilter<"Pharmacy"> | number | null
   ownerId?: Prisma.IntFilter<"Pharmacy"> | number
   createdAt?: Prisma.DateTimeFilter<"Pharmacy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pharmacy"> | Date | string
@@ -253,7 +253,7 @@ export type PharmacyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   number?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  pharmacyChainId?: Prisma.SortOrderInput | Prisma.SortOrder
+  chainId?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -274,7 +274,7 @@ export type PharmacyWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PharmacyWhereInput | Prisma.PharmacyWhereInput[]
   number?: Prisma.StringFilter<"Pharmacy"> | string
   address?: Prisma.StringFilter<"Pharmacy"> | string
-  pharmacyChainId?: Prisma.IntNullableFilter<"Pharmacy"> | number | null
+  chainId?: Prisma.IntNullableFilter<"Pharmacy"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Pharmacy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pharmacy"> | Date | string
   chain?: Prisma.XOR<Prisma.PharmacyChainNullableScalarRelationFilter, Prisma.PharmacyChainWhereInput> | null
@@ -290,7 +290,7 @@ export type PharmacyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   number?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  pharmacyChainId?: Prisma.SortOrderInput | Prisma.SortOrder
+  chainId?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -308,7 +308,7 @@ export type PharmacyScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Pharmacy"> | number
   number?: Prisma.StringWithAggregatesFilter<"Pharmacy"> | string
   address?: Prisma.StringWithAggregatesFilter<"Pharmacy"> | string
-  pharmacyChainId?: Prisma.IntNullableWithAggregatesFilter<"Pharmacy"> | number | null
+  chainId?: Prisma.IntNullableWithAggregatesFilter<"Pharmacy"> | number | null
   ownerId?: Prisma.IntWithAggregatesFilter<"Pharmacy"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Pharmacy"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Pharmacy"> | Date | string
@@ -332,7 +332,7 @@ export type PharmacyUncheckedCreateInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -361,7 +361,7 @@ export type PharmacyUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -376,7 +376,7 @@ export type PharmacyCreateManyInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -393,7 +393,7 @@ export type PharmacyUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -418,7 +418,7 @@ export type PharmacyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   number?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  pharmacyChainId?: Prisma.SortOrder
+  chainId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -426,7 +426,7 @@ export type PharmacyCountOrderByAggregateInput = {
 
 export type PharmacyAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pharmacyChainId?: Prisma.SortOrder
+  chainId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
 }
 
@@ -434,7 +434,7 @@ export type PharmacyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   number?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  pharmacyChainId?: Prisma.SortOrder
+  chainId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -444,7 +444,7 @@ export type PharmacyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   number?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  pharmacyChainId?: Prisma.SortOrder
+  chainId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -452,7 +452,7 @@ export type PharmacyMinOrderByAggregateInput = {
 
 export type PharmacySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pharmacyChainId?: Prisma.SortOrder
+  chainId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
 }
 
@@ -624,7 +624,7 @@ export type PharmacyUncheckedCreateWithoutOwnerInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   staff?: Prisma.PharmacyStaffUncheckedCreateNestedManyWithoutPharmacyInput
@@ -667,7 +667,7 @@ export type PharmacyUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   staff?: Prisma.PharmacyStaffUncheckedUpdateManyWithoutPharmacyNestedInput
@@ -737,7 +737,7 @@ export type PharmacyScalarWhereInput = {
   id?: Prisma.IntFilter<"Pharmacy"> | number
   number?: Prisma.StringFilter<"Pharmacy"> | string
   address?: Prisma.StringFilter<"Pharmacy"> | string
-  pharmacyChainId?: Prisma.IntNullableFilter<"Pharmacy"> | number | null
+  chainId?: Prisma.IntNullableFilter<"Pharmacy"> | number | null
   ownerId?: Prisma.IntFilter<"Pharmacy"> | number
   createdAt?: Prisma.DateTimeFilter<"Pharmacy"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pharmacy"> | Date | string
@@ -760,7 +760,7 @@ export type PharmacyUncheckedCreateWithoutStaffInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -803,7 +803,7 @@ export type PharmacyUncheckedUpdateWithoutStaffInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -830,7 +830,7 @@ export type PharmacyUncheckedCreateWithoutSessionsInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -873,7 +873,7 @@ export type PharmacyUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -900,7 +900,7 @@ export type PharmacyUncheckedCreateWithoutWarehousesInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -943,7 +943,7 @@ export type PharmacyUncheckedUpdateWithoutWarehousesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -970,7 +970,7 @@ export type PharmacyUncheckedCreateWithoutDocumentsInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1013,7 +1013,7 @@ export type PharmacyUncheckedUpdateWithoutDocumentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1040,7 +1040,7 @@ export type PharmacyUncheckedCreateWithoutSalesInput = {
   id?: number
   number: string
   address: string
-  pharmacyChainId?: number | null
+  chainId?: number | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1083,7 +1083,7 @@ export type PharmacyUncheckedUpdateWithoutSalesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   number?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  pharmacyChainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1209,7 +1209,7 @@ export type PharmacySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   number?: boolean
   address?: boolean
-  pharmacyChainId?: boolean
+  chainId?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1227,7 +1227,7 @@ export type PharmacySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   number?: boolean
   address?: boolean
-  pharmacyChainId?: boolean
+  chainId?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1239,7 +1239,7 @@ export type PharmacySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   number?: boolean
   address?: boolean
-  pharmacyChainId?: boolean
+  chainId?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1251,13 +1251,13 @@ export type PharmacySelectScalar = {
   id?: boolean
   number?: boolean
   address?: boolean
-  pharmacyChainId?: boolean
+  chainId?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PharmacyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "address" | "pharmacyChainId" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["pharmacy"]>
+export type PharmacyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "address" | "chainId" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["pharmacy"]>
 export type PharmacyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chain?: boolean | Prisma.Pharmacy$chainArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1292,7 +1292,7 @@ export type $PharmacyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: number
     number: string
     address: string
-    pharmacyChainId: number | null
+    chainId: number | null
     ownerId: number
     createdAt: Date
     updatedAt: Date
@@ -1729,7 +1729,7 @@ export interface PharmacyFieldRefs {
   readonly id: Prisma.FieldRef<"Pharmacy", 'Int'>
   readonly number: Prisma.FieldRef<"Pharmacy", 'String'>
   readonly address: Prisma.FieldRef<"Pharmacy", 'String'>
-  readonly pharmacyChainId: Prisma.FieldRef<"Pharmacy", 'Int'>
+  readonly chainId: Prisma.FieldRef<"Pharmacy", 'Int'>
   readonly ownerId: Prisma.FieldRef<"Pharmacy", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Pharmacy", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Pharmacy", 'DateTime'>

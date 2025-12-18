@@ -11,7 +11,7 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    const { password, pharmacyChainId, pharmacyNumber, pharmacyAddress, ...userData } = createUserDto
+    const { password, chainId, pharmacyNumber, pharmacyAddress, ...userData } = createUserDto
 
     // Check for duplicate username
     const existingUsername = await this.prisma.user.findUnique({
@@ -36,7 +36,7 @@ export class UserService {
 
     // For directors, validate and create pharmacy
     if (userData.role === UserRole.director) {
-      if (!pharmacyChainId) {
+      if (!chainId) {
         throw new BadRequestException("Pharmacy chain is required for directors")
       }
       if (!pharmacyNumber) {
@@ -48,7 +48,7 @@ export class UserService {
 
       // Check if pharmacy chain exists
       const chain = await this.prisma.pharmacyChain.findUnique({
-        where: { id: pharmacyChainId },
+        where: { id: chainId },
       })
 
       if (!chain) {
@@ -70,7 +70,7 @@ export class UserService {
             number: pharmacyNumber,
             address: pharmacyAddress,
             ownerId: user.id,
-            pharmacyChainId,
+            chainId,
           },
         })
 
@@ -108,7 +108,7 @@ export class UserService {
     const where = chainId
       ? {
           ownedPharmacy: {
-            pharmacyChainId: chainId,
+            chainId: chainId,
           },
         }
       : {}
@@ -150,7 +150,7 @@ export class UserService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     await this.findOne(id)
 
-    const { password, pharmacyChainId, pharmacyNumber, pharmacyAddress, ...userData } = updateUserDto
+    const { password, chainId, pharmacyNumber, pharmacyAddress, ...userData } = updateUserDto
 
     // Check for duplicate username
     if (userData.username) {
@@ -194,13 +194,13 @@ export class UserService {
     })
 
     // Update pharmacy if provided
-    if (user.ownedPharmacy && (pharmacyNumber || pharmacyAddress || pharmacyChainId)) {
+    if (user.ownedPharmacy && (pharmacyNumber || pharmacyAddress || chainId)) {
       await this.prisma.pharmacy.update({
         where: { id: user.ownedPharmacy.id },
         data: {
           ...(pharmacyNumber && { number: pharmacyNumber }),
           ...(pharmacyAddress && { address: pharmacyAddress }),
-          ...(pharmacyChainId && { pharmacyChainId }),
+          ...(chainId && { chainId }),
         },
       })
     }

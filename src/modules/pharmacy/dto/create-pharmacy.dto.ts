@@ -1,9 +1,8 @@
 import { IsString, IsNotEmpty, IsInt } from "class-validator"
 
 export class CreatePharmacyDto {
-  @IsInt()
   @IsNotEmpty()
-  ownerId: number
+  ownerId: number | string
 
   @IsString()
   @IsNotEmpty()

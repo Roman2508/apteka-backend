@@ -170,7 +170,7 @@ export const PharmacyScalarFieldEnum = {
   id: 'id',
   number: 'number',
   address: 'address',
-  pharmacyChainId: 'pharmacyChainId',
+  chainId: 'chainId',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

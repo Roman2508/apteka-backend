@@ -63,7 +63,7 @@ async function verify() {
       number: "1",
       address: "Test Addr",
       ownerId: owner.id,
-      pharmacyChainId: chain.id,
+      chainId: chain.id,
     },
   })
 

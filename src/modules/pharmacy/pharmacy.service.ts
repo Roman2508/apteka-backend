@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException} from "@nestjs/common"
+import { Injectable, NotFoundException } from "@nestjs/common"
 
 import { PrismaService } from "../prisma/prisma.service"
 import { CreatePharmacyDto } from "./dto/create-pharmacy.dto"
@@ -9,15 +9,22 @@ export class PharmacyService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreatePharmacyDto) {
+    const ownerId = Number(dto.ownerId)
+    const chainId = Number(dto.chainId)
+
+    if (isNaN(ownerId) || isNaN(chainId)) {
+      throw new Error("Invalid owner or chain ID")
+    }
+
     return this.prisma.pharmacy.create({
       data: {
         number: dto.number,
         address: dto.address,
-        chain: { connect: { id: dto.chainId } },
-        owner: { connect: { id: dto.ownerId } },
+        chain: { connect: { id: chainId } },
+        owner: { connect: { id: ownerId } },
       },
       include: {
-        owner: true,
+        owner: { omit: { password_hash: true } },
         chain: true,
       },
     })
@@ -26,7 +33,7 @@ export class PharmacyService {
   async findAll() {
     const pharmacies = await this.prisma.pharmacy.findMany({
       include: {
-        owner: true,
+        owner: { omit: { password_hash: true } },
         chain: true,
       },
       orderBy: { createdAt: "asc" },
@@ -39,7 +46,7 @@ export class PharmacyService {
     const chain = await this.prisma.pharmacy.findUnique({
       where: { id },
       include: {
-        owner: true,
+        owner: { omit: { password_hash: true } },
         chain: true,
       },
     })
@@ -54,11 +61,23 @@ export class PharmacyService {
   async update(id: number, updatePharmacyDto: UpdatePharmacyDto) {
     await this.findOne(id)
 
+    const ownerId = Number(updatePharmacyDto.ownerId)
+    const chainId = Number(updatePharmacyDto.chainId)
+
+    if (isNaN(ownerId) || isNaN(chainId)) {
+      throw new Error("Invalid owner or chain ID")
+    }
+
     return this.prisma.pharmacy.update({
       where: { id },
-      data: updatePharmacyDto,
+      data: {
+        number: updatePharmacyDto.number,
+        address: updatePharmacyDto.address,
+        chain: { connect: { id: chainId } },
+        owner: { connect: { id: ownerId } },
+      },
       include: {
-        owner: true,
+        owner: { omit: { password_hash: true } },
         chain: true,
       },
     })

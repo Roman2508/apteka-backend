@@ -201,8 +201,8 @@ model Pharmacy {
   number  String
   address String
 
-  chain           PharmacyChain? @relation(fields: [pharmacyChainId], references: [id])
-  pharmacyChainId Int?
+  chain           PharmacyChain? @relation(fields: [chainId], references: [id])
+  chainId Int?
 
   owner   User @relation("PharmacyOwner", fields: [ownerId], references: [id])
   ownerId Int  @unique

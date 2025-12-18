@@ -1,8 +1,9 @@
 import * as bcrypt from "bcrypt"
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from "@nestjs/common"
-import { PrismaService } from "../prisma/prisma.service"
+
 import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
+import { PrismaService } from "../prisma/prisma.service"
 import { UserRole } from "../../../prisma/generated/enums"
 
 @Injectable()

@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException, ConflictException } from "@nestjs/common"
+import { Injectable, NotFoundException} from "@nestjs/common"
+
 import { PrismaService } from "../prisma/prisma.service"
 import { CreatePharmacyDto } from "./dto/create-pharmacy.dto"
 import { UpdatePharmacyDto } from "./dto/update-pharmacy.dto"

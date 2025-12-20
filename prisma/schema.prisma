@@ -200,10 +200,9 @@ model Pharmacy {
   id      Int     @id @default(autoincrement())
   number  String
   address String
-  phone   String?
 
-  chain           PharmacyChain? @relation(fields: [pharmacyChainId], references: [id])
-  pharmacyChainId Int?
+  chain           PharmacyChain? @relation(fields: [chainId], references: [id])
+  chainId Int?
 
   owner   User @relation("PharmacyOwner", fields: [ownerId], references: [id])
   ownerId Int  @unique
@@ -216,7 +215,6 @@ model Pharmacy {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    Int
 
   @@map("pharmacies")
 }

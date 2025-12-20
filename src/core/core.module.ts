@@ -14,6 +14,7 @@ import { InventoryModule } from "../modules/inventory/inventory.module"
 import { ProductBatchModule } from "../modules/product-batch/product-batch.module"
 import { DocumentsModule } from "../modules/documents/documents.module"
 import { DocumentItemModule } from "../modules/document-item/document-item.module"
+import { PharmacyModule } from "src/modules/pharmacy/pharmacy.module"
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { DocumentItemModule } from "../modules/document-item/document-item.modul
     MedicalProductModule,
     ScanModule,
     PharmacyChainModule,
+    PharmacyModule,
     UserModule,
     CounterpartyModule,
     // Logistics

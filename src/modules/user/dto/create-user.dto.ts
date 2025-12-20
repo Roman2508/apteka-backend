@@ -28,7 +28,7 @@ export class CreateUserDto {
   // For directors only - pharmacy chain to assign to
   @IsOptional()
   @IsInt()
-  pharmacyChainId?: number
+  chainId?: number
 
   // For directors only - pharmacy number and address
   @IsOptional()

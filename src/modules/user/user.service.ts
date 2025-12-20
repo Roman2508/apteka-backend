@@ -16,6 +16,7 @@ export class UserService {
     const existingUsername = await this.prisma.user.findUnique({
       where: { username: userData.username },
     })
+    
     if (existingUsername) {
       throw new ConflictException("Username already exists")
     }

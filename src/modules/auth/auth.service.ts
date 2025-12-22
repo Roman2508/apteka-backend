@@ -2,7 +2,7 @@ import * as bcrypt from "bcrypt"
 import { JwtService } from "@nestjs/jwt"
 import { Injectable, ConflictException, UnauthorizedException } from "@nestjs/common"
 
-import { PrismaService } from "../prisma/prisma.service"
+import { PrismaService } from "../../core/prisma/prisma.service"
 import { UserRole } from "../../../prisma/generated/enums"
 import { JwtPayload, AuthResponse } from "./interfaces/auth.interface"
 

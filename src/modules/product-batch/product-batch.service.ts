@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
-import { PrismaService } from "../prisma/prisma.service"
+import { PrismaService } from "../../core/prisma/prisma.service"
 import { CreateProductBatchDto } from "./dto/create-product-batch.dto"
 import { UpdateProductBatchDto } from "./dto/update-product-batch.dto"
 

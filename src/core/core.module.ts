@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"
 import { ConfigModule } from "@nestjs/config"
 import { ScheduleModule } from "@nestjs/schedule"
-import { PrismaModule } from "../modules/prisma/prisma.module"
+import { PrismaModule } from "./prisma/prisma.module"
 import { MedicalProductModule } from "../modules/medical-product/medical-product.module"
 import { AuthModule } from "../modules/auth/auth.module"
 import { WorkShiftModule } from "../modules/work-shift/work-shift.module"
@@ -15,6 +15,7 @@ import { ProductBatchModule } from "../modules/product-batch/product-batch.modul
 import { DocumentsModule } from "../modules/documents/documents.module"
 import { DocumentItemModule } from "../modules/document-item/document-item.module"
 import { PharmacyModule } from "src/modules/pharmacy/pharmacy.module"
+import { PharmacyStaffModule } from "src/modules/pharmacy-staff/pharmacy-staff.module"
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { PharmacyModule } from "src/modules/pharmacy/pharmacy.module"
     PharmacyModule,
     UserModule,
     CounterpartyModule,
+    PharmacyStaffModule,
     // Logistics
     WarehouseModule,
     InventoryModule,

@@ -10,37 +10,30 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(CoreModule)
 
   // Serve static files from uploads folder
-  app.useStaticAssets(join(process.cwd(), "uploads"), {
-    prefix: "/uploads/",
-  })
+  app.useStaticAssets(join(process.cwd(), "uploads"), { prefix: "/uploads/" })
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Apteka Workstation')
-    .setDescription('API for Apteka Workstation')
-    .setVersion('1.0')
-    .addTag('Apteka Workstation')
-    .build();
+    .setTitle("Apteka Workstation")
+    .setDescription("API for Apteka Workstation")
+    .setVersion("1.0")
+    .addTag("Apteka Workstation")
+    .build()
 
-  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, swaggerDocument);
+  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig)
+  SwaggerModule.setup("api", app, swaggerDocument, {
+    swaggerOptions: { persistAuthorization: true },
+  })
 
-  // Enable CORS for frontend
+  // Enable CORS for frontend // http tunnel - loclx
   // app.enableCors({
-  //   origin: ["https://fz1jh7vfsn.loclx.io", "http://localhost:5173"],
-  //   // origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  //   origin: [...process.env.ALLOWED_ORIGINS.split(",")],
   //   credentials: true,
   // })
 
   app.enableCors({ origin: true, credentials: true })
 
   // Enable global validation pipe
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  )
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))
 
   const port = process.env.APP_PORT || 7777
 
@@ -52,4 +45,5 @@ async function bootstrap() {
     process.exit(1)
   }
 }
+
 bootstrap()

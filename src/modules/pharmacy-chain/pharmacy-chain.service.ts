@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, ConflictException } from "@nestjs/common"
-import { PrismaService } from "../prisma/prisma.service"
+import { PrismaService } from "../../core/prisma/prisma.service"
 import { CreatePharmacyChainDto } from "./dto/create-pharmacy-chain.dto"
 import { UpdatePharmacyChainDto } from "./dto/update-pharmacy-chain.dto"
 

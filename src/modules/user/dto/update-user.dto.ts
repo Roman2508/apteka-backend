@@ -7,4 +7,5 @@ export class UpdateUserDto extends PartialType(OmitType(CreateUserDto, ["passwor
   @IsString()
   @MinLength(4)
   password?: string
+
 }

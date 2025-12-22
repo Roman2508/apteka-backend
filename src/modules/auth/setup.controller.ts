@@ -1,38 +1,37 @@
+import { Controller, Get, Post, Body, ForbiddenException } from "@nestjs/common"
+import { PrismaService } from "../../core/prisma/prisma.service"
+import { SetupDto } from "./dto/setup.dto"
+import * as bcrypt from "bcrypt"
+import { UserRole } from "../../../prisma/generated/enums"
 
-import { Controller, Get, Post, Body, ForbiddenException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { SetupDto } from './dto/setup.dto';
-import * as bcrypt from 'bcrypt';
-import { UserRole } from '../../../prisma/generated/enums';
-
-@Controller('auth')
+@Controller("auth")
 export class SetupController {
   constructor(private prisma: PrismaService) {}
 
-  @Get('setup-required')
+  @Get("setup-required")
   async checkSetupRequired() {
-    const userCount = await this.prisma.user.count();
-    return { setupRequired: userCount === 0 };
+    const userCount = await this.prisma.user.count()
+    return { setupRequired: userCount === 0 }
   }
 
-  @Post('setup')
+  @Post("setup")
   async setup(@Body() dto: SetupDto) {
-    const userCount = await this.prisma.user.count();
+    const userCount = await this.prisma.user.count()
     if (userCount > 0) {
-      throw new ForbiddenException('Setup has already been completed');
+      throw new ForbiddenException("Setup has already been completed")
     }
 
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const hashedPassword = await bcrypt.hash(dto.password, 10)
 
     const user = await this.prisma.user.create({
       data: {
         username: dto.username,
         password_hash: hashedPassword,
         role: UserRole.admin,
-        full_name: 'Administrator',
+        full_name: "Administrator",
       },
-    });
+    })
 
-    return { message: 'Admin account created successfully', userId: user.id };
+    return { message: "Admin account created successfully", userId: user.id }
   }
 }

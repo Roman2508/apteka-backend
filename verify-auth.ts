@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { AuthService } from "./src/modules/auth/auth.service"
-import { PrismaService } from "./src/modules/prisma/prisma.service"
+import { PrismaService } from "./src/core/prisma/prisma.service"
 import { JwtService } from "@nestjs/jwt"
 import { UserRole } from "./prisma/generated/enums"
 

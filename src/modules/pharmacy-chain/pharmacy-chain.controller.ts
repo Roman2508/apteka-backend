@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGua
 import { PharmacyChainService } from "./pharmacy-chain.service"
 import { CreatePharmacyChainDto } from "./dto/create-pharmacy-chain.dto"
 import { UpdatePharmacyChainDto } from "./dto/update-pharmacy-chain.dto"
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard"
+import { JwtAuthGuard } from "../../shared/guards/jwt-auth.guard"
 
 @Controller("pharmacy-chains")
 @UseGuards(JwtAuthGuard)

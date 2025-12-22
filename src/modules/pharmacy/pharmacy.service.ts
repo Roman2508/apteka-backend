@@ -1,32 +1,41 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
 
-import { PrismaService } from "../prisma/prisma.service"
 import { CreatePharmacyDto } from "./dto/create-pharmacy.dto"
 import { UpdatePharmacyDto } from "./dto/update-pharmacy.dto"
+import { PrismaService } from "../../core/prisma/prisma.service"
 
 @Injectable()
 export class PharmacyService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreatePharmacyDto) {
-    const ownerId = Number(dto.ownerId)
-    const chainId = Number(dto.chainId)
+    const pharmacyData: any = { number: dto.number, address: dto.address }
 
-    if (isNaN(ownerId) || isNaN(chainId)) {
-      throw new Error("Invalid owner or chain ID")
+    if (dto.ownerId) {
+      pharmacyData.owner = { connect: { id: +dto.ownerId } }
     }
 
-    return this.prisma.pharmacy.create({
-      data: {
-        number: dto.number,
-        address: dto.address,
-        chain: { connect: { id: chainId } },
-        owner: { connect: { id: ownerId } },
-      },
-      include: {
-        owner: { omit: { password_hash: true } },
-        chain: true,
-      },
+    if (dto.chainId) {
+      pharmacyData.chain = { connect: { id: +dto.chainId } }
+    }
+
+    return await this.prisma.$transaction(async (tx) => {
+      const pharmacy = await tx.pharmacy.create({
+        data: pharmacyData,
+        include: {
+          owner: { omit: { password_hash: true } },
+          chain: true,
+        },
+      })
+
+      await tx.warehouse.create({
+        data: {
+          pharmacy: { connect: { id: pharmacy.id } },
+          name: `Основний склад аптеки ${pharmacy.number}`,
+        },
+      })
+
+      return pharmacy
     })
   }
 
@@ -48,6 +57,7 @@ export class PharmacyService {
       include: {
         owner: { omit: { password_hash: true } },
         chain: true,
+        warehouses: true,
       },
     })
 
@@ -58,24 +68,32 @@ export class PharmacyService {
     return chain
   }
 
-  async update(id: number, updatePharmacyDto: UpdatePharmacyDto) {
-    await this.findOne(id)
+  async update(id: number, dto: UpdatePharmacyDto) {
+    const oldPharmacyData = await this.findOne(id)
 
-    const ownerId = Number(updatePharmacyDto.ownerId)
-    const chainId = Number(updatePharmacyDto.chainId)
+    const pharmacyData: any = { number: dto.number, address: dto.address }
 
-    if (isNaN(ownerId) || isNaN(chainId)) {
-      throw new Error("Invalid owner or chain ID")
+    if (dto.ownerId) {
+      pharmacyData.owner = { connect: { id: +dto.ownerId } }
+    }
+
+    if (dto.chainId) {
+      pharmacyData.chain = { connect: { id: +dto.chainId } }
+    }
+
+    if (oldPharmacyData.number !== dto.number) {
+      const warehousesIds = oldPharmacyData.warehouses.map((warehouse) => warehouse.id)
+      // Якщо було оновлено номер аптеки, то оновлюємо назви складів
+      // Треба буде переробити коли зроблю можливість вказувати назву складу
+      await this.prisma.warehouse.updateMany({
+        where: { id: { in: warehousesIds } },
+        data: { name: `Основний склад аптеки ${dto.number}` },
+      })
     }
 
     return this.prisma.pharmacy.update({
       where: { id },
-      data: {
-        number: updatePharmacyDto.number,
-        address: updatePharmacyDto.address,
-        chain: { connect: { id: chainId } },
-        owner: { connect: { id: ownerId } },
-      },
+      data: pharmacyData,
       include: {
         owner: { omit: { password_hash: true } },
         chain: true,

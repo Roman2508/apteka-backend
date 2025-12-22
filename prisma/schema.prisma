@@ -120,12 +120,17 @@ model User {
   password_hash String
   is_active     Boolean  @default(true)
 
-  // Зв’язки
+  // Звязок для зав.аптеки, який вказує на одну аптеку, яка належить цьому користувачу.
   ownedPharmacy    Pharmacy?       @relation("PharmacyOwner")
+  // Це масив записів з таблиці PharmacyStaff, які вказують на всі аптеки, де цей користувач є співробітником.
   staffAssignments PharmacyStaff[]
+  // Це масив записів з таблиці UserSession, які вказують на всі сесії, які були створені цим користувачем.
   sessions         UserSession[]
+  // Це масив записів з таблиці Document, які вказують на всі накладні, які були створені цим користувачем.
   documentsCreated Document[]
+  // Це масив записів з таблиці Sale, які вказують на всі продажі, які були створені цим користувачем.
   sales            Sale[]
+  // Це масив записів з таблиці WriteOff, які вказують на всі списання, які були створені цим користувачем.
   writeOffs        WriteOff[]
 
   createdAt DateTime @default(now())
@@ -204,8 +209,8 @@ model Pharmacy {
   chain           PharmacyChain? @relation(fields: [chainId], references: [id])
   chainId Int?
 
-  owner   User @relation("PharmacyOwner", fields: [ownerId], references: [id])
-  ownerId Int  @unique
+  owner   User? @relation("PharmacyOwner", fields: [ownerId], references: [id])
+  ownerId Int?  @unique
 
   staff      PharmacyStaff[]
   warehouses Warehouse[]
@@ -217,37 +222,6 @@ model Pharmacy {
   updatedAt DateTime @updatedAt
 
   @@map("pharmacies")
-}
-
-model PharmacyStaff {
-  id               Int      @id @default(autoincrement())
-  pharmacy         Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
-  pharmacyId       Int
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId           Int
-  role_in_pharmacy String   @default("pharmacist")
-
-  @@unique([pharmacyId, userId])
-  @@map("pharmacy_staff")
-}
-
-model UserSession {
-  id         Int       @id @default(autoincrement())
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     Int
-  pharmacy   Pharmacy? @relation(fields: [pharmacyId], references: [id])
-  pharmacyId Int?
-
-  loginAt     DateTime  @default(now())
-  logoutAt    DateTime?
-  auto_closed Boolean   @default(false)
-  ip_address  String?
-  user_agent  String?
-
-  @@index([userId])
-  @@index([loginAt])
-  @@index([pharmacyId, loginAt])
-  @@map("user_sessions")
 }
 
 // =============================================================================
@@ -267,6 +241,45 @@ model Warehouse {
   createdAt DateTime @default(now())
 
   @@map("warehouses")
+}
+
+// =============================================================================
+// ЗАРАХОВАНІ ПРАЦІВНИКИ АПТЕК
+// =============================================================================
+
+model PharmacyStaff {
+  id               Int      @id @default(autoincrement())
+  pharmacy         Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
+  pharmacyId       Int
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           Int
+  role_in_pharmacy String   @default("pharmacist")
+
+  @@unique([pharmacyId, userId])
+  @@map("pharmacy_staff")
+}
+
+// =============================================================================
+// РОБОЧІ ЗМІНИ
+// =============================================================================
+
+model UserSession {
+  id         Int       @id @default(autoincrement())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  pharmacy   Pharmacy? @relation(fields: [pharmacyId], references: [id])
+  pharmacyId Int?
+
+  loginAt     DateTime  @default(now())
+  logoutAt    DateTime?
+  auto_closed Boolean   @default(false)
+  ip_address  String?
+  user_agent  String?
+
+  @@index([userId])
+  @@index([loginAt])
+  @@index([pharmacyId, loginAt])
+  @@map("user_sessions")
 }
 
 // =============================================================================

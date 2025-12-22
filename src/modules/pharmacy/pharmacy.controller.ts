@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards } from "@nestjs/common"
 
 import { PharmacyService } from "./pharmacy.service"
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard"
 import { CreatePharmacyDto } from "./dto/create-pharmacy.dto"
 import { UpdatePharmacyDto } from "./dto/update-pharmacy.dto"
+import { JwtAuthGuard } from "../../shared/guards/jwt-auth.guard"
 
 @Controller("pharmacy")
 @UseGuards(JwtAuthGuard)
@@ -26,8 +26,8 @@ export class PharmacyController {
   }
 
   @Patch(":id")
-  update(@Param("id", ParseIntPipe) id: number, @Body() updatePharmacyDto: UpdatePharmacyDto) {
-    return this.pharmacyService.update(id, updatePharmacyDto)
+  update(@Param("id", ParseIntPipe) id: number, @Body() dto: UpdatePharmacyDto) {
+    return this.pharmacyService.update(id, dto)
   }
 
   @Delete(":id")

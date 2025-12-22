@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common"
-import { PrismaService } from "../prisma/prisma.service"
+import { PrismaService } from "../../core/prisma/prisma.service"
 import { CreateCounterpartyDto } from "./dto/create-counterparty.dto"
 import { UpdateCounterpartyDto } from "./dto/update-counterparty.dto"
 

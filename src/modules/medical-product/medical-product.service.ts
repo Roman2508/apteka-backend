@@ -3,7 +3,7 @@ import * as XLSX from "xlsx"
 import * as path from "path"
 import { Injectable, NotFoundException, BadRequestException } from "@nestjs/common"
 
-import { PrismaService } from "../prisma/prisma.service"
+import { PrismaService } from "../../core/prisma/prisma.service"
 import { CreateMedicalProductDto } from "./dto/create-medical-product.dto"
 import { UpdateMedicalProductDto } from "./dto/update-medical-product.dto"
 

@@ -1,11 +1,33 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common"
-import { PrismaService } from "../prisma/prisma.service"
+import { PrismaService } from "../../core/prisma/prisma.service"
 import { CreateDocumentDto } from "./dto/create-document.dto"
 import { UpdateDocumentDto } from "./dto/update-document.dto"
 import { DocumentStatus, DocumentType } from "../../../prisma/generated/client"
 import { ProductBatchService } from "../product-batch/product-batch.service"
 import { RegisterDiscrepancyDto } from "./dto/register-discrepancy.dto"
 import { InventoryService } from "../inventory/inventory.service"
+import { PharmacyService } from "../pharmacy/pharmacy.service"
+import { WarehouseService } from "../warehouse/warehouse.service"
+/* example of creating document
+  {
+    "code": 2485353,
+    "counterpartyId": 1,
+    "count": 4,
+    "totalPrice": 1300,
+    "pharmacyId": 1,
+    "warehouseId": 1,
+    "userId": 4,
+    "items": [
+      {
+        "id": 1,
+        "count": 4,
+        "price": 1300,
+        "expiry_date": "12.12.2027",
+        "bartcode": "44839438934",
+        "batch_number": "132"
+      }
+    ]
+  } */
 
 @Injectable()
 export class DocumentsService {
@@ -13,6 +35,8 @@ export class DocumentsService {
     private prisma: PrismaService,
     private productBatchService: ProductBatchService,
     private inventoryService: InventoryService,
+    private pharmacyService: PharmacyService,
+    private warehouseService: WarehouseService,
   ) {}
 
   async create(createDocumentDto: CreateDocumentDto) {
@@ -26,7 +50,7 @@ export class DocumentsService {
     return this.prisma.$transaction(async (tx) => {
       const document = await tx.document.create({
         data: {
-          document_number: code.toString(), // converting number to string
+          document_number: String(code), // converting number to string
           document_date: new Date(),
           status: DocumentStatus.in_process,
           counterparty: { connect: { id: counterpartyId } },

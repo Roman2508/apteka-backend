@@ -170,8 +170,13 @@ export class MedicalProductService {
               registration_number: row.registration_number || row["Реєстрація"] || null,
               in_national_list: row.in_national_list === true || row["Нац. перелік"] === "Так",
               in_reimbursed_program: row.in_reimbursed_program === true || row["Доступні ліки"] === "Так",
+              subpackages_per_package: row.subpackages_per_package || row["Кількість в упаковці"] || 1,
+              subpackage_type: row.subpackage_type || row["Тип упаковки"] || "tablet",
+              shelf_life_value: row.shelf_life_value || row["Термін придатності"] || 1,
+              shelf_life_unit: row.shelf_life_unit || row["Одиниця виміру терміну придатності"] || "day",
               retail_price: parseFloat(row.retail_price || row["Ціна"] || 0),
               vat_rate: parseInt(row.vat_rate || row["ПДВ"] || 7),
+              manufacturerId: parseInt(row.manufacturerId || row["Виробник"] || 1),
             },
           })
           results.success++
@@ -199,7 +204,6 @@ export class MedicalProductService {
     const data = products.map((product) => ({
       ID: product.id,
       Найменування: product.name,
-      "Торгова марка": product.brand_name || "",
       Форма: product.form,
       Доза: product.dosage_value || "",
       "Одиниця дози": product.dosage_unit || "",
@@ -209,9 +213,14 @@ export class MedicalProductService {
       Реєстрація: product.registration_number || "",
       "Нац. перелік": product.in_national_list ? "Так" : "Ні",
       "Доступні ліки": product.in_reimbursed_program ? "Так" : "Ні",
+      "Кількість в упаковці": product.subpackages_per_package || "",
+      "Тип упаковки": product.subpackage_type || "",
+      "Термін придатності": product.shelf_life_value || "",
+      "Одиниця виміру терміну придатності": product.shelf_life_unit || "",
       Ціна: product.retail_price,
       ПДВ: product.vat_rate,
-      Виробник: product.manufacturer?.name || "",
+      Виробник: product.manufacturer?.id || "",
+      "Торгова марка": product.brand_name || "",
     }))
 
     const worksheet = XLSX.utils.json_to_sheet(data)

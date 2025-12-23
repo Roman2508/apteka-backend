@@ -107,7 +107,7 @@ export class DocumentsService {
       include: {
         counterparty: true,
         warehouse: true,
-        items: true, // Include items for frontend details if needed, though list view might not need them all.
+        items: { select: { id: true, price: true } }, // Include items for frontend details if needed, though list view might not need them all.
       },
       orderBy: {
         document_date: "desc",
@@ -115,18 +115,30 @@ export class DocumentsService {
     })
   }
 
-  findOne(id: number) {
+  findOne(type: string, id: number) {
+    let where: any = {}
+
+    if (type === "inbound-documents") {
+      where = { type: "incoming", status: "completed" }
+    } else if (type === "expected-deliveries") {
+      where = { type: "incoming", status: "in_process" }
+    } else if (type === "quality-issues") {
+      where = { type: "incoming", status: "completed", items: { some: { is_discrepancy: true } } }
+    }
+
     return this.prisma.document.findUnique({
-      where: { id },
+      where: { id, ...where },
       include: {
         items: {
           include: {
-            medicalProduct: { include: { photos: true } },
+            medicalProduct: { include: { photos: true, manufacturer: true } },
             discrepancies: true,
+            batch: true,
           },
         },
         counterparty: true,
         warehouse: true,
+        pharmacy: { include: { chain: true } },
       },
     })
   }

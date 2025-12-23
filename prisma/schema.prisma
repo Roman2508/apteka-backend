@@ -380,6 +380,7 @@ model DocumentItem {
   // Після сканування
   quantity_scanned  Int           @default(0)
   quantity_accepted Int           @default(0)
+  
   batch             ProductBatch? @relation(fields: [batchId], references: [id])
   batchId           Int?
 
@@ -462,11 +463,12 @@ model WriteOff {
   batch   ProductBatch @relation(fields: [batchId], references: [id])
   batchId Int
 
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+
   quantity       Int
   reason         String
   write_off_date DateTime
-  user           User     @relation(fields: [userId], references: [id])
-  userId         Int
 
   createdAt DateTime @default(now())
 

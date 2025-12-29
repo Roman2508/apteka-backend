@@ -13,19 +13,16 @@ export class ProductBatchService {
         productId: createProductBatchDto.productId,
         supplierId: createProductBatchDto.supplierId,
         batch_number: createProductBatchDto.batch_number,
-        manufacture_date: createProductBatchDto.manufacture_date,
-        expiry_date: createProductBatchDto.expiry_date,
-        purchase_price: createProductBatchDto.purchase_price,
+        manufacture_date: new Date(createProductBatchDto.manufacture_date),
+        expiry_date: new Date(createProductBatchDto.expiry_date),
+        purchase_price: +createProductBatchDto.purchase_price,
       },
     })
   }
 
   async findAll() {
     return this.prisma.productBatch.findMany({
-      include: {
-        product: true,
-        supplier: true,
-      },
+      include: { product: true, supplier: true },
       orderBy: { expiry_date: "asc" },
     })
   }
@@ -33,11 +30,7 @@ export class ProductBatchService {
   async findOne(id: number) {
     const batch = await this.prisma.productBatch.findUnique({
       where: { id },
-      include: {
-        product: true,
-        supplier: true,
-        inventory: true,
-      },
+      include: { product: true, supplier: true, inventory: true },
     })
     if (!batch) {
       throw new NotFoundException(`ProductBatch with ID ${id} not found`)
@@ -49,9 +42,7 @@ export class ProductBatchService {
     await this.findOne(id)
     return this.prisma.productBatch.update({
       where: { id },
-      data: {
-        ...updateProductBatchDto,
-      },
+      data: updateProductBatchDto,
     })
   }
 

@@ -21,7 +21,6 @@ export class CreateProductBatchDto {
   @IsNotEmpty()
   expiry_date: string
 
-  @IsDecimal() // Or @IsNumber() depending on how frontend sends it, standard is string or number for decimal
   @IsNotEmpty()
   purchase_price: number | string
 }

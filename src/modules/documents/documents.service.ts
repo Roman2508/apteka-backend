@@ -1,13 +1,15 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common"
-import { PrismaService } from "../../core/prisma/prisma.service"
+
 import { CreateDocumentDto } from "./dto/create-document.dto"
 import { UpdateDocumentDto } from "./dto/update-document.dto"
-import { DocumentStatus, DocumentType } from "../../../prisma/generated/client"
-import { ProductBatchService } from "../product-batch/product-batch.service"
-import { RegisterDiscrepancyDto } from "./dto/register-discrepancy.dto"
-import { InventoryService } from "../inventory/inventory.service"
 import { PharmacyService } from "../pharmacy/pharmacy.service"
+import { PrismaService } from "../../core/prisma/prisma.service"
+import { InventoryService } from "../inventory/inventory.service"
 import { WarehouseService } from "../warehouse/warehouse.service"
+import { RegisterDiscrepancyDto } from "./dto/register-discrepancy.dto"
+import { ProductBatchService } from "../product-batch/product-batch.service"
+import { DocumentStatus, DocumentType } from "../../../prisma/generated/client"
+
 /* example of creating document
   {
     "code": 2485353,

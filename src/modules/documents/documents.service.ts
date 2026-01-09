@@ -8,7 +8,7 @@ import { InventoryService } from "../inventory/inventory.service"
 import { WarehouseService } from "../warehouse/warehouse.service"
 import { RegisterDiscrepancyDto } from "./dto/register-discrepancy.dto"
 import { ProductBatchService } from "../product-batch/product-batch.service"
-import { DocumentStatus, DocumentType } from "../../../prisma/generated/client"
+import { DocumentStatus, DocumentType, Pharmacy } from "../../../prisma/generated/client"
 
 /* example of creating document
   {
@@ -16,17 +16,19 @@ import { DocumentStatus, DocumentType } from "../../../prisma/generated/client"
     "counterpartyId": 1,
     "count": 4,
     "totalPrice": 1300,
-    "pharmacyId": 1,
-    "warehouseId": 1,
+    // pharmacyId та warehouseId будуть встановлюватись на беку, в залежності від ІД юзера, що відправив цей запит
+    ?????? "pharmacyId": 1,
+    ?????? "warehouseId": 1,
     "userId": 4,
     "items": [
       {
-        "id": 1,
+        "id": 1, === product id
         "count": 4,
         "price": 1300,
         "expiry_date": "12.12.2027",
         "bartcode": "44839438934",
         "batch_number": "132"
+        "batchId": 1
       }
     ]
   } */
@@ -47,17 +49,37 @@ export class DocumentsService {
     // code -> document_number
     // totalPrice -> expected_total
 
-    const { code, counterpartyId, pharmacyId, warehouseId, userId, totalPrice, items } = createDocumentDto
+    const { code, counterpartyId, /*  pharmacyId, warehouseId, */ userId, totalPrice, items } = createDocumentDto
 
     return this.prisma.$transaction(async (tx) => {
+      let pharmacy: Pharmacy // ПРОБЛЕМА: В типі Pharmacy немає повязаних сутностей, наприклад: warehouses
+      pharmacy = await tx.pharmacy.findFirst({ where: { ownerId: userId }, include: { warehouses: true } }) as unknown as Pharmacy
+
+      if (!pharmacy) {
+        // Не перевіряв чи знаходиться аптека, якщо юзер це звичайний працівник, а не зав.аптекою
+        pharmacy = await tx.pharmacy.findFirst({ where: { staff: { some: { userId } } } }) as unknown as Pharmacy
+      }
+
+      if (!pharmacy) {
+        throw new NotFoundException("Користувач не належить ні до одної аптеки")
+      }
+
+      // @ts-ignore
+      if (!pharmacy.warehouses.length) {
+        throw new NotFoundException("Аптека немає пов'язаних складів")
+      }
+      console.log("pharmacy", pharmacy)
       const document = await tx.document.create({
         data: {
           document_number: String(code), // converting number to string
           document_date: new Date(),
           status: DocumentStatus.in_process,
           counterparty: { connect: { id: counterpartyId } },
-          pharmacy: { connect: { id: pharmacyId } },
-          warehouse: { connect: { id: warehouseId } },
+          pharmacy: { connect: { id: pharmacy.id } },
+          // @ts-ignore  // Поки привязую документ(поставку товарів) до першого складу в списку (поки у всіх аптек по одному складу, якщо в подальшому ця логіка зміниться - потрібно передавати сюди ІД конкретного складу, на який постачається товар)
+          warehouse: { connect: { id: pharmacy.warehouses[0].id } },
+          // pharmacy: { connect: { id: pharmacyId } },
+          // warehouse: { connect: { id: warehouseId } },
           user: { connect: { id: userId } },
           expected_total: totalPrice,
           items: {
@@ -68,6 +90,8 @@ export class DocumentsService {
               expiry_date: item.expiry_date ? new Date(item.expiry_date) : null,
               barcode: item.bartcode,
               batch_number: item.batch_number,
+              // batchId: item.batchId,
+              batch: { connect: { id: item.batchId } },
             })),
           },
         },
@@ -161,7 +185,8 @@ export class DocumentsService {
     const documentItem = await this.prisma.documentItem.findFirst({
       where: {
         documentId,
-        batch_number: batchNumber,
+        batchId: +batchNumber,
+        // batch_number: batchNumber,
       },
       include: {
         medicalProduct: {

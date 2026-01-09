@@ -1,6 +1,5 @@
 import { IsDateString, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from "class-validator"
 
-
 export class CreateDocumentItemDto {
   @IsInt()
   @IsNotEmpty()
@@ -23,6 +22,11 @@ export class CreateDocumentItemDto {
   @IsString()
   @IsOptional()
   bartcode?: string
+
+  @IsInt()
+  @Min(1)
+  @IsNotEmpty()
+  batchId?: number
 
   @IsString()
   @IsOptional()

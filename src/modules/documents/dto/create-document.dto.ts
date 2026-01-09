@@ -31,16 +31,16 @@ export class CreateDocumentDto {
   @Type(() => CreateDocumentItemDto)
   items: CreateDocumentItemDto[]
 
-  // Backend required fields
-  @ApiProperty()
-  @IsInt()
-  @IsNotEmpty()
-  pharmacyId: number
+  // pharmacyId та warehouseId будуть встановлюватись на беку, в залежності від ІД юзера, що відправив цей запит
+  // @ApiProperty()
+  // @IsInt()
+  // @IsNotEmpty()
+  // pharmacyId: number
 
-  @ApiProperty()
-  @IsInt()
-  @IsNotEmpty()
-  warehouseId: number
+  // @ApiProperty()
+  // @IsInt()
+  // @IsNotEmpty()
+  // warehouseId: number
 
   @ApiProperty()
   @IsInt()

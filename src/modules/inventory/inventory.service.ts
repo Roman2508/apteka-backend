@@ -18,6 +18,7 @@ export class InventoryService {
     })
   }
 
+  // not used
   async findAll() {
     return this.prisma.inventory.findMany({
       include: {
@@ -31,9 +32,10 @@ export class InventoryService {
     })
   }
 
-  async findOne(id: number) {
-    const inventory = await this.prisma.inventory.findUnique({
-      where: { id },
+  // find by warehouseId
+  async findOneByWarehouseId(warehouseId: number) {
+    return this.prisma.inventory.findMany({
+      where: { warehouseId },
       include: {
         warehouse: true,
         batch: {

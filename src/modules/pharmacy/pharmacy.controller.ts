@@ -21,6 +21,11 @@ export class PharmacyController {
   }
 
   @Get(":id")
+  findByUser(@Param("id", ParseIntPipe) userId: number) {
+    return this.pharmacyService.findByUser(userId)
+  }
+
+  @Get(":id")
   findOne(@Param("id", ParseIntPipe) id: number) {
     return this.pharmacyService.findOne(id)
   }

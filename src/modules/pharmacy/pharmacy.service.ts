@@ -51,21 +51,37 @@ export class PharmacyService {
     return pharmacies
   }
 
-  async findOne(id: number) {
-    const chain = await this.prisma.pharmacy.findUnique({
-      where: { id },
+  async findByUser(userId: number) {
+    const pharmacy = await this.prisma.pharmacy.findUnique({
+      where: { owner: { id: userId } },
       include: {
         owner: { omit: { password_hash: true } },
-        chain: true,
         warehouses: true,
       },
     })
 
-    if (!chain) {
-      throw new NotFoundException(`Pharmacy chain with ID ${id} not found`)
+    if (!pharmacy) {
+      throw new NotFoundException(`Pharmacy with owner ID ${userId} not found`)
     }
 
-    return chain
+    return pharmacy
+  }
+
+  async findOne(id: number) {
+    const pharmacy = await this.prisma.pharmacy.findUnique({
+      where: { id },
+      include: {
+        owner: { omit: { password_hash: true } },
+        pharmacy: true,
+        warehouses: true,
+      },
+    })
+
+    if (!pharmacy) {
+      throw new NotFoundException(`Pharmacy pharmacy with ID ${id} not found`)
+    }
+
+    return pharmacy
   }
 
   async update(id: number, dto: UpdatePharmacyDto) {

@@ -30,26 +30,26 @@ export type WriteOffAvgAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
-  quantity: number | null
   userId: number | null
+  quantity: number | null
 }
 
 export type WriteOffSumAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
-  quantity: number | null
   userId: number | null
+  quantity: number | null
 }
 
 export type WriteOffMinAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
+  userId: number | null
   quantity: number | null
   reason: string | null
   write_off_date: Date | null
-  userId: number | null
   createdAt: Date | null
 }
 
@@ -57,10 +57,10 @@ export type WriteOffMaxAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
+  userId: number | null
   quantity: number | null
   reason: string | null
   write_off_date: Date | null
-  userId: number | null
   createdAt: Date | null
 }
 
@@ -68,10 +68,10 @@ export type WriteOffCountAggregateOutputType = {
   id: number
   warehouseId: number
   batchId: number
+  userId: number
   quantity: number
   reason: number
   write_off_date: number
-  userId: number
   createdAt: number
   _all: number
 }
@@ -81,26 +81,26 @@ export type WriteOffAvgAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
-  quantity?: true
   userId?: true
+  quantity?: true
 }
 
 export type WriteOffSumAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
-  quantity?: true
   userId?: true
+  quantity?: true
 }
 
 export type WriteOffMinAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  userId?: true
   quantity?: true
   reason?: true
   write_off_date?: true
-  userId?: true
   createdAt?: true
 }
 
@@ -108,10 +108,10 @@ export type WriteOffMaxAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  userId?: true
   quantity?: true
   reason?: true
   write_off_date?: true
-  userId?: true
   createdAt?: true
 }
 
@@ -119,10 +119,10 @@ export type WriteOffCountAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  userId?: true
   quantity?: true
   reason?: true
   write_off_date?: true
-  userId?: true
   createdAt?: true
   _all?: true
 }
@@ -217,10 +217,10 @@ export type WriteOffGroupByOutputType = {
   id: number
   warehouseId: number
   batchId: number
+  userId: number
   quantity: number
   reason: string
   write_off_date: Date
-  userId: number
   createdAt: Date
   _count: WriteOffCountAggregateOutputType | null
   _avg: WriteOffAvgAggregateOutputType | null
@@ -251,10 +251,10 @@ export type WriteOffWhereInput = {
   id?: Prisma.IntFilter<"WriteOff"> | number
   warehouseId?: Prisma.IntFilter<"WriteOff"> | number
   batchId?: Prisma.IntFilter<"WriteOff"> | number
+  userId?: Prisma.IntFilter<"WriteOff"> | number
   quantity?: Prisma.IntFilter<"WriteOff"> | number
   reason?: Prisma.StringFilter<"WriteOff"> | string
   write_off_date?: Prisma.DateTimeFilter<"WriteOff"> | Date | string
-  userId?: Prisma.IntFilter<"WriteOff"> | number
   createdAt?: Prisma.DateTimeFilter<"WriteOff"> | Date | string
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   batch?: Prisma.XOR<Prisma.ProductBatchScalarRelationFilter, Prisma.ProductBatchWhereInput>
@@ -265,10 +265,10 @@ export type WriteOffOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   write_off_date?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   warehouse?: Prisma.WarehouseOrderByWithRelationInput
   batch?: Prisma.ProductBatchOrderByWithRelationInput
@@ -282,10 +282,10 @@ export type WriteOffWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.WriteOffWhereInput | Prisma.WriteOffWhereInput[]
   warehouseId?: Prisma.IntFilter<"WriteOff"> | number
   batchId?: Prisma.IntFilter<"WriteOff"> | number
+  userId?: Prisma.IntFilter<"WriteOff"> | number
   quantity?: Prisma.IntFilter<"WriteOff"> | number
   reason?: Prisma.StringFilter<"WriteOff"> | string
   write_off_date?: Prisma.DateTimeFilter<"WriteOff"> | Date | string
-  userId?: Prisma.IntFilter<"WriteOff"> | number
   createdAt?: Prisma.DateTimeFilter<"WriteOff"> | Date | string
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   batch?: Prisma.XOR<Prisma.ProductBatchScalarRelationFilter, Prisma.ProductBatchWhereInput>
@@ -296,10 +296,10 @@ export type WriteOffOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   write_off_date?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.WriteOffCountOrderByAggregateInput
   _avg?: Prisma.WriteOffAvgOrderByAggregateInput
@@ -315,10 +315,10 @@ export type WriteOffScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"WriteOff"> | number
   warehouseId?: Prisma.IntWithAggregatesFilter<"WriteOff"> | number
   batchId?: Prisma.IntWithAggregatesFilter<"WriteOff"> | number
+  userId?: Prisma.IntWithAggregatesFilter<"WriteOff"> | number
   quantity?: Prisma.IntWithAggregatesFilter<"WriteOff"> | number
   reason?: Prisma.StringWithAggregatesFilter<"WriteOff"> | string
   write_off_date?: Prisma.DateTimeWithAggregatesFilter<"WriteOff"> | Date | string
-  userId?: Prisma.IntWithAggregatesFilter<"WriteOff"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"WriteOff"> | Date | string
 }
 
@@ -336,10 +336,10 @@ export type WriteOffUncheckedCreateInput = {
   id?: number
   warehouseId: number
   batchId: number
+  userId: number
   quantity: number
   reason: string
   write_off_date: Date | string
-  userId: number
   createdAt?: Date | string
 }
 
@@ -357,10 +357,10 @@ export type WriteOffUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   write_off_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -368,10 +368,10 @@ export type WriteOffCreateManyInput = {
   id?: number
   warehouseId: number
   batchId: number
+  userId: number
   quantity: number
   reason: string
   write_off_date: Date | string
-  userId: number
   createdAt?: Date | string
 }
 
@@ -386,10 +386,10 @@ export type WriteOffUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   write_off_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -407,10 +407,10 @@ export type WriteOffCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   write_off_date?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -418,18 +418,18 @@ export type WriteOffAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
 }
 
 export type WriteOffMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   write_off_date?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -437,10 +437,10 @@ export type WriteOffMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   write_off_date?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -448,8 +448,8 @@ export type WriteOffSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
 }
 
 export type WriteOffCreateNestedManyWithoutUserInput = {
@@ -630,10 +630,10 @@ export type WriteOffScalarWhereInput = {
   id?: Prisma.IntFilter<"WriteOff"> | number
   warehouseId?: Prisma.IntFilter<"WriteOff"> | number
   batchId?: Prisma.IntFilter<"WriteOff"> | number
+  userId?: Prisma.IntFilter<"WriteOff"> | number
   quantity?: Prisma.IntFilter<"WriteOff"> | number
   reason?: Prisma.StringFilter<"WriteOff"> | string
   write_off_date?: Prisma.DateTimeFilter<"WriteOff"> | Date | string
-  userId?: Prisma.IntFilter<"WriteOff"> | number
   createdAt?: Prisma.DateTimeFilter<"WriteOff"> | Date | string
 }
 
@@ -649,10 +649,10 @@ export type WriteOffCreateWithoutWarehouseInput = {
 export type WriteOffUncheckedCreateWithoutWarehouseInput = {
   id?: number
   batchId: number
+  userId: number
   quantity: number
   reason: string
   write_off_date: Date | string
-  userId: number
   createdAt?: Date | string
 }
 
@@ -694,10 +694,10 @@ export type WriteOffCreateWithoutBatchInput = {
 export type WriteOffUncheckedCreateWithoutBatchInput = {
   id?: number
   warehouseId: number
+  userId: number
   quantity: number
   reason: string
   write_off_date: Date | string
-  userId: number
   createdAt?: Date | string
 }
 
@@ -769,10 +769,10 @@ export type WriteOffUncheckedUpdateManyWithoutUserInput = {
 export type WriteOffCreateManyWarehouseInput = {
   id?: number
   batchId: number
+  userId: number
   quantity: number
   reason: string
   write_off_date: Date | string
-  userId: number
   createdAt?: Date | string
 }
 
@@ -788,30 +788,30 @@ export type WriteOffUpdateWithoutWarehouseInput = {
 export type WriteOffUncheckedUpdateWithoutWarehouseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   write_off_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type WriteOffUncheckedUpdateManyWithoutWarehouseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   write_off_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type WriteOffCreateManyBatchInput = {
   id?: number
   warehouseId: number
+  userId: number
   quantity: number
   reason: string
   write_off_date: Date | string
-  userId: number
   createdAt?: Date | string
 }
 
@@ -827,20 +827,20 @@ export type WriteOffUpdateWithoutBatchInput = {
 export type WriteOffUncheckedUpdateWithoutBatchInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   write_off_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type WriteOffUncheckedUpdateManyWithoutBatchInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   write_off_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -850,10 +850,10 @@ export type WriteOffSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  userId?: boolean
   quantity?: boolean
   reason?: boolean
   write_off_date?: boolean
-  userId?: boolean
   createdAt?: boolean
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
@@ -864,10 +864,10 @@ export type WriteOffSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  userId?: boolean
   quantity?: boolean
   reason?: boolean
   write_off_date?: boolean
-  userId?: boolean
   createdAt?: boolean
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
@@ -878,10 +878,10 @@ export type WriteOffSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  userId?: boolean
   quantity?: boolean
   reason?: boolean
   write_off_date?: boolean
-  userId?: boolean
   createdAt?: boolean
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
@@ -892,14 +892,14 @@ export type WriteOffSelectScalar = {
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  userId?: boolean
   quantity?: boolean
   reason?: boolean
   write_off_date?: boolean
-  userId?: boolean
   createdAt?: boolean
 }
 
-export type WriteOffOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "warehouseId" | "batchId" | "quantity" | "reason" | "write_off_date" | "userId" | "createdAt", ExtArgs["result"]["writeOff"]>
+export type WriteOffOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "warehouseId" | "batchId" | "userId" | "quantity" | "reason" | "write_off_date" | "createdAt", ExtArgs["result"]["writeOff"]>
 export type WriteOffInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
@@ -927,10 +927,10 @@ export type $WriteOffPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: number
     warehouseId: number
     batchId: number
+    userId: number
     quantity: number
     reason: string
     write_off_date: Date
-    userId: number
     createdAt: Date
   }, ExtArgs["result"]["writeOff"]>
   composites: {}
@@ -1361,10 +1361,10 @@ export interface WriteOffFieldRefs {
   readonly id: Prisma.FieldRef<"WriteOff", 'Int'>
   readonly warehouseId: Prisma.FieldRef<"WriteOff", 'Int'>
   readonly batchId: Prisma.FieldRef<"WriteOff", 'Int'>
+  readonly userId: Prisma.FieldRef<"WriteOff", 'Int'>
   readonly quantity: Prisma.FieldRef<"WriteOff", 'Int'>
   readonly reason: Prisma.FieldRef<"WriteOff", 'String'>
   readonly write_off_date: Prisma.FieldRef<"WriteOff", 'DateTime'>
-  readonly userId: Prisma.FieldRef<"WriteOff", 'Int'>
   readonly createdAt: Prisma.FieldRef<"WriteOff", 'DateTime'>
 }
     

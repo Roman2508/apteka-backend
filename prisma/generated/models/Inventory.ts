@@ -30,6 +30,7 @@ export type InventoryAvgAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
+  shelfPlacementId: number | null
   quantity: number | null
   reserved_quantity: number | null
 }
@@ -38,6 +39,7 @@ export type InventorySumAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
+  shelfPlacementId: number | null
   quantity: number | null
   reserved_quantity: number | null
 }
@@ -46,6 +48,7 @@ export type InventoryMinAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
+  shelfPlacementId: number | null
   quantity: number | null
   reserved_quantity: number | null
   updatedAt: Date | null
@@ -55,6 +58,7 @@ export type InventoryMaxAggregateOutputType = {
   id: number | null
   warehouseId: number | null
   batchId: number | null
+  shelfPlacementId: number | null
   quantity: number | null
   reserved_quantity: number | null
   updatedAt: Date | null
@@ -64,6 +68,7 @@ export type InventoryCountAggregateOutputType = {
   id: number
   warehouseId: number
   batchId: number
+  shelfPlacementId: number
   quantity: number
   reserved_quantity: number
   updatedAt: number
@@ -75,6 +80,7 @@ export type InventoryAvgAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  shelfPlacementId?: true
   quantity?: true
   reserved_quantity?: true
 }
@@ -83,6 +89,7 @@ export type InventorySumAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  shelfPlacementId?: true
   quantity?: true
   reserved_quantity?: true
 }
@@ -91,6 +98,7 @@ export type InventoryMinAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  shelfPlacementId?: true
   quantity?: true
   reserved_quantity?: true
   updatedAt?: true
@@ -100,6 +108,7 @@ export type InventoryMaxAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  shelfPlacementId?: true
   quantity?: true
   reserved_quantity?: true
   updatedAt?: true
@@ -109,6 +118,7 @@ export type InventoryCountAggregateInputType = {
   id?: true
   warehouseId?: true
   batchId?: true
+  shelfPlacementId?: true
   quantity?: true
   reserved_quantity?: true
   updatedAt?: true
@@ -205,6 +215,7 @@ export type InventoryGroupByOutputType = {
   id: number
   warehouseId: number
   batchId: number
+  shelfPlacementId: number | null
   quantity: number
   reserved_quantity: number
   updatedAt: Date
@@ -237,22 +248,26 @@ export type InventoryWhereInput = {
   id?: Prisma.IntFilter<"Inventory"> | number
   warehouseId?: Prisma.IntFilter<"Inventory"> | number
   batchId?: Prisma.IntFilter<"Inventory"> | number
+  shelfPlacementId?: Prisma.IntNullableFilter<"Inventory"> | number | null
   quantity?: Prisma.IntFilter<"Inventory"> | number
   reserved_quantity?: Prisma.IntFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   batch?: Prisma.XOR<Prisma.ProductBatchScalarRelationFilter, Prisma.ProductBatchWhereInput>
+  shelfPlacement?: Prisma.XOR<Prisma.ShelfPlacementNullableScalarRelationFilter, Prisma.ShelfPlacementWhereInput> | null
 }
 
 export type InventoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  shelfPlacementId?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reserved_quantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   warehouse?: Prisma.WarehouseOrderByWithRelationInput
   batch?: Prisma.ProductBatchOrderByWithRelationInput
+  shelfPlacement?: Prisma.ShelfPlacementOrderByWithRelationInput
 }
 
 export type InventoryWhereUniqueInput = Prisma.AtLeast<{
@@ -263,17 +278,20 @@ export type InventoryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.InventoryWhereInput | Prisma.InventoryWhereInput[]
   warehouseId?: Prisma.IntFilter<"Inventory"> | number
   batchId?: Prisma.IntFilter<"Inventory"> | number
+  shelfPlacementId?: Prisma.IntNullableFilter<"Inventory"> | number | null
   quantity?: Prisma.IntFilter<"Inventory"> | number
   reserved_quantity?: Prisma.IntFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   batch?: Prisma.XOR<Prisma.ProductBatchScalarRelationFilter, Prisma.ProductBatchWhereInput>
+  shelfPlacement?: Prisma.XOR<Prisma.ShelfPlacementNullableScalarRelationFilter, Prisma.ShelfPlacementWhereInput> | null
 }, "id" | "warehouseId_batchId">
 
 export type InventoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  shelfPlacementId?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reserved_quantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -291,6 +309,7 @@ export type InventoryScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
   warehouseId?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
   batchId?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
+  shelfPlacementId?: Prisma.IntNullableWithAggregatesFilter<"Inventory"> | number | null
   quantity?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
   reserved_quantity?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Inventory"> | Date | string
@@ -302,12 +321,14 @@ export type InventoryCreateInput = {
   updatedAt?: Date | string
   warehouse: Prisma.WarehouseCreateNestedOneWithoutInventoryInput
   batch: Prisma.ProductBatchCreateNestedOneWithoutInventoryInput
+  shelfPlacement?: Prisma.ShelfPlacementCreateNestedOneWithoutInventoriesInput
 }
 
 export type InventoryUncheckedCreateInput = {
   id?: number
   warehouseId: number
   batchId: number
+  shelfPlacementId?: number | null
   quantity?: number
   reserved_quantity?: number
   updatedAt?: Date | string
@@ -319,12 +340,14 @@ export type InventoryUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutInventoryNestedInput
   batch?: Prisma.ProductBatchUpdateOneRequiredWithoutInventoryNestedInput
+  shelfPlacement?: Prisma.ShelfPlacementUpdateOneWithoutInventoriesNestedInput
 }
 
 export type InventoryUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  shelfPlacementId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -334,6 +357,7 @@ export type InventoryCreateManyInput = {
   id?: number
   warehouseId: number
   batchId: number
+  shelfPlacementId?: number | null
   quantity?: number
   reserved_quantity?: number
   updatedAt?: Date | string
@@ -349,6 +373,7 @@ export type InventoryUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  shelfPlacementId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -373,6 +398,7 @@ export type InventoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  shelfPlacementId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reserved_quantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -382,6 +408,7 @@ export type InventoryAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  shelfPlacementId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reserved_quantity?: Prisma.SortOrder
 }
@@ -390,6 +417,7 @@ export type InventoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  shelfPlacementId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reserved_quantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -399,6 +427,7 @@ export type InventoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  shelfPlacementId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reserved_quantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -408,6 +437,7 @@ export type InventorySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   batchId?: Prisma.SortOrder
+  shelfPlacementId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   reserved_quantity?: Prisma.SortOrder
 }
@@ -496,16 +526,60 @@ export type InventoryUncheckedUpdateManyWithoutBatchNestedInput = {
   deleteMany?: Prisma.InventoryScalarWhereInput | Prisma.InventoryScalarWhereInput[]
 }
 
+export type InventoryCreateNestedManyWithoutShelfPlacementInput = {
+  create?: Prisma.XOR<Prisma.InventoryCreateWithoutShelfPlacementInput, Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput> | Prisma.InventoryCreateWithoutShelfPlacementInput[] | Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput[]
+  connectOrCreate?: Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput | Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput[]
+  createMany?: Prisma.InventoryCreateManyShelfPlacementInputEnvelope
+  connect?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+}
+
+export type InventoryUncheckedCreateNestedManyWithoutShelfPlacementInput = {
+  create?: Prisma.XOR<Prisma.InventoryCreateWithoutShelfPlacementInput, Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput> | Prisma.InventoryCreateWithoutShelfPlacementInput[] | Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput[]
+  connectOrCreate?: Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput | Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput[]
+  createMany?: Prisma.InventoryCreateManyShelfPlacementInputEnvelope
+  connect?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+}
+
+export type InventoryUpdateManyWithoutShelfPlacementNestedInput = {
+  create?: Prisma.XOR<Prisma.InventoryCreateWithoutShelfPlacementInput, Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput> | Prisma.InventoryCreateWithoutShelfPlacementInput[] | Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput[]
+  connectOrCreate?: Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput | Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput[]
+  upsert?: Prisma.InventoryUpsertWithWhereUniqueWithoutShelfPlacementInput | Prisma.InventoryUpsertWithWhereUniqueWithoutShelfPlacementInput[]
+  createMany?: Prisma.InventoryCreateManyShelfPlacementInputEnvelope
+  set?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  disconnect?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  delete?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  connect?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  update?: Prisma.InventoryUpdateWithWhereUniqueWithoutShelfPlacementInput | Prisma.InventoryUpdateWithWhereUniqueWithoutShelfPlacementInput[]
+  updateMany?: Prisma.InventoryUpdateManyWithWhereWithoutShelfPlacementInput | Prisma.InventoryUpdateManyWithWhereWithoutShelfPlacementInput[]
+  deleteMany?: Prisma.InventoryScalarWhereInput | Prisma.InventoryScalarWhereInput[]
+}
+
+export type InventoryUncheckedUpdateManyWithoutShelfPlacementNestedInput = {
+  create?: Prisma.XOR<Prisma.InventoryCreateWithoutShelfPlacementInput, Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput> | Prisma.InventoryCreateWithoutShelfPlacementInput[] | Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput[]
+  connectOrCreate?: Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput | Prisma.InventoryCreateOrConnectWithoutShelfPlacementInput[]
+  upsert?: Prisma.InventoryUpsertWithWhereUniqueWithoutShelfPlacementInput | Prisma.InventoryUpsertWithWhereUniqueWithoutShelfPlacementInput[]
+  createMany?: Prisma.InventoryCreateManyShelfPlacementInputEnvelope
+  set?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  disconnect?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  delete?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  connect?: Prisma.InventoryWhereUniqueInput | Prisma.InventoryWhereUniqueInput[]
+  update?: Prisma.InventoryUpdateWithWhereUniqueWithoutShelfPlacementInput | Prisma.InventoryUpdateWithWhereUniqueWithoutShelfPlacementInput[]
+  updateMany?: Prisma.InventoryUpdateManyWithWhereWithoutShelfPlacementInput | Prisma.InventoryUpdateManyWithWhereWithoutShelfPlacementInput[]
+  deleteMany?: Prisma.InventoryScalarWhereInput | Prisma.InventoryScalarWhereInput[]
+}
+
 export type InventoryCreateWithoutWarehouseInput = {
   quantity?: number
   reserved_quantity?: number
   updatedAt?: Date | string
   batch: Prisma.ProductBatchCreateNestedOneWithoutInventoryInput
+  shelfPlacement?: Prisma.ShelfPlacementCreateNestedOneWithoutInventoriesInput
 }
 
 export type InventoryUncheckedCreateWithoutWarehouseInput = {
   id?: number
   batchId: number
+  shelfPlacementId?: number | null
   quantity?: number
   reserved_quantity?: number
   updatedAt?: Date | string
@@ -544,6 +618,7 @@ export type InventoryScalarWhereInput = {
   id?: Prisma.IntFilter<"Inventory"> | number
   warehouseId?: Prisma.IntFilter<"Inventory"> | number
   batchId?: Prisma.IntFilter<"Inventory"> | number
+  shelfPlacementId?: Prisma.IntNullableFilter<"Inventory"> | number | null
   quantity?: Prisma.IntFilter<"Inventory"> | number
   reserved_quantity?: Prisma.IntFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
@@ -554,11 +629,13 @@ export type InventoryCreateWithoutBatchInput = {
   reserved_quantity?: number
   updatedAt?: Date | string
   warehouse: Prisma.WarehouseCreateNestedOneWithoutInventoryInput
+  shelfPlacement?: Prisma.ShelfPlacementCreateNestedOneWithoutInventoriesInput
 }
 
 export type InventoryUncheckedCreateWithoutBatchInput = {
   id?: number
   warehouseId: number
+  shelfPlacementId?: number | null
   quantity?: number
   reserved_quantity?: number
   updatedAt?: Date | string
@@ -590,9 +667,53 @@ export type InventoryUpdateManyWithWhereWithoutBatchInput = {
   data: Prisma.XOR<Prisma.InventoryUpdateManyMutationInput, Prisma.InventoryUncheckedUpdateManyWithoutBatchInput>
 }
 
+export type InventoryCreateWithoutShelfPlacementInput = {
+  quantity?: number
+  reserved_quantity?: number
+  updatedAt?: Date | string
+  warehouse: Prisma.WarehouseCreateNestedOneWithoutInventoryInput
+  batch: Prisma.ProductBatchCreateNestedOneWithoutInventoryInput
+}
+
+export type InventoryUncheckedCreateWithoutShelfPlacementInput = {
+  id?: number
+  warehouseId: number
+  batchId: number
+  quantity?: number
+  reserved_quantity?: number
+  updatedAt?: Date | string
+}
+
+export type InventoryCreateOrConnectWithoutShelfPlacementInput = {
+  where: Prisma.InventoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.InventoryCreateWithoutShelfPlacementInput, Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput>
+}
+
+export type InventoryCreateManyShelfPlacementInputEnvelope = {
+  data: Prisma.InventoryCreateManyShelfPlacementInput | Prisma.InventoryCreateManyShelfPlacementInput[]
+  skipDuplicates?: boolean
+}
+
+export type InventoryUpsertWithWhereUniqueWithoutShelfPlacementInput = {
+  where: Prisma.InventoryWhereUniqueInput
+  update: Prisma.XOR<Prisma.InventoryUpdateWithoutShelfPlacementInput, Prisma.InventoryUncheckedUpdateWithoutShelfPlacementInput>
+  create: Prisma.XOR<Prisma.InventoryCreateWithoutShelfPlacementInput, Prisma.InventoryUncheckedCreateWithoutShelfPlacementInput>
+}
+
+export type InventoryUpdateWithWhereUniqueWithoutShelfPlacementInput = {
+  where: Prisma.InventoryWhereUniqueInput
+  data: Prisma.XOR<Prisma.InventoryUpdateWithoutShelfPlacementInput, Prisma.InventoryUncheckedUpdateWithoutShelfPlacementInput>
+}
+
+export type InventoryUpdateManyWithWhereWithoutShelfPlacementInput = {
+  where: Prisma.InventoryScalarWhereInput
+  data: Prisma.XOR<Prisma.InventoryUpdateManyMutationInput, Prisma.InventoryUncheckedUpdateManyWithoutShelfPlacementInput>
+}
+
 export type InventoryCreateManyWarehouseInput = {
   id?: number
   batchId: number
+  shelfPlacementId?: number | null
   quantity?: number
   reserved_quantity?: number
   updatedAt?: Date | string
@@ -603,11 +724,13 @@ export type InventoryUpdateWithoutWarehouseInput = {
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   batch?: Prisma.ProductBatchUpdateOneRequiredWithoutInventoryNestedInput
+  shelfPlacement?: Prisma.ShelfPlacementUpdateOneWithoutInventoriesNestedInput
 }
 
 export type InventoryUncheckedUpdateWithoutWarehouseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  shelfPlacementId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -616,6 +739,7 @@ export type InventoryUncheckedUpdateWithoutWarehouseInput = {
 export type InventoryUncheckedUpdateManyWithoutWarehouseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  shelfPlacementId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -624,6 +748,7 @@ export type InventoryUncheckedUpdateManyWithoutWarehouseInput = {
 export type InventoryCreateManyBatchInput = {
   id?: number
   warehouseId: number
+  shelfPlacementId?: number | null
   quantity?: number
   reserved_quantity?: number
   updatedAt?: Date | string
@@ -634,11 +759,13 @@ export type InventoryUpdateWithoutBatchInput = {
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutInventoryNestedInput
+  shelfPlacement?: Prisma.ShelfPlacementUpdateOneWithoutInventoriesNestedInput
 }
 
 export type InventoryUncheckedUpdateWithoutBatchInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
+  shelfPlacementId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -647,6 +774,42 @@ export type InventoryUncheckedUpdateWithoutBatchInput = {
 export type InventoryUncheckedUpdateManyWithoutBatchInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
+  shelfPlacementId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InventoryCreateManyShelfPlacementInput = {
+  id?: number
+  warehouseId: number
+  batchId: number
+  quantity?: number
+  reserved_quantity?: number
+  updatedAt?: Date | string
+}
+
+export type InventoryUpdateWithoutShelfPlacementInput = {
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutInventoryNestedInput
+  batch?: Prisma.ProductBatchUpdateOneRequiredWithoutInventoryNestedInput
+}
+
+export type InventoryUncheckedUpdateWithoutShelfPlacementInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InventoryUncheckedUpdateManyWithoutShelfPlacementInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  warehouseId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchId?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   reserved_quantity?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -658,56 +821,66 @@ export type InventorySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  shelfPlacementId?: boolean
   quantity?: boolean
   reserved_quantity?: boolean
   updatedAt?: boolean
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
+  shelfPlacement?: boolean | Prisma.Inventory$shelfPlacementArgs<ExtArgs>
 }, ExtArgs["result"]["inventory"]>
 
 export type InventorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  shelfPlacementId?: boolean
   quantity?: boolean
   reserved_quantity?: boolean
   updatedAt?: boolean
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
+  shelfPlacement?: boolean | Prisma.Inventory$shelfPlacementArgs<ExtArgs>
 }, ExtArgs["result"]["inventory"]>
 
 export type InventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  shelfPlacementId?: boolean
   quantity?: boolean
   reserved_quantity?: boolean
   updatedAt?: boolean
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
+  shelfPlacement?: boolean | Prisma.Inventory$shelfPlacementArgs<ExtArgs>
 }, ExtArgs["result"]["inventory"]>
 
 export type InventorySelectScalar = {
   id?: boolean
   warehouseId?: boolean
   batchId?: boolean
+  shelfPlacementId?: boolean
   quantity?: boolean
   reserved_quantity?: boolean
   updatedAt?: boolean
 }
 
-export type InventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "warehouseId" | "batchId" | "quantity" | "reserved_quantity" | "updatedAt", ExtArgs["result"]["inventory"]>
+export type InventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "warehouseId" | "batchId" | "shelfPlacementId" | "quantity" | "reserved_quantity" | "updatedAt", ExtArgs["result"]["inventory"]>
 export type InventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
+  shelfPlacement?: boolean | Prisma.Inventory$shelfPlacementArgs<ExtArgs>
 }
 export type InventoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
+  shelfPlacement?: boolean | Prisma.Inventory$shelfPlacementArgs<ExtArgs>
 }
 export type InventoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   batch?: boolean | Prisma.ProductBatchDefaultArgs<ExtArgs>
+  shelfPlacement?: boolean | Prisma.Inventory$shelfPlacementArgs<ExtArgs>
 }
 
 export type $InventoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -715,11 +888,13 @@ export type $InventoryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     warehouse: Prisma.$WarehousePayload<ExtArgs>
     batch: Prisma.$ProductBatchPayload<ExtArgs>
+    shelfPlacement: Prisma.$ShelfPlacementPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     warehouseId: number
     batchId: number
+    shelfPlacementId: number | null
     quantity: number
     reserved_quantity: number
     updatedAt: Date
@@ -1119,6 +1294,7 @@ export interface Prisma__InventoryClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   warehouse<T extends Prisma.WarehouseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WarehouseDefaultArgs<ExtArgs>>): Prisma.Prisma__WarehouseClient<runtime.Types.Result.GetResult<Prisma.$WarehousePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   batch<T extends Prisma.ProductBatchDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductBatchDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductBatchClient<runtime.Types.Result.GetResult<Prisma.$ProductBatchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  shelfPlacement<T extends Prisma.Inventory$shelfPlacementArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inventory$shelfPlacementArgs<ExtArgs>>): Prisma.Prisma__ShelfPlacementClient<runtime.Types.Result.GetResult<Prisma.$ShelfPlacementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1151,6 +1327,7 @@ export interface InventoryFieldRefs {
   readonly id: Prisma.FieldRef<"Inventory", 'Int'>
   readonly warehouseId: Prisma.FieldRef<"Inventory", 'Int'>
   readonly batchId: Prisma.FieldRef<"Inventory", 'Int'>
+  readonly shelfPlacementId: Prisma.FieldRef<"Inventory", 'Int'>
   readonly quantity: Prisma.FieldRef<"Inventory", 'Int'>
   readonly reserved_quantity: Prisma.FieldRef<"Inventory", 'Int'>
   readonly updatedAt: Prisma.FieldRef<"Inventory", 'DateTime'>
@@ -1547,6 +1724,25 @@ export type InventoryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many Inventories to delete.
    */
   limit?: number
+}
+
+/**
+ * Inventory.shelfPlacement
+ */
+export type Inventory$shelfPlacementArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShelfPlacement
+   */
+  select?: Prisma.ShelfPlacementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShelfPlacement
+   */
+  omit?: Prisma.ShelfPlacementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShelfPlacementInclude<ExtArgs> | null
+  where?: Prisma.ShelfPlacementWhereInput
 }
 
 /**

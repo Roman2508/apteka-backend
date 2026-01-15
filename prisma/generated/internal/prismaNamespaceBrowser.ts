@@ -57,9 +57,9 @@ export const ModelName = {
   ProductPhoto: 'ProductPhoto',
   PharmacyChain: 'PharmacyChain',
   Pharmacy: 'Pharmacy',
+  Warehouse: 'Warehouse',
   PharmacyStaff: 'PharmacyStaff',
   UserSession: 'UserSession',
-  Warehouse: 'Warehouse',
   ProductBatch: 'ProductBatch',
   Inventory: 'Inventory',
   Document: 'Document',
@@ -67,7 +67,8 @@ export const ModelName = {
   IncomingDiscrepancy: 'IncomingDiscrepancy',
   Sale: 'Sale',
   SaleItem: 'SaleItem',
-  WriteOff: 'WriteOff'
+  WriteOff: 'WriteOff',
+  ShelfPlacement: 'ShelfPlacement'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -179,6 +180,16 @@ export const PharmacyScalarFieldEnum = {
 export type PharmacyScalarFieldEnum = (typeof PharmacyScalarFieldEnum)[keyof typeof PharmacyScalarFieldEnum]
 
 
+export const WarehouseScalarFieldEnum = {
+  id: 'id',
+  pharmacyId: 'pharmacyId',
+  name: 'name',
+  createdAt: 'createdAt'
+} as const
+
+export type WarehouseScalarFieldEnum = (typeof WarehouseScalarFieldEnum)[keyof typeof WarehouseScalarFieldEnum]
+
+
 export const PharmacyStaffScalarFieldEnum = {
   id: 'id',
   pharmacyId: 'pharmacyId',
@@ -203,16 +214,6 @@ export const UserSessionScalarFieldEnum = {
 export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[keyof typeof UserSessionScalarFieldEnum]
 
 
-export const WarehouseScalarFieldEnum = {
-  id: 'id',
-  pharmacyId: 'pharmacyId',
-  name: 'name',
-  createdAt: 'createdAt'
-} as const
-
-export type WarehouseScalarFieldEnum = (typeof WarehouseScalarFieldEnum)[keyof typeof WarehouseScalarFieldEnum]
-
-
 export const ProductBatchScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
@@ -231,6 +232,7 @@ export const InventoryScalarFieldEnum = {
   id: 'id',
   warehouseId: 'warehouseId',
   batchId: 'batchId',
+  shelfPlacementId: 'shelfPlacementId',
   quantity: 'quantity',
   reserved_quantity: 'reserved_quantity',
   updatedAt: 'updatedAt'
@@ -323,14 +325,24 @@ export const WriteOffScalarFieldEnum = {
   id: 'id',
   warehouseId: 'warehouseId',
   batchId: 'batchId',
+  userId: 'userId',
   quantity: 'quantity',
   reason: 'reason',
   write_off_date: 'write_off_date',
-  userId: 'userId',
   createdAt: 'createdAt'
 } as const
 
 export type WriteOffScalarFieldEnum = (typeof WriteOffScalarFieldEnum)[keyof typeof WriteOffScalarFieldEnum]
+
+
+export const ShelfPlacementScalarFieldEnum = {
+  id: 'id',
+  pharmacyId: 'pharmacyId',
+  name: 'name',
+  createdAt: 'createdAt'
+} as const
+
+export type ShelfPlacementScalarFieldEnum = (typeof ShelfPlacementScalarFieldEnum)[keyof typeof ShelfPlacementScalarFieldEnum]
 
 
 export const SortOrder = {

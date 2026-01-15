@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.1.0
- * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
+ * Prisma Client JS version: 7.2.0
+ * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.1.0",
-  engine: "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba"
+  client: "7.2.0",
+  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
 }
 
 /**
@@ -390,9 +390,9 @@ export const ModelName = {
   ProductPhoto: 'ProductPhoto',
   PharmacyChain: 'PharmacyChain',
   Pharmacy: 'Pharmacy',
+  Warehouse: 'Warehouse',
   PharmacyStaff: 'PharmacyStaff',
   UserSession: 'UserSession',
-  Warehouse: 'Warehouse',
   ProductBatch: 'ProductBatch',
   Inventory: 'Inventory',
   Document: 'Document',
@@ -400,7 +400,8 @@ export const ModelName = {
   IncomingDiscrepancy: 'IncomingDiscrepancy',
   Sale: 'Sale',
   SaleItem: 'SaleItem',
-  WriteOff: 'WriteOff'
+  WriteOff: 'WriteOff',
+  ShelfPlacement: 'ShelfPlacement'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "counterparty" | "user" | "medicalProduct" | "productPhoto" | "pharmacyChain" | "pharmacy" | "pharmacyStaff" | "userSession" | "warehouse" | "productBatch" | "inventory" | "document" | "documentItem" | "incomingDiscrepancy" | "sale" | "saleItem" | "writeOff"
+    modelProps: "counterparty" | "user" | "medicalProduct" | "productPhoto" | "pharmacyChain" | "pharmacy" | "warehouse" | "pharmacyStaff" | "userSession" | "productBatch" | "inventory" | "document" | "documentItem" | "incomingDiscrepancy" | "sale" | "saleItem" | "writeOff" | "shelfPlacement"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -864,6 +865,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Warehouse: {
+      payload: Prisma.$WarehousePayload<ExtArgs>
+      fields: Prisma.WarehouseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WarehouseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WarehouseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
+        }
+        findFirst: {
+          args: Prisma.WarehouseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WarehouseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
+        }
+        findMany: {
+          args: Prisma.WarehouseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>[]
+        }
+        create: {
+          args: Prisma.WarehouseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
+        }
+        createMany: {
+          args: Prisma.WarehouseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WarehouseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>[]
+        }
+        delete: {
+          args: Prisma.WarehouseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
+        }
+        update: {
+          args: Prisma.WarehouseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
+        }
+        deleteMany: {
+          args: Prisma.WarehouseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WarehouseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WarehouseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>[]
+        }
+        upsert: {
+          args: Prisma.WarehouseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
+        }
+        aggregate: {
+          args: Prisma.WarehouseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWarehouse>
+        }
+        groupBy: {
+          args: Prisma.WarehouseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WarehouseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WarehouseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WarehouseCountAggregateOutputType> | number
+        }
+      }
+    }
     PharmacyStaff: {
       payload: Prisma.$PharmacyStaffPayload<ExtArgs>
       fields: Prisma.PharmacyStaffFieldRefs
@@ -1009,80 +1084,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserSessionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserSessionCountAggregateOutputType> | number
-        }
-      }
-    }
-    Warehouse: {
-      payload: Prisma.$WarehousePayload<ExtArgs>
-      fields: Prisma.WarehouseFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.WarehouseFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.WarehouseFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
-        }
-        findFirst: {
-          args: Prisma.WarehouseFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.WarehouseFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
-        }
-        findMany: {
-          args: Prisma.WarehouseFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>[]
-        }
-        create: {
-          args: Prisma.WarehouseCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
-        }
-        createMany: {
-          args: Prisma.WarehouseCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.WarehouseCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>[]
-        }
-        delete: {
-          args: Prisma.WarehouseDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
-        }
-        update: {
-          args: Prisma.WarehouseUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
-        }
-        deleteMany: {
-          args: Prisma.WarehouseDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.WarehouseUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.WarehouseUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>[]
-        }
-        upsert: {
-          args: Prisma.WarehouseUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WarehousePayload>
-        }
-        aggregate: {
-          args: Prisma.WarehouseAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateWarehouse>
-        }
-        groupBy: {
-          args: Prisma.WarehouseGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.WarehouseGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.WarehouseCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.WarehouseCountAggregateOutputType> | number
         }
       }
     }
@@ -1678,6 +1679,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ShelfPlacement: {
+      payload: Prisma.$ShelfPlacementPayload<ExtArgs>
+      fields: Prisma.ShelfPlacementFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShelfPlacementFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShelfPlacementFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>
+        }
+        findFirst: {
+          args: Prisma.ShelfPlacementFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShelfPlacementFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>
+        }
+        findMany: {
+          args: Prisma.ShelfPlacementFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>[]
+        }
+        create: {
+          args: Prisma.ShelfPlacementCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>
+        }
+        createMany: {
+          args: Prisma.ShelfPlacementCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShelfPlacementCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>[]
+        }
+        delete: {
+          args: Prisma.ShelfPlacementDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>
+        }
+        update: {
+          args: Prisma.ShelfPlacementUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShelfPlacementDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShelfPlacementUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShelfPlacementUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShelfPlacementUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelfPlacementPayload>
+        }
+        aggregate: {
+          args: Prisma.ShelfPlacementAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShelfPlacement>
+        }
+        groupBy: {
+          args: Prisma.ShelfPlacementGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShelfPlacementGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShelfPlacementCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShelfPlacementCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1810,6 +1885,16 @@ export const PharmacyScalarFieldEnum = {
 export type PharmacyScalarFieldEnum = (typeof PharmacyScalarFieldEnum)[keyof typeof PharmacyScalarFieldEnum]
 
 
+export const WarehouseScalarFieldEnum = {
+  id: 'id',
+  pharmacyId: 'pharmacyId',
+  name: 'name',
+  createdAt: 'createdAt'
+} as const
+
+export type WarehouseScalarFieldEnum = (typeof WarehouseScalarFieldEnum)[keyof typeof WarehouseScalarFieldEnum]
+
+
 export const PharmacyStaffScalarFieldEnum = {
   id: 'id',
   pharmacyId: 'pharmacyId',
@@ -1834,16 +1919,6 @@ export const UserSessionScalarFieldEnum = {
 export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[keyof typeof UserSessionScalarFieldEnum]
 
 
-export const WarehouseScalarFieldEnum = {
-  id: 'id',
-  pharmacyId: 'pharmacyId',
-  name: 'name',
-  createdAt: 'createdAt'
-} as const
-
-export type WarehouseScalarFieldEnum = (typeof WarehouseScalarFieldEnum)[keyof typeof WarehouseScalarFieldEnum]
-
-
 export const ProductBatchScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
@@ -1862,6 +1937,7 @@ export const InventoryScalarFieldEnum = {
   id: 'id',
   warehouseId: 'warehouseId',
   batchId: 'batchId',
+  shelfPlacementId: 'shelfPlacementId',
   quantity: 'quantity',
   reserved_quantity: 'reserved_quantity',
   updatedAt: 'updatedAt'
@@ -1954,14 +2030,24 @@ export const WriteOffScalarFieldEnum = {
   id: 'id',
   warehouseId: 'warehouseId',
   batchId: 'batchId',
+  userId: 'userId',
   quantity: 'quantity',
   reason: 'reason',
   write_off_date: 'write_off_date',
-  userId: 'userId',
   createdAt: 'createdAt'
 } as const
 
 export type WriteOffScalarFieldEnum = (typeof WriteOffScalarFieldEnum)[keyof typeof WriteOffScalarFieldEnum]
+
+
+export const ShelfPlacementScalarFieldEnum = {
+  id: 'id',
+  pharmacyId: 'pharmacyId',
+  name: 'name',
+  createdAt: 'createdAt'
+} as const
+
+export type ShelfPlacementScalarFieldEnum = (typeof ShelfPlacementScalarFieldEnum)[keyof typeof ShelfPlacementScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2283,9 +2369,9 @@ export type GlobalOmitConfig = {
   productPhoto?: Prisma.ProductPhotoOmit
   pharmacyChain?: Prisma.PharmacyChainOmit
   pharmacy?: Prisma.PharmacyOmit
+  warehouse?: Prisma.WarehouseOmit
   pharmacyStaff?: Prisma.PharmacyStaffOmit
   userSession?: Prisma.UserSessionOmit
-  warehouse?: Prisma.WarehouseOmit
   productBatch?: Prisma.ProductBatchOmit
   inventory?: Prisma.InventoryOmit
   document?: Prisma.DocumentOmit
@@ -2294,6 +2380,7 @@ export type GlobalOmitConfig = {
   sale?: Prisma.SaleOmit
   saleItem?: Prisma.SaleItemOmit
   writeOff?: Prisma.WriteOffOmit
+  shelfPlacement?: Prisma.ShelfPlacementOmit
 }
 
 /* Types for Logging */

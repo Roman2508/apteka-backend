@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
+
 import { PrismaService } from "../../core/prisma/prisma.service"
 import { CreateInventoryDto } from "./dto/create-inventory.dto"
 import { UpdateInventoryDto } from "./dto/update-inventory.dto"
@@ -32,12 +33,15 @@ export class InventoryService {
     })
   }
 
+  async findById(id: number) {
+    return this.prisma.inventory.findMany({ where: { id } })
+  }
+
   // find by warehouseId
   async findOneByWarehouseId(warehouseId: number) {
     return this.prisma.inventory.findMany({
       where: { warehouseId },
       include: {
-        warehouse: true,
         batch: {
           include: {
             product: true,
@@ -45,14 +49,10 @@ export class InventoryService {
         },
       },
     })
-    if (!inventory) {
-      throw new NotFoundException(`Inventory with ID ${id} not found`)
-    }
-    return inventory
   }
 
   async update(id: number, updateInventoryDto: UpdateInventoryDto) {
-    await this.findOne(id)
+    await this.findById(id)
     return this.prisma.inventory.update({
       where: { id },
       data: updateInventoryDto,
@@ -60,7 +60,7 @@ export class InventoryService {
   }
 
   async remove(id: number) {
-    await this.findOne(id)
+    await this.findById(id)
     return this.prisma.inventory.delete({
       where: { id },
     })

@@ -48,6 +48,11 @@ export type PharmacyChain = Prisma.PharmacyChainModel
  */
 export type Pharmacy = Prisma.PharmacyModel
 /**
+ * Model Warehouse
+ * 
+ */
+export type Warehouse = Prisma.WarehouseModel
+/**
  * Model PharmacyStaff
  * 
  */
@@ -57,11 +62,6 @@ export type PharmacyStaff = Prisma.PharmacyStaffModel
  * 
  */
 export type UserSession = Prisma.UserSessionModel
-/**
- * Model Warehouse
- * 
- */
-export type Warehouse = Prisma.WarehouseModel
 /**
  * Model ProductBatch
  * 
@@ -102,3 +102,8 @@ export type SaleItem = Prisma.SaleItemModel
  * 
  */
 export type WriteOff = Prisma.WriteOffModel
+/**
+ * Model ShelfPlacement
+ * 
+ */
+export type ShelfPlacement = Prisma.ShelfPlacementModel

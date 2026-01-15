@@ -217,6 +217,7 @@ model Pharmacy {
   documents  Document[]
   sales      Sale[]
   sessions   UserSession[]
+  shelfPlacements ShelfPlacement[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -312,10 +313,15 @@ model ProductBatch {
 
 model Inventory {
   id          Int          @id @default(autoincrement())
+  
   warehouse   Warehouse    @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
   warehouseId Int
+
   batch       ProductBatch @relation(fields: [batchId], references: [id], onDelete: Restrict)
   batchId     Int
+  
+  shelfPlacement ShelfPlacement? @relation(fields: [shelfPlacementId], references: [id], onDelete: Cascade)
+  shelfPlacementId Int?
 
   quantity          Int      @default(0)
   reserved_quantity Int      @default(0)
@@ -473,4 +479,18 @@ model WriteOff {
   createdAt DateTime @default(now())
 
   @@map("write_offs")
+}
+
+model ShelfPlacement {
+  id          Int       @id @default(autoincrement())
+  pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id])
+  pharmacyId Int
+
+  inventories Inventory[]
+  
+  name String
+  
+  createdAt DateTime @default(now())
+
+  @@map("shelf_placements")
 }

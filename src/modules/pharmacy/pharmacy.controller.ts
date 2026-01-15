@@ -20,7 +20,7 @@ export class PharmacyController {
     return this.pharmacyService.findAll()
   }
 
-  @Get(":id")
+  @Get("/user/:id")
   findByUser(@Param("id", ParseIntPipe) userId: number) {
     return this.pharmacyService.findByUser(userId)
   }

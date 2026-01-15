@@ -53,7 +53,8 @@ export class PharmacyService {
 
   async findByUser(userId: number) {
     const pharmacy = await this.prisma.pharmacy.findUnique({
-      where: { owner: { id: userId } },
+      // @ts-ignore
+      where: { ownerId: userId },
       include: {
         owner: { omit: { password_hash: true } },
         warehouses: true,
@@ -72,7 +73,7 @@ export class PharmacyService {
       where: { id },
       include: {
         owner: { omit: { password_hash: true } },
-        pharmacy: true,
+        // pharmacy: true,
         warehouses: true,
       },
     })

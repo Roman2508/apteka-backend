@@ -247,6 +247,7 @@ export type PharmacyWhereInput = {
   documents?: Prisma.DocumentListRelationFilter
   sales?: Prisma.SaleListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
+  shelfPlacements?: Prisma.ShelfPlacementListRelationFilter
 }
 
 export type PharmacyOrderByWithRelationInput = {
@@ -264,6 +265,7 @@ export type PharmacyOrderByWithRelationInput = {
   documents?: Prisma.DocumentOrderByRelationAggregateInput
   sales?: Prisma.SaleOrderByRelationAggregateInput
   sessions?: Prisma.UserSessionOrderByRelationAggregateInput
+  shelfPlacements?: Prisma.ShelfPlacementOrderByRelationAggregateInput
 }
 
 export type PharmacyWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +286,7 @@ export type PharmacyWhereUniqueInput = Prisma.AtLeast<{
   documents?: Prisma.DocumentListRelationFilter
   sales?: Prisma.SaleListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
+  shelfPlacements?: Prisma.ShelfPlacementListRelationFilter
 }, "id" | "ownerId">
 
 export type PharmacyOrderByWithAggregationInput = {
@@ -326,6 +329,7 @@ export type PharmacyCreateInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyUncheckedCreateInput = {
@@ -341,6 +345,7 @@ export type PharmacyUncheckedCreateInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyUpdateInput = {
@@ -355,6 +360,7 @@ export type PharmacyUpdateInput = {
   documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyUncheckedUpdateInput = {
@@ -370,6 +376,7 @@ export type PharmacyUncheckedUpdateInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyCreateManyInput = {
@@ -535,6 +542,20 @@ export type PharmacyUncheckedUpdateManyWithoutChainNestedInput = {
   deleteMany?: Prisma.PharmacyScalarWhereInput | Prisma.PharmacyScalarWhereInput[]
 }
 
+export type PharmacyCreateNestedOneWithoutWarehousesInput = {
+  create?: Prisma.XOR<Prisma.PharmacyCreateWithoutWarehousesInput, Prisma.PharmacyUncheckedCreateWithoutWarehousesInput>
+  connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutWarehousesInput
+  connect?: Prisma.PharmacyWhereUniqueInput
+}
+
+export type PharmacyUpdateOneRequiredWithoutWarehousesNestedInput = {
+  create?: Prisma.XOR<Prisma.PharmacyCreateWithoutWarehousesInput, Prisma.PharmacyUncheckedCreateWithoutWarehousesInput>
+  connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutWarehousesInput
+  upsert?: Prisma.PharmacyUpsertWithoutWarehousesInput
+  connect?: Prisma.PharmacyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PharmacyUpdateToOneWithWhereWithoutWarehousesInput, Prisma.PharmacyUpdateWithoutWarehousesInput>, Prisma.PharmacyUncheckedUpdateWithoutWarehousesInput>
+}
+
 export type PharmacyCreateNestedOneWithoutStaffInput = {
   create?: Prisma.XOR<Prisma.PharmacyCreateWithoutStaffInput, Prisma.PharmacyUncheckedCreateWithoutStaffInput>
   connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutStaffInput
@@ -565,20 +586,6 @@ export type PharmacyUpdateOneWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PharmacyUpdateToOneWithWhereWithoutSessionsInput, Prisma.PharmacyUpdateWithoutSessionsInput>, Prisma.PharmacyUncheckedUpdateWithoutSessionsInput>
 }
 
-export type PharmacyCreateNestedOneWithoutWarehousesInput = {
-  create?: Prisma.XOR<Prisma.PharmacyCreateWithoutWarehousesInput, Prisma.PharmacyUncheckedCreateWithoutWarehousesInput>
-  connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutWarehousesInput
-  connect?: Prisma.PharmacyWhereUniqueInput
-}
-
-export type PharmacyUpdateOneRequiredWithoutWarehousesNestedInput = {
-  create?: Prisma.XOR<Prisma.PharmacyCreateWithoutWarehousesInput, Prisma.PharmacyUncheckedCreateWithoutWarehousesInput>
-  connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutWarehousesInput
-  upsert?: Prisma.PharmacyUpsertWithoutWarehousesInput
-  connect?: Prisma.PharmacyWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PharmacyUpdateToOneWithWhereWithoutWarehousesInput, Prisma.PharmacyUpdateWithoutWarehousesInput>, Prisma.PharmacyUncheckedUpdateWithoutWarehousesInput>
-}
-
 export type PharmacyCreateNestedOneWithoutDocumentsInput = {
   create?: Prisma.XOR<Prisma.PharmacyCreateWithoutDocumentsInput, Prisma.PharmacyUncheckedCreateWithoutDocumentsInput>
   connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutDocumentsInput
@@ -607,6 +614,20 @@ export type PharmacyUpdateOneRequiredWithoutSalesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PharmacyUpdateToOneWithWhereWithoutSalesInput, Prisma.PharmacyUpdateWithoutSalesInput>, Prisma.PharmacyUncheckedUpdateWithoutSalesInput>
 }
 
+export type PharmacyCreateNestedOneWithoutShelfPlacementsInput = {
+  create?: Prisma.XOR<Prisma.PharmacyCreateWithoutShelfPlacementsInput, Prisma.PharmacyUncheckedCreateWithoutShelfPlacementsInput>
+  connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutShelfPlacementsInput
+  connect?: Prisma.PharmacyWhereUniqueInput
+}
+
+export type PharmacyUpdateOneRequiredWithoutShelfPlacementsNestedInput = {
+  create?: Prisma.XOR<Prisma.PharmacyCreateWithoutShelfPlacementsInput, Prisma.PharmacyUncheckedCreateWithoutShelfPlacementsInput>
+  connectOrCreate?: Prisma.PharmacyCreateOrConnectWithoutShelfPlacementsInput
+  upsert?: Prisma.PharmacyUpsertWithoutShelfPlacementsInput
+  connect?: Prisma.PharmacyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PharmacyUpdateToOneWithWhereWithoutShelfPlacementsInput, Prisma.PharmacyUpdateWithoutShelfPlacementsInput>, Prisma.PharmacyUncheckedUpdateWithoutShelfPlacementsInput>
+}
+
 export type PharmacyCreateWithoutOwnerInput = {
   number: string
   address: string
@@ -618,6 +639,7 @@ export type PharmacyCreateWithoutOwnerInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyUncheckedCreateWithoutOwnerInput = {
@@ -632,6 +654,7 @@ export type PharmacyUncheckedCreateWithoutOwnerInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyCreateOrConnectWithoutOwnerInput = {
@@ -661,6 +684,7 @@ export type PharmacyUpdateWithoutOwnerInput = {
   documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyUncheckedUpdateWithoutOwnerInput = {
@@ -675,6 +699,7 @@ export type PharmacyUncheckedUpdateWithoutOwnerInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyCreateWithoutChainInput = {
@@ -688,6 +713,7 @@ export type PharmacyCreateWithoutChainInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyUncheckedCreateWithoutChainInput = {
@@ -702,6 +728,7 @@ export type PharmacyUncheckedCreateWithoutChainInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyCreateOrConnectWithoutChainInput = {
@@ -743,146 +770,6 @@ export type PharmacyScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Pharmacy"> | Date | string
 }
 
-export type PharmacyCreateWithoutStaffInput = {
-  number: string
-  address: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  chain?: Prisma.PharmacyChainCreateNestedOneWithoutPharmaciesInput
-  owner?: Prisma.UserCreateNestedOneWithoutOwnedPharmacyInput
-  warehouses?: Prisma.WarehouseCreateNestedManyWithoutPharmacyInput
-  documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
-  sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
-  sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
-}
-
-export type PharmacyUncheckedCreateWithoutStaffInput = {
-  id?: number
-  number: string
-  address: string
-  chainId?: number | null
-  ownerId?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutPharmacyInput
-  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
-  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
-  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
-}
-
-export type PharmacyCreateOrConnectWithoutStaffInput = {
-  where: Prisma.PharmacyWhereUniqueInput
-  create: Prisma.XOR<Prisma.PharmacyCreateWithoutStaffInput, Prisma.PharmacyUncheckedCreateWithoutStaffInput>
-}
-
-export type PharmacyUpsertWithoutStaffInput = {
-  update: Prisma.XOR<Prisma.PharmacyUpdateWithoutStaffInput, Prisma.PharmacyUncheckedUpdateWithoutStaffInput>
-  create: Prisma.XOR<Prisma.PharmacyCreateWithoutStaffInput, Prisma.PharmacyUncheckedCreateWithoutStaffInput>
-  where?: Prisma.PharmacyWhereInput
-}
-
-export type PharmacyUpdateToOneWithWhereWithoutStaffInput = {
-  where?: Prisma.PharmacyWhereInput
-  data: Prisma.XOR<Prisma.PharmacyUpdateWithoutStaffInput, Prisma.PharmacyUncheckedUpdateWithoutStaffInput>
-}
-
-export type PharmacyUpdateWithoutStaffInput = {
-  number?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chain?: Prisma.PharmacyChainUpdateOneWithoutPharmaciesNestedInput
-  owner?: Prisma.UserUpdateOneWithoutOwnedPharmacyNestedInput
-  warehouses?: Prisma.WarehouseUpdateManyWithoutPharmacyNestedInput
-  documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
-  sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
-  sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
-}
-
-export type PharmacyUncheckedUpdateWithoutStaffInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  number?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
-  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  ownerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutPharmacyNestedInput
-  documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
-  sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
-  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
-}
-
-export type PharmacyCreateWithoutSessionsInput = {
-  number: string
-  address: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  chain?: Prisma.PharmacyChainCreateNestedOneWithoutPharmaciesInput
-  owner?: Prisma.UserCreateNestedOneWithoutOwnedPharmacyInput
-  staff?: Prisma.PharmacyStaffCreateNestedManyWithoutPharmacyInput
-  warehouses?: Prisma.WarehouseCreateNestedManyWithoutPharmacyInput
-  documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
-  sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
-}
-
-export type PharmacyUncheckedCreateWithoutSessionsInput = {
-  id?: number
-  number: string
-  address: string
-  chainId?: number | null
-  ownerId?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  staff?: Prisma.PharmacyStaffUncheckedCreateNestedManyWithoutPharmacyInput
-  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutPharmacyInput
-  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
-  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
-}
-
-export type PharmacyCreateOrConnectWithoutSessionsInput = {
-  where: Prisma.PharmacyWhereUniqueInput
-  create: Prisma.XOR<Prisma.PharmacyCreateWithoutSessionsInput, Prisma.PharmacyUncheckedCreateWithoutSessionsInput>
-}
-
-export type PharmacyUpsertWithoutSessionsInput = {
-  update: Prisma.XOR<Prisma.PharmacyUpdateWithoutSessionsInput, Prisma.PharmacyUncheckedUpdateWithoutSessionsInput>
-  create: Prisma.XOR<Prisma.PharmacyCreateWithoutSessionsInput, Prisma.PharmacyUncheckedCreateWithoutSessionsInput>
-  where?: Prisma.PharmacyWhereInput
-}
-
-export type PharmacyUpdateToOneWithWhereWithoutSessionsInput = {
-  where?: Prisma.PharmacyWhereInput
-  data: Prisma.XOR<Prisma.PharmacyUpdateWithoutSessionsInput, Prisma.PharmacyUncheckedUpdateWithoutSessionsInput>
-}
-
-export type PharmacyUpdateWithoutSessionsInput = {
-  number?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  chain?: Prisma.PharmacyChainUpdateOneWithoutPharmaciesNestedInput
-  owner?: Prisma.UserUpdateOneWithoutOwnedPharmacyNestedInput
-  staff?: Prisma.PharmacyStaffUpdateManyWithoutPharmacyNestedInput
-  warehouses?: Prisma.WarehouseUpdateManyWithoutPharmacyNestedInput
-  documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
-  sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
-}
-
-export type PharmacyUncheckedUpdateWithoutSessionsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  number?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
-  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  ownerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  staff?: Prisma.PharmacyStaffUncheckedUpdateManyWithoutPharmacyNestedInput
-  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutPharmacyNestedInput
-  documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
-  sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
-}
-
 export type PharmacyCreateWithoutWarehousesInput = {
   number: string
   address: string
@@ -894,6 +781,7 @@ export type PharmacyCreateWithoutWarehousesInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyUncheckedCreateWithoutWarehousesInput = {
@@ -908,6 +796,7 @@ export type PharmacyUncheckedCreateWithoutWarehousesInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyCreateOrConnectWithoutWarehousesInput = {
@@ -937,6 +826,7 @@ export type PharmacyUpdateWithoutWarehousesInput = {
   documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyUncheckedUpdateWithoutWarehousesInput = {
@@ -951,6 +841,155 @@ export type PharmacyUncheckedUpdateWithoutWarehousesInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
+}
+
+export type PharmacyCreateWithoutStaffInput = {
+  number: string
+  address: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chain?: Prisma.PharmacyChainCreateNestedOneWithoutPharmaciesInput
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedPharmacyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutPharmacyInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
+  sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
+}
+
+export type PharmacyUncheckedCreateWithoutStaffInput = {
+  id?: number
+  number: string
+  address: string
+  chainId?: number | null
+  ownerId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutPharmacyInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
+}
+
+export type PharmacyCreateOrConnectWithoutStaffInput = {
+  where: Prisma.PharmacyWhereUniqueInput
+  create: Prisma.XOR<Prisma.PharmacyCreateWithoutStaffInput, Prisma.PharmacyUncheckedCreateWithoutStaffInput>
+}
+
+export type PharmacyUpsertWithoutStaffInput = {
+  update: Prisma.XOR<Prisma.PharmacyUpdateWithoutStaffInput, Prisma.PharmacyUncheckedUpdateWithoutStaffInput>
+  create: Prisma.XOR<Prisma.PharmacyCreateWithoutStaffInput, Prisma.PharmacyUncheckedCreateWithoutStaffInput>
+  where?: Prisma.PharmacyWhereInput
+}
+
+export type PharmacyUpdateToOneWithWhereWithoutStaffInput = {
+  where?: Prisma.PharmacyWhereInput
+  data: Prisma.XOR<Prisma.PharmacyUpdateWithoutStaffInput, Prisma.PharmacyUncheckedUpdateWithoutStaffInput>
+}
+
+export type PharmacyUpdateWithoutStaffInput = {
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chain?: Prisma.PharmacyChainUpdateOneWithoutPharmaciesNestedInput
+  owner?: Prisma.UserUpdateOneWithoutOwnedPharmacyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutPharmacyNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
+}
+
+export type PharmacyUncheckedUpdateWithoutStaffInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ownerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutPharmacyNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
+}
+
+export type PharmacyCreateWithoutSessionsInput = {
+  number: string
+  address: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chain?: Prisma.PharmacyChainCreateNestedOneWithoutPharmaciesInput
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedPharmacyInput
+  staff?: Prisma.PharmacyStaffCreateNestedManyWithoutPharmacyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutPharmacyInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
+  sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
+}
+
+export type PharmacyUncheckedCreateWithoutSessionsInput = {
+  id?: number
+  number: string
+  address: string
+  chainId?: number | null
+  ownerId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.PharmacyStaffUncheckedCreateNestedManyWithoutPharmacyInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutPharmacyInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
+}
+
+export type PharmacyCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.PharmacyWhereUniqueInput
+  create: Prisma.XOR<Prisma.PharmacyCreateWithoutSessionsInput, Prisma.PharmacyUncheckedCreateWithoutSessionsInput>
+}
+
+export type PharmacyUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.PharmacyUpdateWithoutSessionsInput, Prisma.PharmacyUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.PharmacyCreateWithoutSessionsInput, Prisma.PharmacyUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.PharmacyWhereInput
+}
+
+export type PharmacyUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.PharmacyWhereInput
+  data: Prisma.XOR<Prisma.PharmacyUpdateWithoutSessionsInput, Prisma.PharmacyUncheckedUpdateWithoutSessionsInput>
+}
+
+export type PharmacyUpdateWithoutSessionsInput = {
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chain?: Prisma.PharmacyChainUpdateOneWithoutPharmaciesNestedInput
+  owner?: Prisma.UserUpdateOneWithoutOwnedPharmacyNestedInput
+  staff?: Prisma.PharmacyStaffUpdateManyWithoutPharmacyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutPharmacyNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
+}
+
+export type PharmacyUncheckedUpdateWithoutSessionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ownerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.PharmacyStaffUncheckedUpdateManyWithoutPharmacyNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutPharmacyNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyCreateWithoutDocumentsInput = {
@@ -964,6 +1003,7 @@ export type PharmacyCreateWithoutDocumentsInput = {
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyUncheckedCreateWithoutDocumentsInput = {
@@ -978,6 +1018,7 @@ export type PharmacyUncheckedCreateWithoutDocumentsInput = {
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutPharmacyInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyCreateOrConnectWithoutDocumentsInput = {
@@ -1007,6 +1048,7 @@ export type PharmacyUpdateWithoutDocumentsInput = {
   warehouses?: Prisma.WarehouseUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyUncheckedUpdateWithoutDocumentsInput = {
@@ -1021,6 +1063,7 @@ export type PharmacyUncheckedUpdateWithoutDocumentsInput = {
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyCreateWithoutSalesInput = {
@@ -1034,6 +1077,7 @@ export type PharmacyCreateWithoutSalesInput = {
   warehouses?: Prisma.WarehouseCreateNestedManyWithoutPharmacyInput
   documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyUncheckedCreateWithoutSalesInput = {
@@ -1048,6 +1092,7 @@ export type PharmacyUncheckedCreateWithoutSalesInput = {
   warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutPharmacyInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedCreateNestedManyWithoutPharmacyInput
 }
 
 export type PharmacyCreateOrConnectWithoutSalesInput = {
@@ -1077,6 +1122,7 @@ export type PharmacyUpdateWithoutSalesInput = {
   warehouses?: Prisma.WarehouseUpdateManyWithoutPharmacyNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyUncheckedUpdateWithoutSalesInput = {
@@ -1090,6 +1136,81 @@ export type PharmacyUncheckedUpdateWithoutSalesInput = {
   staff?: Prisma.PharmacyStaffUncheckedUpdateManyWithoutPharmacyNestedInput
   warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutPharmacyNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
+}
+
+export type PharmacyCreateWithoutShelfPlacementsInput = {
+  number: string
+  address: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chain?: Prisma.PharmacyChainCreateNestedOneWithoutPharmaciesInput
+  owner?: Prisma.UserCreateNestedOneWithoutOwnedPharmacyInput
+  staff?: Prisma.PharmacyStaffCreateNestedManyWithoutPharmacyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutPharmacyInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutPharmacyInput
+  sales?: Prisma.SaleCreateNestedManyWithoutPharmacyInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutPharmacyInput
+}
+
+export type PharmacyUncheckedCreateWithoutShelfPlacementsInput = {
+  id?: number
+  number: string
+  address: string
+  chainId?: number | null
+  ownerId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.PharmacyStaffUncheckedCreateNestedManyWithoutPharmacyInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutPharmacyInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutPharmacyInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutPharmacyInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutPharmacyInput
+}
+
+export type PharmacyCreateOrConnectWithoutShelfPlacementsInput = {
+  where: Prisma.PharmacyWhereUniqueInput
+  create: Prisma.XOR<Prisma.PharmacyCreateWithoutShelfPlacementsInput, Prisma.PharmacyUncheckedCreateWithoutShelfPlacementsInput>
+}
+
+export type PharmacyUpsertWithoutShelfPlacementsInput = {
+  update: Prisma.XOR<Prisma.PharmacyUpdateWithoutShelfPlacementsInput, Prisma.PharmacyUncheckedUpdateWithoutShelfPlacementsInput>
+  create: Prisma.XOR<Prisma.PharmacyCreateWithoutShelfPlacementsInput, Prisma.PharmacyUncheckedCreateWithoutShelfPlacementsInput>
+  where?: Prisma.PharmacyWhereInput
+}
+
+export type PharmacyUpdateToOneWithWhereWithoutShelfPlacementsInput = {
+  where?: Prisma.PharmacyWhereInput
+  data: Prisma.XOR<Prisma.PharmacyUpdateWithoutShelfPlacementsInput, Prisma.PharmacyUncheckedUpdateWithoutShelfPlacementsInput>
+}
+
+export type PharmacyUpdateWithoutShelfPlacementsInput = {
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chain?: Prisma.PharmacyChainUpdateOneWithoutPharmaciesNestedInput
+  owner?: Prisma.UserUpdateOneWithoutOwnedPharmacyNestedInput
+  staff?: Prisma.PharmacyStaffUpdateManyWithoutPharmacyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutPharmacyNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+}
+
+export type PharmacyUncheckedUpdateWithoutShelfPlacementsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  chainId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ownerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.PharmacyStaffUncheckedUpdateManyWithoutPharmacyNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutPharmacyNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
 }
 
@@ -1113,6 +1234,7 @@ export type PharmacyUpdateWithoutChainInput = {
   documents?: Prisma.DocumentUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyUncheckedUpdateWithoutChainInput = {
@@ -1127,6 +1249,7 @@ export type PharmacyUncheckedUpdateWithoutChainInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutPharmacyNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutPharmacyNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutPharmacyNestedInput
+  shelfPlacements?: Prisma.ShelfPlacementUncheckedUpdateManyWithoutPharmacyNestedInput
 }
 
 export type PharmacyUncheckedUpdateManyWithoutChainInput = {
@@ -1149,6 +1272,7 @@ export type PharmacyCountOutputType = {
   documents: number
   sales: number
   sessions: number
+  shelfPlacements: number
 }
 
 export type PharmacyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1157,6 +1281,7 @@ export type PharmacyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   documents?: boolean | PharmacyCountOutputTypeCountDocumentsArgs
   sales?: boolean | PharmacyCountOutputTypeCountSalesArgs
   sessions?: boolean | PharmacyCountOutputTypeCountSessionsArgs
+  shelfPlacements?: boolean | PharmacyCountOutputTypeCountShelfPlacementsArgs
 }
 
 /**
@@ -1204,6 +1329,13 @@ export type PharmacyCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.UserSessionWhereInput
 }
 
+/**
+ * PharmacyCountOutputType without action
+ */
+export type PharmacyCountOutputTypeCountShelfPlacementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShelfPlacementWhereInput
+}
+
 
 export type PharmacySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1220,6 +1352,7 @@ export type PharmacySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   documents?: boolean | Prisma.Pharmacy$documentsArgs<ExtArgs>
   sales?: boolean | Prisma.Pharmacy$salesArgs<ExtArgs>
   sessions?: boolean | Prisma.Pharmacy$sessionsArgs<ExtArgs>
+  shelfPlacements?: boolean | Prisma.Pharmacy$shelfPlacementsArgs<ExtArgs>
   _count?: boolean | Prisma.PharmacyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pharmacy"]>
 
@@ -1266,6 +1399,7 @@ export type PharmacyInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   documents?: boolean | Prisma.Pharmacy$documentsArgs<ExtArgs>
   sales?: boolean | Prisma.Pharmacy$salesArgs<ExtArgs>
   sessions?: boolean | Prisma.Pharmacy$sessionsArgs<ExtArgs>
+  shelfPlacements?: boolean | Prisma.Pharmacy$shelfPlacementsArgs<ExtArgs>
   _count?: boolean | Prisma.PharmacyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PharmacyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1287,6 +1421,7 @@ export type $PharmacyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     documents: Prisma.$DocumentPayload<ExtArgs>[]
     sales: Prisma.$SalePayload<ExtArgs>[]
     sessions: Prisma.$UserSessionPayload<ExtArgs>[]
+    shelfPlacements: Prisma.$ShelfPlacementPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1697,6 +1832,7 @@ export interface Prisma__PharmacyClient<T, Null = never, ExtArgs extends runtime
   documents<T extends Prisma.Pharmacy$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pharmacy$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sales<T extends Prisma.Pharmacy$salesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pharmacy$salesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.Pharmacy$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pharmacy$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shelfPlacements<T extends Prisma.Pharmacy$shelfPlacementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pharmacy$shelfPlacementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelfPlacementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2284,6 +2420,30 @@ export type Pharmacy$sessionsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.UserSessionScalarFieldEnum | Prisma.UserSessionScalarFieldEnum[]
+}
+
+/**
+ * Pharmacy.shelfPlacements
+ */
+export type Pharmacy$shelfPlacementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShelfPlacement
+   */
+  select?: Prisma.ShelfPlacementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShelfPlacement
+   */
+  omit?: Prisma.ShelfPlacementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShelfPlacementInclude<ExtArgs> | null
+  where?: Prisma.ShelfPlacementWhereInput
+  orderBy?: Prisma.ShelfPlacementOrderByWithRelationInput | Prisma.ShelfPlacementOrderByWithRelationInput[]
+  cursor?: Prisma.ShelfPlacementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShelfPlacementScalarFieldEnum | Prisma.ShelfPlacementScalarFieldEnum[]
 }
 
 /**
